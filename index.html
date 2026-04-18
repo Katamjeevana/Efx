@@ -1,0 +1,2494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#040406">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="EFX Production — Complete Event Production & LED Solutions. Audio, Lighting, Staging, LED Walls, DJ services for corporate and private events in Bay Area, LA, and Washington State.">
+<title>EFX Production — Complete Event Production & LED Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════ */
+:root {
+  --black:      #040406;
+  --deep:       #070710;
+  --surface:    #0c0c18;
+  --card:       #0f0f1c;
+  --card2:      #13131f;
+  --border:     rgba(255,255,255,0.07);
+  --border2:    rgba(255,255,255,0.12);
+  --blue:       #0e8fff;
+  --blue-b:     #0070dd;
+  --blue-glow:  rgba(14,143,255,0.45);
+  --blue-dim:   rgba(14,143,255,0.12);
+  --cyan:       #00d4ff;
+  --white:      #eef1ff;
+  --muted:      rgba(238,241,255,0.5);
+  --faint:      rgba(238,241,255,0.22);
+  --green:      #25d366;
+  --nav-h:      68px;
+  --radius:     3px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Prevent FOUC - show content always */
+.page { display: none; animation: pageIn 0.4s ease; }
+.page.active { display: block; }
+/* All pages hidden by default - JS activates the correct one */
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════ */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 2px; }
+
+/* ═══════════════════════════════════════════
+   NAVIGATION — FULLY RESPONSIVE
+═══════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5vw;
+  background: rgba(4,4,6,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  transition: border-color 0.3s, background 0.3s;
+}
+nav.scrolled {
+  background: rgba(4,4,6,0.98);
+  border-bottom-color: rgba(14,143,255,0.2);
+  box-shadow: 0 4px 40px rgba(0,0,0,0.6);
+}
+
+/* LOGO */
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer; text-decoration: none; flex-shrink: 0;
+}
+.nav-logo-icon {
+  width: 44px; height: 36px;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  box-shadow: 0 0 16px var(--blue-glow);
+  flex-shrink: 0;
+}
+.nav-logo-icon::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 55%);
+}
+.nav-logo-icon-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px; letter-spacing: 2px; color: #fff;
+  position: relative; z-index: 1; line-height: 1;
+}
+.nav-logo-text {
+  display: flex; flex-direction: column; line-height: 1;
+}
+.nav-logo-main {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 17px; letter-spacing: 3px; color: var(--white);
+  line-height: 1.1;
+}
+.nav-logo-main span { color: var(--blue); }
+.nav-logo-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--muted); margin-top: 2px;
+}
+
+/* DESKTOP NAV LINKS */
+.nav-links {
+  display: flex; align-items: center; gap: 36px; list-style: none;
+}
+.nav-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; cursor: pointer;
+  transition: color 0.2s; position: relative; padding-bottom: 2px;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+  height: 1.5px; background: var(--blue);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--white); }
+.nav-links a.active::after, .nav-links a:hover::after { transform: scaleX(1); }
+
+/* GET QUOTE BUTTON */
+.nav-quote {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  background: transparent; color: var(--blue);
+  border: 1px solid rgba(14,143,255,0.5); padding: 8px 16px; border-radius: var(--radius);
+  cursor: pointer; transition: all 0.2s; flex-shrink: 0;
+  white-space: nowrap;
+}
+.nav-quote:hover {
+  background: var(--blue-dim); color: var(--white);
+  border-color: var(--blue);
+  transform: translateY(-1px);
+}
+@media(max-width:640px){
+  .nav-quote { display: none; }
+}
+
+/* HAMBURGER */
+.nav-burger {
+  display: none;
+  flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 8px; margin-right: -8px;
+  background: none; border: none; flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.nav-burger span {
+  display: block; width: 24px; height: 2px;
+  background: var(--white); border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.nav-burger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* MOBILE MENU DRAWER */
+.mobile-menu {
+  position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 999;
+  background: rgba(4,4,6,0.98);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(14,143,255,0.2);
+  padding: 24px 5vw 32px;
+  display: flex; flex-direction: column; gap: 4px;
+  transform: translateY(-110%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+}
+.mobile-menu.open { transform: translateY(0); }
+.mobile-menu a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; cursor: pointer;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s, padding-left 0.2s;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.mobile-menu a:last-child { border-bottom: none; }
+.mobile-menu a:hover, .mobile-menu a.active { color: var(--white); padding-left: 8px; }
+.mobile-menu a.active { color: var(--blue); }
+.mobile-menu-quote {
+  margin-top: 16px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; letter-spacing: 3px; text-transform: uppercase;
+  background: var(--blue); color: #fff;
+  border: none; padding: 16px; border-radius: var(--radius);
+  cursor: pointer; width: 100%;
+  box-shadow: 0 0 30px var(--blue-glow);
+}
+
+/* ═══════════════════════════════════════════
+   GLOBAL UTILS
+═══════════════════════════════════════════ */
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-label::before {
+  content: ''; display: block; width: 28px; height: 1px;
+  background: var(--blue); box-shadow: 0 0 8px var(--blue); flex-shrink: 0;
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 5.5vw, 76px);
+  line-height: 0.95; letter-spacing: 1px;
+}
+.accent { color: var(--blue); text-shadow: 0 0 40px var(--blue-glow); }
+.section-body {
+  font-size: 15px; line-height: 1.8; color: var(--muted);
+  max-width: 520px; margin-top: 16px; font-weight: 300;
+}
+.pad { padding: 90px 5vw; }
+.pad-sm { padding: 60px 5vw; }
+.divider-glow {
+  height: 1px; margin: 0;
+  background: linear-gradient(90deg, transparent 0%, var(--blue) 30%, var(--cyan) 50%, var(--blue) 70%, transparent 100%);
+  box-shadow: 0 0 20px var(--blue-glow), 0 0 60px rgba(14,143,255,0.15);
+}
+.divider { height: 1px; background: var(--border); margin: 0 5vw; }
+
+/* BUTTONS */
+.btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+  padding: 14px 32px; border-radius: var(--radius);
+  cursor: pointer; transition: all 0.25s; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+  border: none; white-space: nowrap;
+}
+.btn-blue {
+  background: var(--blue); color: #fff;
+  box-shadow: 0 0 24px var(--blue-glow), inset 0 1px 0 rgba(255,255,255,0.12);
+}
+.btn-blue:hover {
+  background: var(--cyan); color: var(--deep);
+  box-shadow: 0 0 44px rgba(0,212,255,0.55);
+  transform: translateY(-2px);
+}
+.btn-ghost {
+  background: transparent; color: var(--white);
+  border: 1px solid var(--border2);
+}
+.btn-ghost:hover {
+  border-color: var(--blue); color: var(--blue);
+  box-shadow: 0 0 20px var(--blue-dim);
+  transform: translateY(-2px);
+}
+.btn-wa {
+  background: rgba(37,211,102,0.1); color: var(--green);
+  border: 1px solid rgba(37,211,102,0.3);
+}
+.btn-wa:hover {
+  background: rgba(37,211,102,0.2);
+  box-shadow: 0 0 24px rgba(37,211,102,0.25);
+  transform: translateY(-2px);
+}
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0; transform: translateY(36px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: 0.1s; }
+.reveal.d2 { transition-delay: 0.2s; }
+.reveal.d3 { transition-delay: 0.3s; }
+.reveal.d4 { transition-delay: 0.4s; }
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding-top: var(--nav-h);
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 35%, rgba(14,100,200,0.2) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 70% at 10% 60%, rgba(14,143,255,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 50% at 90% 25%, rgba(0,212,255,0.05) 0%, transparent 55%),
+    linear-gradient(185deg, #040406 0%, #070712 55%, #040406 100%);
+}
+/* LED DOT GRID */
+.hero-grid {
+  position: absolute; inset: 0; z-index: 1;
+  background-image:
+    radial-gradient(circle 1px at 1px 1px, rgba(14,143,255,0.2) 0%, transparent 0%);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 30%, transparent 80%);
+  animation: gridPulse 5s ease-in-out infinite;
+}
+@keyframes gridPulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+
+/* LIGHT BEAMS */
+.beams { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.beam {
+  position: absolute; bottom: 0;
+  width: 1px; transform-origin: bottom center;
+  background: linear-gradient(to top, rgba(14,143,255,0.7) 0%, rgba(14,143,255,0.15) 55%, transparent 100%);
+  filter: blur(0.5px);
+}
+.beam-glow {
+  position: absolute; bottom: 0; transform-origin: bottom center;
+  background: radial-gradient(ellipse at bottom, rgba(14,143,255,0.12) 0%, transparent 65%);
+}
+.b1 { left:12%; height:75vh; animation:sw1 7s ease-in-out infinite; }
+.b2 { left:28%; height:88vh; animation:sw2 8s ease-in-out infinite .6s; }
+.b3 { left:50%; height:92vh; animation:sw3 6s ease-in-out infinite 1.2s; }
+.b4 { left:72%; height:82vh; animation:sw2 9s ease-in-out infinite .3s; }
+.b5 { right:10%; height:68vh; animation:sw1 7.5s ease-in-out infinite .9s; }
+.bg1 { left:calc(12% - 50px); width:100px; height:55vh; animation:sw1 7s ease-in-out infinite; }
+.bg2 { left:calc(28% - 50px); width:100px; height:65vh; animation:sw2 8s ease-in-out infinite .6s; }
+.bg3 { left:calc(72% - 50px); width:100px; height:58vh; animation:sw2 9s ease-in-out infinite .3s; }
+
+@keyframes sw1 { 0%,100%{transform:rotate(-9deg);opacity:.7} 50%{transform:rotate(9deg);opacity:1} }
+@keyframes sw2 { 0%,100%{transform:rotate(7deg);opacity:.8} 50%{transform:rotate(-11deg);opacity:1} }
+@keyframes sw3 { 0%,100%{transform:rotate(-2deg);opacity:.9} 50%{transform:rotate(4deg);opacity:1} }
+
+.stage-line {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px; z-index: 3;
+  background: linear-gradient(90deg, transparent 0%, var(--blue) 25%, var(--cyan) 50%, var(--blue) 75%, transparent 100%);
+  box-shadow: 0 0 30px var(--blue), 0 -30px 80px rgba(14,143,255,0.2);
+}
+
+.hero-content {
+  position: relative; z-index: 10;
+  padding: 60px 5vw 80px;
+  max-width: 840px; width: 100%;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 28px;
+  animation: fadeUp 0.8s ease both;
+}
+.hero-badge::before { content:''; width:28px; height:1px; background:var(--blue); box-shadow:0 0 8px var(--blue); }
+.hero-h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(58px, 10vw, 120px);
+  line-height: 0.88; letter-spacing: 2px;
+  animation: fadeUp 0.8s ease 0.15s both;
+}
+.hero-h1 .glow { color: var(--blue); text-shadow: 0 0 50px var(--blue-glow), 0 0 100px rgba(14,143,255,0.25); }
+.hero-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(14px, 2vw, 19px); letter-spacing: 5px; text-transform: uppercase;
+  color: var(--muted); margin-top: 20px;
+  animation: fadeUp 0.8s ease 0.3s both;
+}
+.hero-sub span { color: var(--faint); margin: 0 8px; }
+.hero-btns {
+  display: flex; gap: 14px; margin-top: 40px; flex-wrap: wrap;
+  animation: fadeUp 0.8s ease 0.45s both;
+}
+.hero-scroll {
+  position: absolute; bottom: 24px; left: 5vw; z-index: 10;
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--faint);
+  animation: fadeUp 0.8s ease 0.6s both;
+}
+.scroll-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--blue); box-shadow: 0 0 8px var(--blue);
+  animation: bob 2s ease-in-out infinite;
+}
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+/* ═══════════════════════════════════════════
+   SERVICES GRID
+═══════════════════════════════════════════ */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  margin-top: 56px;
+  border: 1px solid var(--border);
+  background: var(--border);
+  overflow: hidden;
+}
+.svc-card {
+  background: var(--card);
+  padding: 36px 26px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.35s ease;
+  position: relative; overflow: hidden;
+  transform-style: preserve-3d; perspective: 600px;
+}
+.svc-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(14,143,255,0.1) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.3s;
+}
+.svc-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  transform: scaleX(0); transition: transform 0.3s;
+  box-shadow: 0 0 12px var(--blue);
+}
+.svc-card:hover { background: #15152a; }
+.svc-card:hover::before { opacity: 1; }
+.svc-card:hover::after { transform: scaleX(1); }
+.svc-icon { font-size: 26px; margin-bottom: 18px; display: flex; align-items: center; color: var(--blue); }
+.svc-card h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px; letter-spacing: 1px; text-transform: uppercase;
+  font-weight: 700; margin-bottom: 8px; color: var(--white);
+}
+.svc-card p { font-size: 13px; line-height: 1.65; color: var(--muted); font-weight: 300; }
+.svc-arrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 18px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--blue); transition: all 0.2s;
+  border: 1px solid rgba(14,143,255,0.3);
+  padding: 6px 14px; border-radius: 2px;
+  background: rgba(14,143,255,0.04);
+}
+.svc-card:hover .svc-arrow {
+  letter-spacing: 3px;
+  background: rgba(14,143,255,0.12);
+  border-color: rgba(14,143,255,0.6);
+}
+
+/* ═══════════════════════════════════════════
+   LED SECTION
+═══════════════════════════════════════════ */
+.led-section {
+  padding: 90px 5vw;
+  background: linear-gradient(145deg, rgba(14,60,160,0.08) 0%, transparent 55%);
+  position: relative;
+}
+.led-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center;
+}
+.led-visual {
+  position: relative; aspect-ratio: 16/10;
+  border: 1px solid rgba(14,143,255,0.35); border-radius: 4px; overflow: hidden;
+  box-shadow: 0 0 60px rgba(14,143,255,0.18), inset 0 0 40px rgba(14,143,255,0.05);
+}
+.led-grid-canvas {
+  position: absolute; inset: 0;
+  display: grid; grid-template-columns: repeat(18,1fr); grid-template-rows: repeat(11,1fr);
+  gap: 2px; padding: 3px;
+}
+.lpx {
+  border-radius: 1px;
+  animation: lpulse var(--dur) ease-in-out var(--del) infinite;
+}
+@keyframes lpulse { 0%,100%{opacity:var(--lo)} 50%{opacity:var(--hi)} }
+.led-over {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(14,143,255,0.12) 0%, transparent 70%);
+}
+.led-label {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+}
+.led-label-big {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(28px, 4vw, 52px); letter-spacing: 6px;
+  color: rgba(14,143,255,0.65); text-shadow: 0 0 30px var(--blue);
+}
+.led-label-sm {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+  color: rgba(14,143,255,0.4);
+}
+
+/* ═══════════════════════════════════════════
+   EVENTS SECTION — REAL IMAGE BG
+═══════════════════════════════════════════ */
+.events-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 56px;
+}
+.event-card {
+  position: relative; aspect-ratio: 3/4; overflow: hidden;
+  border-radius: 4px; cursor: pointer;
+  border: 1px solid var(--border);
+  transition: border-color 0.3s;
+}
+.event-card:hover { border-color: rgba(14,143,255,0.3); }
+.event-img {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transition: transform 0.6s ease;
+}
+.event-card:hover .event-img { transform: scale(1.06); }
+.event-tint {
+  position: absolute; inset: 0;
+  transition: background 0.4s;
+}
+.event-card:hover .event-tint { background: rgba(0,0,40,0.3) !important; }
+.event-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 28px 22px;
+  background: linear-gradient(to top, rgba(4,4,6,0.97) 0%, rgba(4,4,6,0.5) 55%, transparent 100%);
+}
+.event-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 6px;
+}
+.event-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px; letter-spacing: 1px; color: var(--white);
+}
+.event-desc {
+  font-size: 13px; color: var(--muted); margin-top: 6px;
+  font-weight: 300; line-height: 1.6;
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.event-card:hover .event-desc { max-height: 64px; }
+
+/* ═══════════════════════════════════════════
+   ABOUT PREVIEW
+═══════════════════════════════════════════ */
+.about-preview {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.stats-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  margin-top: 40px; border: 1px solid var(--border); background: var(--border);
+}
+.stat-box {
+  background: var(--card); padding: 24px 20px;
+  transition: background 0.3s;
+}
+.stat-box:hover { background: var(--card2); }
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px; line-height: 1;
+  color: var(--blue); text-shadow: 0 0 20px var(--blue-glow);
+}
+.stat-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); margin-top: 2px;
+}
+.about-visual-box {
+  position: relative; aspect-ratio: 4/5;
+  background: var(--card); border: 1px solid var(--border); overflow: hidden;
+}
+.av-glow { position:absolute;inset:0; background:radial-gradient(ellipse at center,rgba(14,143,255,0.1) 0%,transparent 70%); animation:lightPulse 4s ease-in-out infinite; }
+.av-scanlines { position:absolute;inset:0; display:flex;flex-direction:column;justify-content:space-evenly; }
+.av-line { height:1px; background:linear-gradient(90deg,transparent,rgba(14,143,255,0.25),transparent); animation:scanLine 3s ease-in-out infinite; }
+.av-line:nth-child(2){animation-delay:.4s}
+.av-line:nth-child(3){animation-delay:.8s}
+.av-line:nth-child(4){animation-delay:1.2s}
+.av-line:nth-child(5){animation-delay:1.6s}
+@keyframes scanLine { 0%,100%{opacity:.3;transform:scaleX(.2)} 50%{opacity:1;transform:scaleX(1)} }
+@keyframes lightPulse { 0%,100%{opacity:.6} 50%{opacity:1} }
+.av-center {
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+}
+.av-big { font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,8vw,90px);letter-spacing:6px;color:rgba(14,143,255,0.12); }
+.av-sm { font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(14,143,255,0.35); }
+.av-bar { width:50px;height:1px;background:var(--blue);box-shadow:0 0 12px var(--blue);margin-top:4px; }
+
+/* ═══════════════════════════════════════════
+   CTA BAND
+═══════════════════════════════════════════ */
+.cta-band {
+  padding: 100px 5vw; text-align: center; position: relative; overflow: hidden;
+}
+.cta-band::before {
+  content:''; position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 70% at 50% 50%, rgba(14,80,180,0.12) 0%, transparent 70%);
+}
+.cta-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 8vw, 100px); line-height: 0.93; letter-spacing: 2px;
+  position: relative;
+}
+.cta-btns { display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:44px;position:relative; }
+
+/* ═══════════════════════════════════════════
+   SERVICES PAGE
+═══════════════════════════════════════════ */
+.page-hero {
+  padding: 148px 5vw 72px; position: relative;
+  border-bottom: 1px solid var(--border);
+}
+.page-hero::after {
+  content:''; position:absolute; bottom:0; left:5vw; right:5vw; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(14,143,255,0.3),transparent);
+}
+.svc-detail {
+  display: grid; grid-template-columns: 260px 1fr; gap: 0;
+  border: 1px solid var(--border); margin-bottom: 2px;
+  transition: border-color 0.3s;
+}
+.svc-detail:hover { border-color: rgba(14,143,255,0.25); }
+.svc-detail.featured { border-color: rgba(14,143,255,0.4); }
+.svc-d-label {
+  background: var(--card); padding: 44px 32px;
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.svc-detail.featured .svc-d-label {
+  background: rgba(14,143,255,0.06);
+  border-right-color: rgba(14,143,255,0.2);
+}
+.svc-d-icon { font-size: 34px; margin-bottom: 14px; color: var(--blue); display: flex; align-items: center; }
+.svc-d-label h3 {
+  font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: 1px;
+}
+.svc-d-body { padding: 44px 44px; background: rgba(7,7,16,0.5); }
+.svc-d-body p { font-size: 14px; line-height: 1.85; color: var(--muted); font-weight: 300; }
+.tag-row { display:flex;flex-wrap:wrap;gap:8px;margin-top:18px; }
+.tag {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  background:var(--blue-dim);color:var(--blue);
+  border:1px solid rgba(14,143,255,0.2);padding:5px 12px;border-radius:2px;
+}
+.ext-link {
+  display:inline-flex;align-items:center;gap:8px;margin-top:20px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--blue);text-decoration:none;transition:letter-spacing .2s,color .2s;
+  cursor:pointer;
+}
+.ext-link:hover { letter-spacing:5px; color:var(--cyan); }
+
+/* ═══════════════════════════════════════════
+   ABOUT PAGE
+═══════════════════════════════════════════ */
+.about-story { display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;padding:80px 5vw; }
+.story-text h2 { font-family:'Bebas Neue',sans-serif;font-size:44px;letter-spacing:1px;margin-bottom:20px; }
+.story-text p { font-size:14px;line-height:1.9;color:var(--muted);font-weight:300;margin-bottom:14px; }
+.highlight-bar {
+  background:var(--card);border:1px solid var(--border);
+  border-left:3px solid var(--blue);padding:22px 24px;margin-top:24px;
+}
+.highlight-bar p { font-size:14px;line-height:1.7;color:var(--muted);font-style:italic;margin:0; }
+.collab-card {
+  background:var(--card);border:1px solid var(--border);
+  padding:28px;margin-top:20px;transition:border-color .3s;
+}
+.collab-card:hover { border-color:rgba(14,143,255,0.3); }
+.collab-card .clabel {
+  font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--blue);margin-bottom:10px;
+}
+.collab-card h3 { font-family:'Bebas Neue',sans-serif;font-size:26px;margin-bottom:8px; }
+.collab-card p { font-size:13px;color:var(--muted);font-weight:300; }
+
+.pillars { display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border); }
+.pillar { background:var(--card);padding:44px 32px; }
+.pillar-icon { font-size:28px;margin-bottom:14px; }
+.pillar h3 { font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--blue);margin-bottom:10px; }
+.pillar p { font-size:13px;line-height:1.8;color:var(--muted);font-weight:300; }
+
+/* ═══════════════════════════════════════════
+   CONTACT PAGE
+═══════════════════════════════════════════ */
+.contact-layout {
+  display:grid;grid-template-columns:1fr 1.3fr;gap:72px;
+  padding:60px 5vw 100px;align-items:start;
+}
+.contact-item {
+  display:flex;align-items:flex-start;gap:14px;
+  padding:20px 0;border-bottom:1px solid var(--border);
+}
+.c-icon {
+  width:42px;height:42px;background:var(--blue-dim);
+  border:1px solid rgba(14,143,255,0.2);border-radius:var(--radius);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.c-text label {
+  font-family:'Barlow Condensed',sans-serif;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;color:var(--blue);
+  display:block;margin-bottom:3px;
+}
+.c-text span { font-size:14px;color:var(--white); }
+.c-btns { display:flex;flex-direction:column;gap:10px;margin-top:28px; }
+.c-btn {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:12px;letter-spacing:2.5px;text-transform:uppercase;
+  padding:14px 20px;border-radius:var(--radius);cursor:pointer;
+  transition:all .25s;text-decoration:none;
+  display:flex;align-items:center;gap:10px;border:none;width:100%;
+}
+.led-promo {
+  margin-top:28px;padding:22px;
+  background:var(--card);border:1px solid rgba(14,143,255,0.2);
+  border-radius:var(--radius);
+}
+.led-promo .section-label { margin-bottom:8px; }
+.led-promo p { font-size:13px;color:var(--muted);font-weight:300;margin-bottom:10px; }
+
+/* MAP */
+.map-wrap {
+  margin-top:28px;border:1px solid rgba(14,143,255,0.2);
+  border-radius:var(--radius);overflow:hidden;
+  box-shadow:0 0 30px rgba(14,143,255,0.08);
+}
+.map-wrap iframe { display:block;width:100%;height:200px;border:none;filter:brightness(.85) saturate(.7); }
+
+/* FORM */
+.contact-form { display:flex;flex-direction:column;gap:14px; }
+.form-row { display:grid;grid-template-columns:1fr 1fr;gap:14px; }
+.fg { display:flex;flex-direction:column;gap:7px; }
+.fg label {
+  font-family:'Barlow Condensed',sans-serif;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;color:var(--muted);
+}
+.fg input,.fg select,.fg textarea {
+  background:var(--card);border:1px solid var(--border);color:var(--white);
+  padding:13px 16px;font-family:'Barlow',sans-serif;font-size:14px;
+  transition:border-color .2s,box-shadow .2s;outline:none;border-radius:var(--radius);
+  -webkit-appearance:none;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus {
+  border-color:var(--blue);box-shadow:0 0 16px var(--blue-dim);
+}
+.fg select option { background:var(--card); }
+.fg textarea { resize:vertical;min-height:120px; }
+.form-submit {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;letter-spacing:3px;text-transform:uppercase;
+  background:var(--blue);color:#fff;border:none;padding:16px 40px;
+  cursor:pointer;transition:all .25s;border-radius:var(--radius);
+  box-shadow:0 0 28px var(--blue-glow);align-self:flex-start;
+}
+.form-submit:hover {
+  background:var(--cyan);color:var(--deep);
+  box-shadow:0 0 50px rgba(0,212,255,0.5);transform:translateY(-2px);
+}
+.form-success {
+  display:none;background:rgba(37,211,102,0.1);
+  border:1px solid rgba(37,211,102,0.3);color:var(--green);
+  padding:14px 18px;font-family:'Barlow Condensed',sans-serif;
+  font-size:12px;letter-spacing:2px;text-transform:uppercase;border-radius:var(--radius);
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+.site-footer {
+  background:var(--deep);border-top:1px solid var(--border);
+  padding:56px 5vw 32px;
+}
+.footer-top {
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:48px;
+  padding-bottom:40px;border-bottom:1px solid var(--border);
+}
+.footer-logo { display:flex;align-items:center;gap:10px;margin-bottom:16px;cursor:pointer; }
+.fbrand p { font-size:13px;color:var(--muted);line-height:1.75;font-weight:300; }
+.fcol h4 {
+  font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--blue);margin-bottom:18px;
+}
+.fcol a {
+  display:block;font-size:13px;color:var(--muted);text-decoration:none;
+  margin-bottom:9px;transition:color .2s;cursor:pointer;
+}
+.fcol a:hover { color:var(--white); }
+.footer-bot {
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:20px;font-size:11px;color:var(--faint);
+  font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;
+  flex-wrap:wrap;gap:8px;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+═══════════════════════════════════════════ */
+@media(max-width:1100px){
+  .footer-top{grid-template-columns:1fr 1fr 1fr;gap:36px;}
+}
+@media(max-width:900px){
+  /* Nav */
+  .nav-links{display:none;}
+  .nav-burger{display:flex;}
+
+  /* Layouts */
+  .led-inner,.about-preview,.about-story,.contact-layout{grid-template-columns:1fr;gap:40px;}
+  .events-grid{grid-template-columns:1fr 1fr;gap:14px;}
+  .pillars{grid-template-columns:1fr;}
+  .svc-detail{grid-template-columns:1fr;}
+  .svc-d-label{border-right:none;border-bottom:1px solid var(--border);}
+  .footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+  .form-row{grid-template-columns:1fr;}
+
+  /* About visual — hide on mobile to save space */
+  .about-visual-box{aspect-ratio:16/9;}
+}
+@media(max-width:640px){
+  :root{--nav-h:60px;}
+  .events-grid{grid-template-columns:1fr;}
+  .hero-btns{flex-direction:column;align-items:flex-start;}
+  .hero-btns .btn{width:100%;justify-content:center;}
+  .cta-btns{flex-direction:column;align-items:center;}
+  .cta-btns .btn{width:100%;max-width:320px;justify-content:center;}
+  .footer-top{grid-template-columns:1fr;gap:28px;}
+  .footer-bot{flex-direction:column;text-align:center;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .page-hero{padding:128px 5vw 56px;}
+  .about-story{padding:50px 5vw;}
+  .contact-layout{padding:40px 5vw 72px;}
+}
+@media(max-width:400px){
+  .hero-h1{font-size:52px;}
+  .nav-logo-sub{display:none;}
+}
+
+
+
+/* ═══════════════════════════════════════════
+   GALLERY PAGE
+═══════════════════════════════════════════ */
+.gallery-filters {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  padding: 32px 5vw 0;
+}
+.gf-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  padding: 8px 18px; border-radius: var(--radius);
+  cursor: pointer; transition: all 0.2s;
+  background: transparent; color: var(--muted);
+  border: 1px solid var(--border);
+}
+.gf-btn.active, .gf-btn:hover {
+  background: var(--blue-dim); color: var(--blue);
+  border-color: rgba(14,143,255,0.3);
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  padding: 24px 5vw 0;
+}
+.gallery-grid.masonry {
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 200px;
+}
+.g-item {
+  position: relative; overflow: hidden;
+  cursor: pointer; background: var(--card);
+  border-radius: 2px;
+}
+.g-item.tall { grid-row: span 2; }
+.g-item.wide { grid-column: span 2; }
+.g-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  display: block;
+}
+.g-item:hover img { transform: scale(1.05); }
+.g-item-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(4,4,6,0.85) 0%, transparent 55%);
+  opacity: 0; transition: opacity 0.3s;
+  display: flex; align-items: flex-end;
+  padding: 18px;
+}
+.g-item:hover .g-item-overlay { opacity: 1; }
+.g-item-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--white);
+}
+/* Lightbox */
+.lightbox {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(4,4,6,0.97);
+  display: none; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.lightbox.open { display: flex; }
+.lightbox-img {
+  max-width: 92vw; max-height: 88vh;
+  object-fit: contain;
+  border: 1px solid var(--border);
+  box-shadow: 0 0 80px rgba(14,143,255,0.15);
+}
+.lightbox-close {
+  position: absolute; top: 20px; right: 24px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px; color: var(--muted);
+  cursor: pointer; background: none; border: none;
+  transition: color 0.2s; line-height: 1;
+}
+.lightbox-close:hover { color: var(--white); }
+.lightbox-nav {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px; color: var(--muted);
+  cursor: pointer; background: none; border: none;
+  transition: color 0.2s; padding: 10px 16px;
+}
+.lightbox-nav:hover { color: var(--blue); }
+.lightbox-prev { left: 12px; }
+.lightbox-next { right: 12px; }
+.lightbox-caption {
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted);
+}
+/* About real photo strip */
+.about-photos {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px;
+  margin: 40px 0;
+}
+.about-photo {
+  aspect-ratio: 4/3; overflow: hidden;
+  border-radius: 2px;
+}
+.about-photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s;
+}
+.about-photo:hover img { transform: scale(1.06); }
+@media(max-width:900px) {
+  .gallery-grid { grid-template-columns: repeat(2,1fr); }
+  .gallery-grid.masonry { grid-template-columns: repeat(2,1fr); }
+  .g-item.wide { grid-column: span 1; }
+  .about-photos { grid-template-columns: repeat(2,1fr); }
+}
+@media(max-width:640px) {
+  .gallery-grid { grid-template-columns: 1fr 1fr; gap: 2px; padding: 14px 3vw 0; }
+  .gallery-grid.masonry { grid-auto-rows: 140px; }
+  .g-item.tall { grid-row: span 2; }
+  .about-photos { grid-template-columns: repeat(2,1fr); }
+}
+
+
+/* ═══════════════════════════════════════════
+   HERO VALUE PROP & TRUST BAR (NEW)
+═══════════════════════════════════════════ */
+.hero-value {
+  font-size: 13px; color: var(--muted); margin-top: 14px;
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 1.5px;
+  animation: fadeUp 0.8s ease 0.38s both;
+}
+.hero-trust {
+  display: flex; align-items: center; gap: 0;
+  margin-top: 36px;
+  border: 1px solid var(--border);
+  background: rgba(14,143,255,0.04);
+  width: fit-content;
+  animation: fadeUp 0.8s ease 0.55s both;
+}
+.htrust-item {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 14px 24px; gap: 2px;
+}
+.htrust-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px; color: var(--blue);
+  text-shadow: 0 0 12px var(--blue-glow);
+  line-height: 1;
+}
+.htrust-lbl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--faint);
+}
+.htrust-divider {
+  width: 1px; height: 40px; background: var(--border); flex-shrink: 0;
+}
+@media(max-width:500px){
+  .hero-trust { display: none; }
+}
+
+/* ═══════════════════════════════════════════
+   LED TRUST CHECKLIST (NEW)
+═══════════════════════════════════════════ */
+.led-trust {
+  display: flex; flex-direction: column; gap: 10px;
+  margin-top: 24px;
+}
+.led-trust-item {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 1.5px;
+  color: var(--muted);
+}
+
+/* ═══════════════════════════════════════════
+   EVENT CARD GRADIENT FALLBACKS (NO LOCAL IMGS)
+═══════════════════════════════════════════ */
+.ev-corp {
+  background: linear-gradient(160deg, #060a1a 0%, #0c1a40 40%, #091430 100%);
+  position: relative;
+}
+.ev-corp::before {
+  content: '';
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 70%; height: 55%;
+  background: radial-gradient(ellipse at top, rgba(14,143,255,0.3) 0%, transparent 70%);
+  animation: lightPulse 3s ease-in-out infinite;
+}
+.ev-priv {
+  background: linear-gradient(160deg, #120508 0%, #2a0c1c 40%, #180810 100%);
+  position: relative;
+}
+.ev-priv::before {
+  content: '';
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 70%; height: 55%;
+  background: radial-gradient(ellipse at top, rgba(220,30,100,0.25) 0%, transparent 70%);
+  animation: lightPulse 3.5s ease-in-out infinite 0.5s;
+}
+.ev-wed {
+  background: linear-gradient(160deg, #060f08 0%, #0c2618 40%, #081510 100%);
+  position: relative;
+}
+.ev-wed::before {
+  content: '';
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 70%; height: 55%;
+  background: radial-gradient(ellipse at top, rgba(20,200,100,0.2) 0%, transparent 70%);
+  animation: lightPulse 4s ease-in-out infinite 1s;
+}
+.event-img { position: relative; overflow: hidden; }
+
+/* ═══════════════════════════════════════════
+   WHY CHOOSE US SECTION (NEW)
+═══════════════════════════════════════════ */
+.why-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+  margin-top: 56px;
+}
+.why-card {
+  background: var(--card); padding: 40px 32px;
+  transition: background 0.3s;
+  position: relative; overflow: hidden;
+}
+.why-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  transform: scaleX(0); transition: transform 0.3s;
+}
+.why-card:hover { background: var(--card2); }
+.why-card:hover::after { transform: scaleX(1); }
+.why-icon {
+  width: 44px; height: 44px;
+  background: var(--blue-dim); border: 1px solid rgba(14,143,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px; color: var(--blue);
+}
+.why-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px; letter-spacing: 1px;
+  color: var(--white); margin-bottom: 10px;
+}
+.why-card p {
+  font-size: 13px; line-height: 1.75; color: var(--muted); font-weight: 300;
+}
+@media(max-width:900px){ .why-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:560px){ .why-grid { grid-template-columns: 1fr; } }
+
+/* ═══════════════════════════════════════════
+   FLOATING WHATSAPP BUTTON (NEW)
+═══════════════════════════════════════════ */
+.float-wa {
+  position: fixed; bottom: 28px; right: 28px; z-index: 900;
+  display: flex; align-items: center; gap: 10px;
+  background: var(--green); color: #fff;
+  padding: 14px 22px;
+  border-radius: 40px;
+  text-decoration: none; cursor: pointer;
+  box-shadow: 0 4px 24px rgba(37,211,102,0.35), 0 2px 8px rgba(0,0,0,0.4);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+  transition: all 0.25s;
+  animation: floatIn 0.6s ease 1.5s both;
+}
+.float-wa:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(37,211,102,0.5), 0 2px 8px rgba(0,0,0,0.4);
+}
+.float-wa-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  animation: waPulse 2s ease-in-out infinite;
+}
+@keyframes waPulse { 0%,100%{opacity:0.4;transform:scale(1)} 50%{opacity:1;transform:scale(1.3)} }
+@keyframes floatIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@media(max-width:480px){ .float-wa span { display: none; } .float-wa { padding: 14px 16px; } }
+
+/* ═══════════════════════════════════════════
+   CONTACT REASSURANCE BAR (NEW)
+═══════════════════════════════════════════ */
+.contact-reassurance {
+  display: flex; flex-wrap: wrap; gap: 0;
+  padding: 0 5vw 40px;
+}
+.reassurance-item {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 1.5px;
+  color: var(--muted); padding: 14px 28px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  margin-right: -1px; margin-bottom: -1px;
+  transition: border-color 0.2s;
+}
+.reassurance-item:hover { border-color: rgba(14,143,255,0.3); }
+
+/* ═══════════════════════════════════════════
+   EVENTS CTA (NEW)
+═══════════════════════════════════════════ */
+.events-cta { padding: 0 5vw 60px; text-align: center; }
+
+/* ═══════════════════════════════════════════
+   FOOTER — 5 COL RESPONSIVE FIX
+═══════════════════════════════════════════ */
+@media(max-width:1200px){
+  .footer-top { grid-template-columns: 1fr 1fr 1fr !important; }
+}
+@media(max-width:900px){
+  .footer-top { grid-template-columns: 1fr 1fr !important; }
+}
+
+/* ═══════════════════════════════════════════
+   GALLERY LOCAL IMAGE FALLBACK OVERLAYS
+═══════════════════════════════════════════ */
+.g-item img { background: var(--card); }
+
+/* ═══════════════════════════════════════════
+   SERVICE CARD — LED BADGE (NEW)
+═══════════════════════════════════════════ */
+.svc-badge {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  background: rgba(14,143,255,0.15); color: var(--blue);
+  border: 1px solid rgba(14,143,255,0.3);
+  padding: 3px 8px; border-radius: 2px;
+  margin-bottom: 8px;
+}
+
+/* ═══════════════════════════════════════════
+   WHY CHOOSE US — ANIMATED ICONS
+═══════════════════════════════════════════ */
+@keyframes pulseRing {
+  0%,100% { box-shadow: 0 0 0 0 rgba(14,143,255,0.4); }
+  50%      { box-shadow: 0 0 0 10px rgba(14,143,255,0); }
+}
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes floatUpDown {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-5px); }
+}
+@keyframes scaleBreath {
+  0%,100% { transform: scale(1); opacity:0.85; }
+  50%     { transform: scale(1.15); opacity:1; }
+}
+@keyframes drawLine {
+  from { stroke-dashoffset: 100; }
+  to   { stroke-dashoffset: 0; }
+}
+.why-card:hover .why-icon {
+  animation: pulseRing 1.5s ease-in-out infinite;
+}
+.why-card:hover .why-icon svg {
+  animation: floatUpDown 1.2s ease-in-out infinite;
+}
+.why-icon { transition: background 0.3s; border-radius: 4px; }
+.why-card:hover .why-icon { background: rgba(14,143,255,0.2); }
+
+.svc-card * { pointer-events: none; }
+.svc-card { pointer-events: auto; cursor: pointer; }
+
+/* ═══════════════════════════════════════════
+   COMPREHENSIVE MOBILE RESPONSIVE FIXES v5
+═══════════════════════════════════════════ */
+
+/* Nav - ensure no overflow on any screen */
+nav {
+  overflow: visible;
+}
+.nav-logo {
+  min-width: 0;
+  max-width: calc(100% - 120px);
+}
+.nav-logo-text {
+  overflow: hidden;
+}
+
+/* Services grid - better mobile layout */
+@media(max-width:640px) {
+  .services-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .svc-card {
+    padding: 20px 16px;
+  }
+  .svc-card h3 { font-size: 13px; }
+  .svc-card p { font-size: 12px; display: none; }
+}
+@media(max-width:400px) {
+  .services-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* LED section mobile */
+@media(max-width:640px) {
+  .led-section { padding: 60px 5vw; }
+  .led-inner { gap: 32px; }
+}
+
+/* Events grid mobile */
+@media(max-width:640px) {
+  .events-grid { grid-template-columns: 1fr; gap: 12px; }
+  .event-card { aspect-ratio: 16/9; }
+}
+
+/* Why grid mobile */
+@media(max-width:480px) {
+  .why-grid { grid-template-columns: 1fr; }
+  .why-card { padding: 28px 20px; }
+}
+
+/* About preview mobile */
+@media(max-width:640px) {
+  .about-visual-box { display: none; }
+  .about-preview { grid-template-columns: 1fr; gap: 32px; }
+}
+
+/* Stats grid mobile */
+@media(max-width:360px) {
+  .stat-num { font-size: 36px; }
+}
+
+/* CTA band mobile */
+@media(max-width:480px) {
+  .cta-band { padding: 60px 5vw; }
+  .cta-title { font-size: clamp(36px, 10vw, 72px) !important; }
+}
+
+/* Hero mobile */
+@media(max-width:480px) {
+  .hero-content { padding: 40px 5vw 60px; }
+  .hero-h1 { font-size: clamp(44px, 12vw, 80px) !important; }
+}
+
+/* Contact layout */
+@media(max-width:640px) {
+  .contact-layout { grid-template-columns: 1fr; gap: 32px; }
+  .form-row { grid-template-columns: 1fr; }
+  .contact-reassurance { flex-direction: column; }
+  .reassurance-item { margin-right: 0; }
+}
+
+/* About story mobile */
+@media(max-width:640px) {
+  .about-story { grid-template-columns: 1fr; gap: 32px; padding: 40px 5vw; }
+  .about-photos { grid-template-columns: 1fr 1fr; }
+}
+
+/* Pillars mobile */
+@media(max-width:640px) {
+  .pillars { grid-template-columns: 1fr; }
+}
+
+/* Page hero mobile */
+@media(max-width:480px) {
+  .page-hero { padding: 100px 5vw 48px; }
+}
+
+/* Footer mobile */
+@media(max-width:640px) {
+  .footer-top { grid-template-columns: 1fr !important; gap: 24px; }
+  .site-footer { padding: 40px 5vw 24px; }
+}
+
+/* Service detail mobile */
+@media(max-width:640px) {
+  .svc-detail { grid-template-columns: 1fr; }
+  .svc-d-label { padding: 24px 20px; border-right: none; border-bottom: 1px solid var(--border); }
+  .svc-d-body { padding: 24px 20px; }
+}
+
+/* Gallery mobile */
+@media(max-width:480px) {
+  .gallery-grid.masonry { grid-auto-rows: 120px; padding: 12px 3vw 0; }
+  .gallery-filters { padding: 20px 3vw 0; gap: 6px; }
+  .gf-btn { padding: 6px 12px; font-size: 9px; }
+}
+
+/* Hero trust bar wrap */
+@media(max-width:640px) {
+  .hero-trust { flex-wrap: wrap; width: 100%; }
+  .htrust-item { flex: 1 1 calc(50% - 1px); }
+}
+
+/* Map iframe mobile */
+@media(max-width:640px) {
+  .map-wrap iframe { height: 160px; }
+}
+
+</style>
+<script>
+// CRITICAL: Run synchronously before paint - activates home page immediately
+// This prevents the blank page on iOS Safari and fixes page routing
+(function(){
+  document.addEventListener('DOMContentLoaded', function(){
+    var pages = document.querySelectorAll('.page');
+    pages.forEach(function(p){ p.classList.remove('active'); });
+    var home = document.getElementById('pg-home');
+    if(home){ home.classList.add('active'); }
+    document.querySelectorAll('[data-page="home"]').forEach(function(a){ a.classList.add('active'); });
+  });
+})();
+</script>
+</head>
+<body>
+
+<!-- SVG Icon Sprites -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+  <!-- Audio / Speaker -->
+  <symbol id="ico-audio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+  </symbol>
+  <!-- Lighting / Zap -->
+  <symbol id="ico-lighting" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+  </symbol>
+  <!-- Staging / Layers -->
+  <symbol id="ico-staging" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+    <polyline points="2 17 12 22 22 17"/>
+    <polyline points="2 12 12 17 22 12"/>
+  </symbol>
+  <!-- LED / Monitor -->
+  <symbol id="ico-led" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+    <line x1="8" y1="21" x2="16" y2="21"/>
+    <line x1="12" y1="17" x2="12" y2="21"/>
+  </symbol>
+  <!-- DJ / Headphones -->
+  <symbol id="ico-dj" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+  </symbol>
+  <!-- Events / Calendar -->
+  <symbol id="ico-events" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+    <line x1="16" y1="2" x2="16" y2="6"/>
+    <line x1="8" y1="2" x2="8" y2="6"/>
+    <line x1="3" y1="10" x2="21" y2="10"/>
+  </symbol>
+  <!-- Rentals / Power -->
+  <symbol id="ico-rentals" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <polyline points="12 8 12 12 14 14"/>
+    <line x1="12" y1="2" x2="12" y2="6"/>
+  </symbol>
+  <!-- Phone -->
+  <symbol id="ico-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.36 2 2 0 0 1 3.6 1.13h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.72a16 16 0 0 0 6.29 6.29l.96-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+  </symbol>
+  <!-- Email / Mail -->
+  <symbol id="ico-email" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+  </symbol>
+  <!-- Location Pin -->
+  <symbol id="ico-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+    <circle cx="12" cy="10" r="3"/>
+  </symbol>
+  <!-- Clock -->
+  <symbol id="ico-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <polyline points="12 6 12 12 16 14"/>
+  </symbol>
+  <!-- WhatsApp / Message -->
+  <symbol id="ico-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </symbol>
+  <!-- Mission / Target -->
+  <symbol id="ico-mission" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <circle cx="12" cy="12" r="6"/>
+    <circle cx="12" cy="12" r="2"/>
+  </symbol>
+  <!-- Vision / Star -->
+  <symbol id="ico-vision" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+  </symbol>
+  <!-- Promise / Handshake (simplified) -->
+  <symbol id="ico-promise" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17 8h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2v4l-4-4H9a2 2 0 0 1-2-2v-1"/>
+    <path d="M7 8h2"/>
+    <path d="M3 4h12a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H7l-4 4V6a2 2 0 0 1 2-2z"/>
+  </symbol>
+  <!-- WhatsApp real icon -->
+  <symbol id="ico-whatsapp" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </symbol>
+
+  <!-- Animated Why Choose Us icons -->
+  <symbol id="ico-why-speed" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="24" cy="24" r="20" stroke-opacity="0.3"/>
+    <path d="M24 4 L24 10" stroke-width="2.5"/>
+    <path d="M44 24 L38 24" stroke-width="2.5"/>
+    <path d="M24 44 L24 38" stroke-width="2.5"/>
+    <path d="M4 24 L10 24" stroke-width="2.5"/>
+    <path d="M24 24 L32 16" stroke-width="3" stroke="var(--blue)"/>
+    <circle cx="24" cy="24" r="3" fill="var(--blue)"/>
+  </symbol>
+  <symbol id="ico-why-quality" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="24,4 29,17 44,17 33,26 37,40 24,31 11,40 15,26 4,17 19,17" stroke-opacity="0.4"/>
+    <polygon points="24,10 27.5,19.5 38,19.5 30,25.5 33,35 24,29 15,35 18,25.5 10,19.5 20.5,19.5" fill="rgba(14,143,255,0.15)" stroke="var(--blue)"/>
+  </symbol>
+  <symbol id="ico-why-tech" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="6" y="10" width="36" height="22" rx="3" stroke-opacity="0.4"/>
+    <rect x="10" y="14" width="28" height="14" rx="1" fill="rgba(14,143,255,0.1)" stroke="var(--blue)"/>
+    <line x1="16" y1="21" x2="20" y2="17" stroke="var(--blue)" stroke-width="2.5"/>
+    <line x1="20" y1="17" x2="24" y2="23" stroke="var(--blue)" stroke-width="2.5"/>
+    <line x1="24" y1="23" x2="28" y2="19" stroke="var(--blue)" stroke-width="2.5"/>
+    <line x1="14" y1="36" x2="34" y2="36" stroke-opacity="0.4"/>
+    <line x1="24" y1="32" x2="24" y2="36" stroke-opacity="0.4"/>
+  </symbol>
+  <symbol id="ico-why-team" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="24" cy="16" r="7" fill="rgba(14,143,255,0.1)" stroke="var(--blue)"/>
+    <path d="M8 40 C8 32 15 28 24 28 C33 28 40 32 40 40" fill="rgba(14,143,255,0.08)" stroke="var(--blue)"/>
+    <circle cx="10" cy="20" r="5" stroke-opacity="0.5"/>
+    <circle cx="38" cy="20" r="5" stroke-opacity="0.5"/>
+  </symbol>
+  <symbol id="ico-why-support" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="24" cy="24" r="18" stroke-opacity="0.3"/>
+    <circle cx="24" cy="24" r="8" fill="rgba(14,143,255,0.1)" stroke="var(--blue)"/>
+    <path d="M24 6 L24 16" stroke="var(--blue)" stroke-opacity="0.6" stroke-width="2.5"/>
+    <path d="M42 24 L32 24" stroke="var(--blue)" stroke-opacity="0.6" stroke-width="2.5"/>
+    <path d="M24 42 L24 32" stroke="var(--blue)" stroke-opacity="0.6" stroke-width="2.5"/>
+    <path d="M6 24 L16 24" stroke="var(--blue)" stroke-opacity="0.6" stroke-width="2.5"/>
+    <circle cx="24" cy="24" r="3" fill="var(--blue)"/>
+  </symbol>
+  <symbol id="ico-why-exp" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 38 L8 20 L16 14 L24 20 L32 10 L40 16 L40 38 Z" fill="rgba(14,143,255,0.08)" stroke="var(--blue)"/>
+    <polyline points="8,26 16,20 24,26 32,16 40,22" stroke="var(--blue)" stroke-width="2.5" fill="none"/>
+    <circle cx="16" cy="20" r="2.5" fill="var(--blue)"/>
+    <circle cx="24" cy="26" r="2.5" fill="var(--blue)"/>
+    <circle cx="32" cy="16" r="2.5" fill="var(--blue)"/>
+  </symbol>
+  <symbol id="ico-why-partner" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 28 L8 34 L14 40 L20 34 Z" fill="rgba(14,143,255,0.1)" stroke="var(--blue)"/>
+    <path d="M28 8 L34 14 L28 20 L22 14 Z" fill="rgba(0,212,255,0.1)" stroke="var(--cyan)"/>
+    <path d="M20 34 C20 34 24 30 28 28 C32 26 38 28 38 28" stroke="var(--muted)" stroke-dasharray="4 3"/>
+    <path d="M22 14 C22 14 20 18 20 22 C20 26 20 30 20 34" stroke="var(--muted)" stroke-dasharray="4 3"/>
+  </symbol>
+  <!-- Check / Success -->
+  <symbol id="ico-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 6 9 17 4 12"/>
+  </symbol>
+  <!-- Music note for DJ link -->
+  <symbol id="ico-music" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 18V5l12-2v13"/>
+    <circle cx="6" cy="18" r="3"/>
+    <circle cx="18" cy="16" r="3"/>
+  </symbol>
+</svg>
+
+
+<!-- ═══════════════════════════════════════ NAV ═══ -->
+<nav id="navbar">
+  <div class="nav-logo" onclick="go('home')">
+    <div class="nav-logo-icon">
+      <span class="nav-logo-icon-text">EFX</span>
+    </div>
+    <div class="nav-logo-text">
+      <div class="nav-logo-main">EFX<br><span>PRODUCTION</span></div>
+      <div class="nav-logo-sub">Event &amp; LED Solutions</div>
+    </div>
+  </div>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a data-page="home" onclick="go('home')" class="active">Home</a></li>
+    <li><a data-page="services" onclick="go('services')">Services</a></li>
+    <li><a data-page="gallery" onclick="go('gallery')">Gallery</a></li>
+    <li><a data-page="about" onclick="go('about')">About</a></li>
+    <li><a data-page="contact" onclick="go('contact')">Contact</a></li>
+  </ul>
+
+  <button class="nav-quote" onclick="go('contact')">Get Free Quote</button>
+  <button class="nav-burger" id="burger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-menu" id="mobileMenu">
+  <a data-page="home" onclick="go('home')">Home <span>→</span></a>
+  <a data-page="services" onclick="go('services')">Services <span>→</span></a>
+  <a data-page="gallery" onclick="go('gallery')">Gallery <span>→</span></a>
+  <a data-page="about" onclick="go('about')">About <span>→</span></a>
+  <a data-page="contact" onclick="go('contact')">Contact <span>→</span></a>
+  <button class="mobile-menu-quote" onclick="go('contact')">Get a Free Quote →</button>
+</div>
+
+<!-- ═══════════════════════ PAGE: HOME ═══════════════════════ -->
+<div class="page active" id="pg-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="beams">
+      <div class="beam b1"></div><div class="beam b2"></div><div class="beam b3"></div>
+      <div class="beam b4"></div><div class="beam b5"></div>
+      <div class="beam-glow bg1"></div><div class="beam-glow bg2"></div><div class="beam-glow bg3"></div>
+    </div>
+    <div class="stage-line"></div>
+    <div class="hero-content">
+      <div class="hero-badge">USA-Based Event Production</div>
+      <h1 class="hero-h1">
+        Complete<br>
+        Event <span class="glow">Production</span><br>
+        &amp; LED Solutions
+      </h1>
+      <p class="hero-sub">Audio <span>•</span> Lighting <span>•</span> LED <span>•</span> Events</p>
+      <p class="hero-value reveal d1">Serving Bay Area · Los Angeles · Washington State — <strong style="color:var(--white)">500+ events delivered</strong></p>
+      <div class="hero-btns">
+        <button class="btn btn-blue" onclick="go('contact')" style="font-size:13px;padding:16px 40px;">✦ Get a Free Quote</button>
+        <button class="btn btn-ghost" onclick="go('services')">Explore Services →</button>
+      </div>
+      <div class="hero-trust">
+        <div class="htrust-item"><span class="htrust-num counter" data-target="500" data-suffix="+">500+</span><span class="htrust-lbl">Events</span></div>
+        <div class="htrust-divider"></div>
+        <div class="htrust-item"><span class="htrust-num counter" data-target="10" data-suffix="+">10+</span><span class="htrust-lbl">Years</span></div>
+        <div class="htrust-divider"></div>
+        <div class="htrust-item"><span class="htrust-num counter" data-target="3" data-suffix="">3</span><span class="htrust-lbl">States</span></div>
+        <div class="htrust-divider"></div>
+        <div class="htrust-item"><span class="htrust-num">24/7</span><span class="htrust-lbl">Support</span></div>
+      </div>
+    </div>
+    <div class="hero-scroll"><div class="scroll-dot"></div>Scroll to explore</div>
+  </section>
+
+  <!-- SERVICES OVERVIEW -->
+  <section class="pad">
+    <div class="reveal">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Our <span class="accent">Services</span></h2>
+      <p class="section-body">From intimate private events to large-scale corporate productions — engineered with precision and delivered with style.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card reveal d1" onclick="go('services')"><span class="svc-icon"><svg width="20" height="20" style="flex-shrink:0;"><use href="#ico-audio"/></svg></span><h3>Audio</h3><p>Professional sound systems, mixers, and microphones for crystal-clear live audio at any scale.</p><span class="svc-arrow">Explore →</span></div>
+      <div class="svc-card reveal d2" onclick="go('services')"><span class="svc-icon"><svg width="20" height="20" style="flex-shrink:0;"><use href="#ico-lighting"/></svg></span><h3>Lighting</h3><p>Stage lighting, ambient effects, cinematic event lighting, and professional camera systems for live capture and broadcast.</p><span class="svc-arrow">Explore →</span></div>
+      <div class="svc-card reveal d1" onclick="go('services')"><span class="svc-icon"><svg width="20" height="20" style="flex-shrink:0;"><use href="#ico-staging"/></svg></span><h3>Staging</h3><p>Professional staging structures through trusted partners for any venue or configuration.</p><span class="svc-arrow">Explore →</span></div>
+      <div class="svc-card reveal d2" onclick="go('services')" style="border-top:2px solid var(--blue);"><span class="svc-badge">Featured</span><span class="svc-icon"><svg width="20" height="20" style="flex-shrink:0;"><use href="#ico-led"/></svg></span><h3>LED Walls</h3><p>High-resolution LED screen solutions that transform venues into cinematic visual spectacles.</p><span class="svc-arrow">Explore →</span></div>
+      <div class="svc-card reveal d1" onclick="go('services')"><span class="svc-icon"><svg width="20" height="20" style="flex-shrink:0;"><use href="#ico-dj"/></svg></span><h3>DJ</h3><p>Curated DJ services through our trusted collaboration partner for any event genre.</p><span class="svc-arrow">Explore →</span></div>
+      <div class="svc-card reveal d2" onclick="go('services')"><span class="svc-icon"><svg width="20" height="20" style="flex-shrink:0;"><use href="#ico-events"/></svg></span><h3>Corporate &amp; Private</h3><p>End-to-end production for corporate gatherings, private celebrations, and exclusive shows.</p><span class="svc-arrow">Explore →</span></div>
+      <div class="svc-card reveal d1" onclick="go('services')"><span class="svc-icon"><svg width="20" height="20" style="flex-shrink:0;"><use href="#ico-rentals"/></svg></span><h3>Rentals</h3><p>Power generators and essential support equipment to keep your event running flawlessly.</p><span class="svc-arrow">Explore →</span></div>
+    </div>
+  </section>
+
+  <div class="divider-glow"></div>
+
+  <!-- LED HIGHLIGHT -->
+  <section class="led-section">
+    <div class="led-inner">
+      <div>
+        <div class="section-label reveal">LED Division</div>
+        <h2 class="section-title reveal d1">LED Screens &amp;<br><span class="accent">Visual Displays</span></h2>
+        <p class="section-body reveal d2">Powered by <strong style="color:var(--white)">EFX LED Screens</strong> — our specialized LED division delivering cinematic-grade visual displays for any venue. High-resolution, modular, and available for indoor and outdoor setups.</p>
+        <div class="led-trust reveal d3">
+          <div class="led-trust-item"><svg width="14" height="14" style="color:var(--blue);flex-shrink:0"><use href="#ico-check"/></svg> Indoor &amp; Outdoor Capable</div>
+          <div class="led-trust-item"><svg width="14" height="14" style="color:var(--blue);flex-shrink:0"><use href="#ico-check"/></svg> High-Resolution Panels</div>
+          <div class="led-trust-item"><svg width="14" height="14" style="color:var(--blue);flex-shrink:0"><use href="#ico-check"/></svg> Modular Custom Configurations</div>
+          <div class="led-trust-item"><svg width="14" height="14" style="color:var(--blue);flex-shrink:0"><use href="#ico-check"/></svg> Content Management Included</div>
+        </div>
+        <div style="margin-top:28px;" class="reveal d4">
+          <a href="https://share.google/K7JsGHQRxYJJzjWpD" target="_blank" rel="noopener noreferrer" class="btn btn-blue">Explore EFX LED Screens ↗</a>
+        </div>
+      </div>
+      <div class="led-visual reveal d2">
+        <!-- Real LED event photo background -->
+        <img src="img/IMG-20260416-WA0022.jpg" alt="EFX LED Screen" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.5;">
+        <div class="led-grid-canvas" id="ledGrid" style="opacity:0.3;"></div>
+        <div class="led-over"></div>
+        <div class="led-label">
+          <!-- EFX LED Screens styled logo -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:20px;background:rgba(4,4,6,0.6);border-radius:4px;border:1px solid rgba(14,143,255,0.3);">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3.5vw,42px);letter-spacing:6px;color:var(--white);text-shadow:0 0 30px var(--blue);">EFX <span style="color:var(--blue);">LED</span></div>
+            <div style="width:48px;height:1.5px;background:linear-gradient(90deg,var(--blue),var(--cyan));box-shadow:0 0 12px var(--blue);"></div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--cyan);">Screen Division</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EVENTS -->
+  <section class="pad">
+    <div class="reveal">
+      <div class="section-label">What We Produce</div>
+      <h2 class="section-title">Events We <span class="accent">Execute</span></h2>
+    </div>
+    <div class="events-grid">
+      <!-- Corporate Event — concert/conference image from Unsplash (free) -->
+      <div class="event-card reveal d1" onclick="go('gallery')">
+        <div class="event-img" style="background-image:url('img/IMG-20260416-WA0023.jpg');background-size:cover;background-position:center;position:absolute;inset:0;"></div>
+        <div class="event-tint" style="background:rgba(0,10,40,0.45);"></div>
+        <div class="event-info">
+          <div class="event-tag">Professional</div>
+          <div class="event-title">Corporate Events</div>
+          <p class="event-desc">Conferences, product launches, brand activations, and executive galas — produced with precision.</p>
+        </div>
+      </div>
+      <div class="event-card reveal d2" onclick="go('gallery')">
+        <div class="event-img" style="background-image:url('img/IMG-20260416-WA0019.jpg');background-size:cover;background-position:center;position:absolute;inset:0;"></div>
+        <div class="event-tint" style="background:rgba(20,0,30,0.4);"></div>
+        <div class="event-info">
+          <div class="event-tag">Exclusive</div>
+          <div class="event-title">Private Events</div>
+          <p class="event-desc">Intimate celebrations, private parties, and exclusive shows crafted entirely to your vision.</p>
+        </div>
+      </div>
+      <div class="event-card reveal d3" onclick="go('gallery')">
+        <div class="event-img" style="background-image:url('img/IMG-20260416-WA0020.jpg');background-size:cover;background-position:center;position:absolute;inset:0;"></div>
+        <div class="event-tint" style="background:rgba(0,10,20,0.4);"></div>
+        <div class="event-info">
+          <div class="event-tag">Celebration</div>
+          <div class="event-title">Weddings &amp; Shows</div>
+          <p class="event-desc">Cinematic productions for weddings, live performances, and entertainment shows.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="events-cta reveal" style="text-align:center;padding:0 5vw 60px;">
+    <p style="font-size:14px;color:var(--muted);margin-bottom:20px;font-weight:300;">Have a specific event in mind? Let's talk about making it exceptional.</p>
+    <button class="btn btn-blue" onclick="go('contact')">Discuss Your Event →</button>
+  </div>
+
+
+  <!-- WHY CHOOSE US -->
+  <section class="pad" style="padding-top:40px;">
+    <div class="reveal">
+      <div class="section-label">Why EFX</div>
+      <h2 class="section-title">Why Choose <span class="accent">Us</span></h2>
+      <p class="section-body">We're not just another AV vendor. We're a production partner — invested in your event's success from first call to final load-out.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon">
+          <svg width="32" height="32"><use href="#ico-why-exp"/></svg>
+        </div>
+        <h3>10+ Years Experience</h3>
+        <p>Over a decade of hands-on production experience across hundreds of events — from intimate gatherings to large-scale productions for Fortune 500 companies.</p>
+      </div>
+      <div class="why-card reveal d1">
+        <div class="why-icon">
+          <svg width="32" height="32"><use href="#ico-why-quality"/></svg>
+        </div>
+        <h3>Uncompromising Quality</h3>
+        <p>We deploy professional-grade equipment from industry-leading brands. No corners cut — every cable, every fixture, every speaker chosen for excellence.</p>
+      </div>
+      <div class="why-card reveal d2">
+        <div class="why-icon">
+          <svg width="32" height="32"><use href="#ico-why-tech"/></svg>
+        </div>
+        <h3>Cutting-Edge Technology</h3>
+        <p>From high-resolution LED walls to advanced lighting rigs and crystal-clear audio systems, we stay ahead of the technology curve to deliver the best possible experience.</p>
+      </div>
+      <div class="why-card reveal d1">
+        <div class="why-icon">
+          <svg width="32" height="32"><use href="#ico-why-support"/></svg>
+        </div>
+        <h3>24/7 Event Support</h3>
+        <p>Our team is available around the clock for event support, setup, and troubleshooting. When your event is live, so are we — every single minute.</p>
+      </div>
+      <div class="why-card reveal d2">
+        <div class="why-icon">
+          <svg width="32" height="32"><use href="#ico-why-team"/></svg>
+        </div>
+        <h3>Dedicated Team</h3>
+        <p>You get a dedicated production crew that knows your event inside out. From pre-production planning through final load-out, the same professionals see it through.</p>
+      </div>
+      <div class="why-card reveal d3">
+        <div class="why-icon">
+          <svg width="32" height="32"><use href="#ico-why-partner"/></svg>
+        </div>
+        <h3>Trusted Partnerships</h3>
+        <p>We collaborate with Planet Pro Events and Rhythm by Anitesh to offer extended production capabilities and premium DJ talent for any event type.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+  <!-- ABOUT PREVIEW -->
+  <section class="pad">
+    <div class="about-preview">
+      <div>
+        <div class="section-label reveal">Who We Are</div>
+        <h2 class="section-title reveal d1">Precision-Built <span class="accent">Event Experiences</span></h2>
+        <p class="section-body reveal d2">EFX Production is a USA-based full-service event production company built on technical excellence, creative vision, and flawless execution. Partners with <strong style="color:var(--white)">Planet Pro Events</strong> to deliver extended production capabilities at scale.</p>
+        <div class="stats-grid reveal d3">
+          <div class="stat-box"><div class="stat-num counter" data-target="500" data-suffix="+">0</div><div class="stat-label">Events Produced</div></div>
+          <div class="stat-box"><div class="stat-num counter" data-target="10" data-suffix="+">0</div><div class="stat-label">Years Experience</div></div>
+          <div class="stat-box"><div class="stat-num counter" data-target="3" data-suffix="">0</div><div class="stat-label">States Served</div></div>
+          <div class="stat-box"><div class="stat-num" data-static="24/7">24/7</div><div class="stat-label">Support &amp; Setup</div></div>
+        </div>
+        <div style="margin-top:32px;" class="reveal d4">
+          <button class="btn btn-ghost" onclick="go('about')">Learn More About Us →</button>
+        </div>
+      </div>
+      <div class="about-visual-box reveal d2">
+        <div class="av-glow"></div>
+        <div class="av-scanlines"><div class="av-line"></div><div class="av-line"></div><div class="av-line"></div><div class="av-line"></div><div class="av-line"></div></div>
+        <div class="av-center">
+          <div class="av-big">EFX</div>
+          <div class="av-sm">Event Production</div>
+          <div class="av-bar"></div>
+          <div class="av-sm" style="margin-top:6px;opacity:0.5;">Fremont, CA • USA</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <p class="section-label reveal" style="justify-content:center;">Ready to Create?</p>
+    <h2 class="cta-title reveal d1">Let's Build Your<br><span class="accent">Next Event</span></h2>
+    <p style="font-size:15px;color:var(--muted);margin-top:18px;position:relative;" class="reveal d2">Tell us your vision. We'll handle the rest — from concept to curtain call.</p>
+    <div class="cta-btns reveal d3">
+      <button class="btn btn-blue" onclick="go('contact')" style="font-size:13px;padding:16px 40px;"><svg width="16" height="16" style="flex-shrink:0;color:inherit"><use href="#ico-email"/></svg> Get a Free Quote</button>
+      <a href="tel:+15107926800" class="btn btn-ghost"><svg width="16" height="16" style="flex-shrink:0;color:inherit"><use href="#ico-phone"/></svg> Call Now</a>
+      <a href="https://wa.me/15107926800" target="_blank" rel="noopener noreferrer" class="btn btn-wa"><svg width="16" height="16" style="flex-shrink:0;color:inherit"><use href="#ico-whatsapp"/></svg> WhatsApp</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="fbrand">
+        <div class="footer-logo" onclick="go('home')">
+          <div class="nav-logo-icon" style="width:38px;height:30px;">
+            <span class="nav-logo-icon-text" style="font-size:14px;">EFX</span>
+          </div>
+          <div class="nav-logo-text"><div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div></div>
+        </div>
+        <p>Complete event production &amp; LED solutions. Serving the Bay Area, LA, and Washington State with cinematic-grade audio, lighting, staging, and visual experiences.</p>
+      </div>
+      <div class="fcol">
+        <h4>Navigate</h4>
+        <a onclick="go('home')">Home</a>
+        <a onclick="go('services')">Services</a>
+        <a onclick="go('about')">About</a>
+        <a onclick="go('contact')">Contact</a>
+      </div>
+      <div class="fcol">
+        <h4>Services</h4>
+        <a onclick="go('services')">Audio Systems</a>
+        <a onclick="go('services')">Lighting</a>
+        <a href="https://share.google/K7JsGHQRxYJJzjWpD" target="_blank">LED Screens ↗</a>
+        <a href="https://www.rhythmbyanitesh.in" target="_blank">DJ — Rhythm by Anitesh ↗</a>
+        <a onclick="go('services')">Staging &amp; Rentals</a>
+      </div>
+      <div class="fcol">
+        <h4>Connect</h4>
+        <a href="https://www.instagram.com" target="_blank">Instagram ↗</a>
+        <a href="https://www.facebook.com" target="_blank">Facebook ↗</a>
+        <a href="https://www.youtube.com" target="_blank">YouTube ↗</a>
+        <a onclick="go('contact')">Get a Free Quote</a>
+      </div>
+      <div class="fcol">
+        <h4>Contact</h4>
+        <a href="tel:+15107926800"><svg width="14" height="14" style="flex-shrink:0;color:var(--blue)"><use href="#ico-phone"/></svg> +1 (510) 792-6800</a>
+        <a href="mailto:info@efxproduction.com"><svg width="14" height="14" style="flex-shrink:0;color:var(--blue)"><use href="#ico-email"/></svg> info@efxproduction.com</a>
+        <a href="https://wa.me/15107926800" target="_blank"><svg width="16" height="16" style="flex-shrink:0;color:var(--green)"><use href="#ico-whatsapp"/></svg> WhatsApp</a>
+        <a onclick="go('contact')"><svg width="14" height="14" style="flex-shrink:0;color:var(--blue)"><use href="#ico-pin"/></svg> Fremont, CA 94538</a>
+      </div>
+    </div>
+    <div class="footer-bot">
+      <span>© 2025 EFX Production. All rights reserved.</span>
+      <span style="color:var(--blue);">44711 Unit E, South Grimmer Blvd, Fremont, CA 94538</span>
+    </div>
+  </footer>
+</div><!-- /home -->
+
+<!-- ═══════════════════════ PAGE: SERVICES ═══════════════════════ -->
+<div class="page" id="pg-services">
+  <div class="page-hero">
+    <div class="section-label reveal">Full-Service Production</div>
+    <h1 class="section-title reveal d1" style="font-size:clamp(56px,8vw,108px);">Our <span class="accent">Services</span></h1>
+    <p class="section-body reveal d2">Every service, precisely executed. No compromise on quality — regardless of scale or budget.</p>
+  </div>
+
+  <section style="padding:56px 5vw 100px;">
+    <!-- Audio -->
+    <div class="svc-detail reveal">
+      <div class="svc-d-label"><div class="svc-d-icon"><svg class="icon icon-lg" style="color:var(--blue)"><use href="#ico-audio"/></svg></div><h3>Audio</h3></div>
+      <div class="svc-d-body">
+        <p>Professional-grade sound systems engineered for clarity, presence, and power. Whether an intimate gathering or a large arena-style event, our audio setup ensures every word and every note lands perfectly.</p>
+        <div class="tag-row"><span class="tag">Live Sound Systems</span><span class="tag">Professional Mixers</span><span class="tag">Wireless Microphones</span><span class="tag">In-Ear Monitoring</span><span class="tag">Line Array Systems</span><span class="tag">Subwoofers</span></div>
+      </div>
+    </div>
+    <!-- Lighting -->
+    <div class="svc-detail reveal">
+      <div class="svc-d-label"><div class="svc-d-icon"><svg width="32" height="32" style="flex-shrink:0;"><use href="#ico-lighting"/></svg></div><h3>Lighting</h3></div>
+      <div class="svc-d-body">
+        <p>Transform any venue with comprehensive lighting design and professional camera systems. From dramatic stage washes to subtle ambient lighting and live video capture, we craft environments that amplify emotion and elevate atmosphere.</p>
+        <div class="tag-row"><span class="tag">Stage Lighting</span><span class="tag">Ambient Effects</span><span class="tag">Moving Head Fixtures</span><span class="tag">Laser Systems</span><span class="tag">Uplighting</span><span class="tag">Spotlight Rigs</span><span class="tag">Camera Systems</span><span class="tag">Live Video Capture</span><span class="tag">Broadcast Ready</span></div>
+      </div>
+    </div>
+    <!-- Staging -->
+    <div class="svc-detail reveal">
+      <div class="svc-d-label"><div class="svc-d-icon"><svg width="32" height="32" style="flex-shrink:0;"><use href="#ico-staging"/></svg></div><h3>Staging</h3></div>
+      <div class="svc-d-body">
+        <p>Staging structures are provided through our trusted partners, ensuring safe, professional, and scalable stage setups for any size event. We coordinate full staging logistics so you have one less thing to worry about.</p>
+        <div class="tag-row"><span class="tag">Modular Platforms</span><span class="tag">Truss Systems</span><span class="tag">Riser Configs</span><span class="tag">Partner-Coordinated</span></div>
+        <p style="margin-top:14px;font-size:12px;color:var(--faint);font-style:italic;">Staging provided through trusted partners.</p>
+      </div>
+    </div>
+    <!-- LED Walls — featured -->
+    <div class="svc-detail featured reveal">
+      <div class="svc-d-label"><div class="svc-d-icon"><svg width="32" height="32" style="flex-shrink:0;"><use href="#ico-led"/></svg></div><h3>LED Walls</h3></div>
+      <div class="svc-d-body">
+        <p>Our dedicated LED division delivers high-resolution visual display solutions that turn stages and venues into cinematic experiences. From backdrop LED walls to interactive display systems — serving the Bay Area, LA, and Washington State since 2013.</p>
+        <div class="tag-row"><span class="tag">HD LED Walls</span><span class="tag">Backdrop Displays</span><span class="tag">Stage Visuals</span><span class="tag">Custom Configs</span><span class="tag">Content Management</span><span class="tag">Indoor &amp; Outdoor</span></div>
+        <a href="https://share.google/K7JsGHQRxYJJzjWpD" target="_blank" rel="noopener noreferrer" class="ext-link">View LED Screen Division ↗</a>
+      </div>
+    </div>
+    <!-- DJ -->
+    <div class="svc-detail reveal">
+      <div class="svc-d-label"><div class="svc-d-icon"><svg width="32" height="32" style="flex-shrink:0;"><use href="#ico-dj"/></svg></div><h3>DJ</h3></div>
+      <div class="svc-d-body">
+        <p>EFX Production collaborates with top DJ talent through our trusted partnership. Whether you need a high-energy wedding reception DJ or a sophisticated corporate event performer, our network delivers.</p>
+        <div class="tag-row"><span class="tag">Weddings</span><span class="tag">Corporate Events</span><span class="tag">Private Parties</span><span class="tag">Live Shows</span></div>
+        <a href="https://www.rhythmbyanitesh.in" target="_blank" rel="noopener noreferrer" class="ext-link">Book DJ — Rhythm by Anitesh ↗</a>
+      </div>
+    </div>
+    <!-- Events -->
+    <div class="svc-detail reveal">
+      <div class="svc-d-label"><div class="svc-d-icon"><svg width="32" height="32" style="flex-shrink:0;"><use href="#ico-events"/></svg></div><h3>Events</h3></div>
+      <div class="svc-d-body">
+        <p>From intimate private celebrations to large-scale corporate productions, EFX manages complete technical production. We handle setup, operation, and breakdown — so you can focus on your guests.</p>
+        <div class="tag-row"><span class="tag">Corporate Events</span><span class="tag">Private Events</span><span class="tag">Weddings</span><span class="tag">Live Shows</span><span class="tag">Brand Activations</span><span class="tag">Galas</span></div>
+      </div>
+    </div>
+    <!-- Rentals -->
+    <div class="svc-detail reveal">
+      <div class="svc-d-label"><div class="svc-d-icon"><svg width="32" height="32" style="flex-shrink:0;"><use href="#ico-rentals"/></svg></div><h3>Rentals</h3></div>
+      <div class="svc-d-body">
+        <p>Essential equipment rental support to keep your event running without interruption. Our rental inventory focuses on the critical infrastructure that keeps productions powered and supported.</p>
+        <div class="tag-row"><span class="tag">Power Generators</span><span class="tag">Basic Support Equipment</span></div>
+        <p style="margin-top:14px;font-size:12px;color:var(--faint);font-style:italic;">Contact us directly for rental availability and pricing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band" style="padding-top:40px;">
+    <div class="cta-bg"></div>
+    <h2 class="cta-title reveal">Ready to <span class="accent">Get Started?</span></h2>
+    <p style="font-size:15px;color:var(--muted);margin-top:18px;position:relative;" class="reveal d1">Tell us about your event and we'll build the perfect production package.</p>
+    <div class="cta-btns reveal d2">
+      <button class="btn btn-blue" onclick="go('contact')" style="padding:16px 40px;">Request a Quote</button>
+      <a href="https://wa.me/15107926800" target="_blank" rel="noopener noreferrer" class="btn btn-wa"><svg width="16" height="16" style="flex-shrink:0;color:inherit"><use href="#ico-chat"/></svg> WhatsApp Us</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="fbrand">
+        <div class="footer-logo" onclick="go('home')">
+          <div class="nav-logo-icon" style="width:38px;height:30px;"><span class="nav-logo-icon-text" style="font-size:14px;">EFX</span></div>
+          <div class="nav-logo-text"><div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div></div>
+        </div>
+        <p>Complete event production &amp; LED solutions. Serving the Bay Area, LA, and Washington State.</p>
+      </div>
+      <div class="fcol"><h4>Navigate</h4><a onclick="go('home')">Home</a><a onclick="go('services')">Services</a><a onclick="go('gallery')">Gallery</a><a onclick="go('about')">About</a><a onclick="go('contact')">Contact</a></div>
+      <div class="fcol"><h4>Quick Links</h4><a href="https://share.google/K7JsGHQRxYJJzjWpD" target="_blank">LED Screens ↗</a><a href="https://www.rhythmbyanitesh.in" target="_blank">DJ Partner ↗</a><a onclick="go('contact')">Get a Quote</a></div>
+      <div class="fcol"><h4>Contact</h4><a href="tel:+15107926800"><svg width="14" height="14" style="flex-shrink:0;color:var(--blue)"><use href="#ico-phone"/></svg> +1 (510) 792-6800</a><a href="https://wa.me/15107926800" target="_blank"><svg width="16" height="16" style="flex-shrink:0;color:var(--green)"><use href="#ico-whatsapp"/></svg> WhatsApp</a><a onclick="go('contact')"><svg width="14" height="14" style="flex-shrink:0;color:var(--blue)"><use href="#ico-pin"/></svg> Fremont, CA</a></div>
+    </div>
+    <div class="footer-bot"><span>© 2025 EFX Production. All rights reserved.</span><span style="color:var(--blue);">Complete Event Production &amp; LED Solutions</span></div>
+  </footer>
+</div><!-- /services -->
+
+<!-- ═══════════════════════ PAGE: ABOUT ═══════════════════════ -->
+<div class="page" id="pg-about">
+  <div class="page-hero" style="background:radial-gradient(ellipse 60% 80% at 90% 40%,rgba(14,143,255,0.07) 0%,transparent 60%);">
+    <div class="section-label reveal">Our Story</div>
+    <h1 class="section-title reveal d1" style="font-size:clamp(56px,8vw,108px);">About <span class="accent">EFX</span></h1>
+    <p class="section-body reveal d2">A USA-based event production company driven by passion, precision, and a relentless commitment to excellence.</p>
+  </div>
+
+  <div class="divider-glow"></div>
+
+  <div class="about-story">
+    <div class="story-text reveal">
+      <h2>Who We Are</h2>
+      <p>EFX Production is a full-service event production company serving clients across the United States. We specialize in audio, lighting, LED visual displays, staging, and comprehensive event management for corporate, private, and entertainment events.</p>
+      <p>Built on years of hands-on experience, our team brings technical expertise and creative vision to every project — regardless of scale or complexity. We've served clients across the Bay Area, LA, and Washington State.</p>
+      <div class="highlight-bar">
+        <p>"We don't just provide equipment. We engineer experiences that resonate, captivate, and stay with your guests long after the event ends."</p>
+      </div>
+    </div>
+    <div class="reveal d1">
+      <div class="story-text">
+        <h2>What We <span style="color:var(--blue);">Stand For</span></h2>
+        <p>Our mission is simple: deliver exceptional event production that exceeds expectations every single time. From the initial consultation through load-out, we operate with transparency, professionalism, and an unwavering focus on quality.</p>
+        <p>We've produced over 500 events across corporate conferences, weddings, private parties, live performances, and brand activations — each treated with the same level of care.</p>
+      </div>
+      <div class="collab-card">
+        <div class="clabel">Collaboration Partner</div>
+        <h3>Planet Pro Events</h3>
+        <p>EFX Production proudly collaborates with Planet Pro Events to deliver extended event services and enhanced production capabilities for larger-scale productions.</p>
+      </div>
+      <div class="collab-card">
+        <div class="clabel">DJ Partnership</div>
+        <h3>Rhythm by Anitesh</h3>
+        <p>Our trusted DJ partner for all genres and event types — bringing energy, professionalism, and musical expertise to every event we co-produce.</p>
+        <a href="https://www.rhythmbyanitesh.in" target="_blank" rel="noopener noreferrer" class="ext-link" style="margin-top:12px;">Visit Rhythm by Anitesh ↗</a>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- REAL WORK PHOTOS STRIP -->
+  <div class="about-photos reveal" style="padding:0 5vw;">
+    <div class="about-photo"><img src="img/IMG-20260416-WA0023.jpg" alt="Humanoids Summit — Corporate Event" loading="lazy"></div>
+    <div class="about-photo"><img src="img/IMG-20260416-WA0022.jpg" alt="Outdoor LED Screen Setup" loading="lazy"></div>
+    <div class="about-photo"><img src="img/IMG-20260416-WA0021.jpg" alt="Traverse 21 — LED Wall" loading="lazy"></div>
+    <div class="about-photo"><img src="img/IMG-20260416-WA0006.jpg" alt="San Jose Civic — LED Screens" loading="lazy"></div>
+  </div>
+
+  <div class="divider"></div>
+
+
+  <!-- PHOTO STRIP -->
+  <div class="about-photos" style="padding:0 5vw;">
+    <div class="about-photo"><img src="img/IMG-20260416-WA0003.jpg" alt="iSMG Curved LED Wall" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060a1a,#0a1428)'"></div>
+    <div class="about-photo"><img src="img/IMG-20260416-WA0022.jpg" alt="Outdoor LED Truss Setup" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060a1a,#0a1530)'"></div>
+    <div class="about-photo"><img src="img/IMG-20260416-WA0023.jpg" alt="Humanoids Summit" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060a1a,#0c1a40)'"></div>
+    <div class="about-photo"><img src="img/IMG-20260416-WA0004.jpg" alt="Custom LED Rig" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060a1a,#091430)'"></div>
+  </div>
+  <section class="pad-sm">
+    <div class="pillars">
+      <div class="pillar reveal"><div class="pillar-icon"><svg width="28" height="28" style="flex-shrink:0;"><use href="#ico-mission"/></svg></div><h3>Mission</h3><p>Deliver technically superior, creatively driven event production that transforms ordinary occasions into extraordinary memories.</p></div>
+      <div class="pillar reveal d1"><div class="pillar-icon"><svg width="28" height="28" style="flex-shrink:0;"><use href="#ico-vision"/></svg></div><h3>Vision</h3><p>To be the most trusted event production partner in the USA — known for flawless execution, innovative technology, and excellence.</p></div>
+      <div class="pillar reveal d2"><div class="pillar-icon"><svg width="28" height="28" style="flex-shrink:0;"><use href="#ico-promise"/></svg></div><h3>Promise</h3><p>Every client, every event — you receive our full commitment, our best work, and a production that reflects your vision perfectly.</p></div>
+    </div>
+  </section>
+
+  <section class="cta-band" style="padding-top:40px;">
+    <h2 class="cta-title reveal">Work With <span class="accent">Us</span></h2>
+    <p style="font-size:15px;color:var(--muted);margin-top:18px;position:relative;" class="reveal d1">Let's talk about your next event and how EFX Production can make it exceptional.</p>
+    <div class="cta-btns reveal d2">
+      <button class="btn btn-blue" onclick="go('contact')" style="padding:16px 40px;">Get in Touch</button>
+      <button class="btn btn-ghost" onclick="go('services')">View Services</button>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="fbrand">
+        <div class="footer-logo" onclick="go('home')">
+          <div class="nav-logo-icon" style="width:38px;height:30px;"><span class="nav-logo-icon-text" style="font-size:14px;">EFX</span></div>
+          <div class="nav-logo-text"><div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div></div>
+        </div>
+        <p>Complete event production &amp; LED solutions. Serving the USA.</p>
+      </div>
+      <div class="fcol"><h4>Navigate</h4><a onclick="go('home')">Home</a><a onclick="go('services')">Services</a><a onclick="go('gallery')">Gallery</a><a onclick="go('about')">About</a><a onclick="go('contact')">Contact</a></div>
+      <div class="fcol"><h4>Links</h4><a href="https://share.google/K7JsGHQRxYJJzjWpD" target="_blank">LED Screens ↗</a><a href="https://www.rhythmbyanitesh.in" target="_blank">DJ Partner ↗</a></div>
+      <div class="fcol"><h4>Contact</h4><a href="tel:+15107926800"><svg width="14" height="14" style="flex-shrink:0;color:var(--blue)"><use href="#ico-phone"/></svg> +1 (510) 792-6800</a><a href="https://wa.me/15107926800" target="_blank"><svg width="16" height="16" style="flex-shrink:0;color:var(--green)"><use href="#ico-whatsapp"/></svg> WhatsApp</a><a onclick="go('contact')"><svg width="14" height="14" style="flex-shrink:0;color:var(--blue)"><use href="#ico-pin"/></svg> Fremont, CA</a></div>
+    </div>
+    <div class="footer-bot"><span>© 2025 EFX Production. All rights reserved.</span><span style="color:var(--blue);">USA-Based Event Production</span></div>
+  </footer>
+</div><!-- /about -->
+
+<!-- ═══════════════════════ PAGE: CONTACT ═══════════════════════ -->
+<div class="page" id="pg-contact">
+  <div class="page-hero">
+    <div class="section-label reveal">Get in Touch</div>
+    <h1 class="section-title reveal d1" style="font-size:clamp(52px,8vw,100px);">Let's Build Your<br><span class="accent">Next Event</span></h1>
+    <p class="section-body reveal d2">Tell us your vision, timeline, and requirements. We'll respond within 24 hours with a tailored production proposal.</p>
+  </div>
+
+  <!-- urgency banner -->
+  <div style="background:rgba(14,143,255,0.06);border-top:1px solid rgba(14,143,255,0.15);border-bottom:1px solid rgba(14,143,255,0.15);padding:14px 5vw;text-align:center;" class="reveal">
+    <span style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;color:var(--muted);">⚡ Free consultation available — we respond within <strong style="color:var(--white);">24 hours</strong></span>
+  </div>
+  <div class="contact-reassurance reveal">
+    <div class="reassurance-item"><svg width="16" height="16" style="color:var(--blue);flex-shrink:0"><use href="#ico-check"/></svg> We respond within 24 hours</div>
+    <div class="reassurance-item"><svg width="16" height="16" style="color:var(--blue);flex-shrink:0"><use href="#ico-check"/></svg> Free consultation available</div>
+    <div class="reassurance-item"><svg width="16" height="16" style="color:var(--blue);flex-shrink:0"><use href="#ico-check"/></svg> No commitment required</div>
+    <div class="reassurance-item"><svg width="16" height="16" style="color:var(--blue);flex-shrink:0"><use href="#ico-check"/></svg> Serving Bay Area · LA · Washington State</div>
+  </div>
+  <div class="contact-layout">
+    <!-- INFO COLUMN -->
+    <div>
+      <div class="contact-item reveal">
+        <div class="c-icon"><svg width="18" height="18" style="flex-shrink:0;color:var(--blue)"><use href="#ico-phone"/></svg></div>
+        <div class="c-text"><label>Phone</label><span>+1 (510) 792-6800</span></div>
+      </div>
+      <div class="contact-item reveal d1">
+        <div class="c-icon"><svg width="18" height="18" style="flex-shrink:0;color:var(--blue)"><use href="#ico-email"/></svg></div>
+        <div class="c-text"><label>Email</label><span>info@efxproduction.com</span></div>
+      </div>
+      <div class="contact-item reveal d2">
+        <div class="c-icon"><svg width="18" height="18" style="flex-shrink:0;color:var(--blue)"><use href="#ico-pin"/></svg></div>
+        <div class="c-text"><label>Address</label><span>44711 Unit E, South Grimmer Blvd,<br>Fremont, CA 94538</span></div>
+      </div>
+      <div class="contact-item reveal d3">
+        <div class="c-icon"><svg width="18" height="18" style="flex-shrink:0;color:var(--blue)"><use href="#ico-clock"/></svg></div>
+        <div class="c-text"><label>Availability</label><span>24/7 for event support</span></div>
+      </div>
+
+      <div class="c-btns reveal d4">
+        <a href="tel:+15107926800" class="c-btn btn-ghost"><svg width="16" height="16" style="flex-shrink:0;color:inherit"><use href="#ico-phone"/></svg> Call Us Now</a>
+        <a href="https://wa.me/15107926800" target="_blank" rel="noopener noreferrer" class="c-btn btn-wa"><svg width="16" height="16" style="flex-shrink:0;color:inherit"><use href="#ico-whatsapp"/></svg> Chat on WhatsApp</a>
+      </div>
+
+      <!-- GOOGLE MAP -->
+      <div class="map-wrap reveal d4" style="margin-top:24px;">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3154.6936559067476!2d-121.9774!3d37.5534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fc11cbba77f61%3A0x9a3bbf7b7d99e1cf!2s44711%20S%20Grimmer%20Blvd%2C%20Fremont%2C%20CA%2094538!5e0!3m2!1sen!2sus!4v1700000000000"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="EFX Production Location - Fremont CA">
+        </iframe>
+        <div style="padding:12px 16px;background:var(--card);border-top:1px solid var(--border);">
+          <p style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);"><svg width="13" height="13" style="flex-shrink:0;color:var(--blue);vertical-align:middle"><use href="#ico-pin"/></svg> 44711 Unit E, South Grimmer Blvd, Fremont, CA 94538</p>
+        </div>
+      </div>
+
+      <!-- LED PROMO -->
+      <div class="led-promo reveal" style="margin-top:20px;">
+        <div class="section-label" style="margin-bottom:8px;font-size:10px;">LED Division</div>
+        <p>Looking specifically for LED screen solutions?</p>
+        <a href="https://share.google/K7JsGHQRxYJJzjWpD" target="_blank" rel="noopener noreferrer" class="ext-link">Explore LED Screen Division ↗</a>
+      </div>
+    </div>
+
+    <!-- FORM COLUMN -->
+    <div class="reveal d1">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);margin-bottom:22px;">Send Us a Message</div>
+      <div class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="fg"><label>Full Name *</label><input type="text" id="f-name" placeholder="Your full name"></div>
+          <div class="fg"><label>Phone Number</label><input type="tel" id="f-phone" placeholder="+1 (___) ___-____"></div>
+        </div>
+        <div class="fg"><label>Email Address *</label><input type="email" id="f-email" placeholder="your@email.com"></div>
+        <div class="fg">
+          <label>Event Type</label>
+          <select id="f-event">
+            <option value="">Select event type…</option>
+            <option>Corporate Event</option>
+            <option>Private Event / Party</option>
+            <option>Wedding</option>
+            <option>Live Show / Concert</option>
+            <option>Brand Activation</option>
+            <option>LED Screen Rental</option>
+            <option>DJ Booking</option>
+            <option>Equipment Rental</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="fg"><label>Message</label><textarea id="f-msg" placeholder="Tell us about your event — date, venue, size, and any specific requirements…"></textarea></div>
+        <button class="form-submit" type="button" onclick="submitForm()">Send Message →</button>
+        <div class="form-success" id="fSuccess"><svg width="16" height="16" style="flex-shrink:0;color:var(--green)"><use href="#ico-check"/></svg> Message sent! We'll be in touch within 24 hours.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="fbrand">
+        <div class="footer-logo" onclick="go('home')">
+          <div class="nav-logo-icon" style="width:38px;height:30px;"><span class="nav-logo-icon-text" style="font-size:14px;">EFX</span></div>
+          <div class="nav-logo-text"><div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div></div>
+        </div>
+        <p>Complete event production &amp; LED solutions. Serving the Bay Area, LA, and Washington State.</p>
+      </div>
+      <div class="fcol"><h4>Navigate</h4><a onclick="go('home')">Home</a><a onclick="go('services')">Services</a><a onclick="go('gallery')">Gallery</a><a onclick="go('about')">About</a><a onclick="go('contact')">Contact</a></div>
+      <div class="fcol"><h4>Links</h4><a href="https://share.google/K7JsGHQRxYJJzjWpD" target="_blank">LED Screens ↗</a><a href="https://www.rhythmbyanitesh.in" target="_blank">DJ Partner ↗</a></div>
+      <div class="fcol"><h4>Contact</h4><a href="tel:+15107926800"><svg width="14" height="14" style="flex-shrink:0;color:var(--blue)"><use href="#ico-phone"/></svg> +1 (510) 792-6800</a><a href="https://wa.me/15107926800" target="_blank"><svg width="16" height="16" style="flex-shrink:0;color:var(--green)"><use href="#ico-whatsapp"/></svg> WhatsApp</a><a><svg width="14" height="14" style="flex-shrink:0;color:var(--blue)"><use href="#ico-pin"/></svg> Fremont, CA 94538</a></div>
+    </div>
+    <div class="footer-bot"><span>© 2025 EFX Production. All rights reserved.</span><span style="color:var(--blue);">44711 Unit E, South Grimmer Blvd, Fremont, CA 94538</span></div>
+  </footer>
+</div><!-- /contact -->
+
+
+<!-- ═══════════════════════ PAGE: GALLERY ═══════════════════════ -->
+<div class="page" id="pg-gallery">
+  <div class="page-hero">
+    <div class="section-label reveal">Our Work</div>
+    <h1 class="section-title reveal d1" style="font-size:clamp(56px,8vw,108px);">Event <span class="accent">Gallery</span></h1>
+    <p class="section-body reveal d2">Real events. Real setups. From intimate private gatherings to large-scale productions across the Bay Area, LA, and Washington State.</p>
+  </div>
+
+  <div class="gallery-filters reveal">
+    <button class="gf-btn active" onclick="filterGallery('all',this)">All</button>
+    <button class="gf-btn" onclick="filterGallery('corporate',this)">Corporate</button>
+    <button class="gf-btn" onclick="filterGallery('led',this)">LED &amp; Screens</button>
+    <button class="gf-btn" onclick="filterGallery('private',this)">Private Events</button>
+    <button class="gf-btn" onclick="filterGallery('stage',this)">Stage &amp; Lighting</button>
+  </div>
+
+  <div class="gallery-grid masonry reveal d1" id="galleryGrid">
+    <!-- Corporate / Conference -->
+    <div class="g-item tall" data-cat="corporate" onclick="openLightbox(0)">
+      <img src="img/IMG-20260416-WA0023.jpg" alt="Humanoids Summit — Corporate Event" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060a1a,#0c1a40)'">
+      <div class="g-item-overlay"><div class="g-item-label">Humanoids Summit — Corporate</div></div>
+    </div>
+    <!-- Outdoor LED truss setup -->
+    <div class="g-item" data-cat="led stage" onclick="openLightbox(1)">
+      <img src="img/IMG-20260416-WA0022.jpg" alt="Outdoor LED Screen — Truss Rig" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060a1a,#0a1530)'">
+      <div class="g-item-overlay"><div class="g-item-label">Outdoor LED Screen — Truss Rig</div></div>
+    </div>
+    <!-- Traverse 21 LED Wall -->
+    <div class="g-item" data-cat="led corporate" onclick="openLightbox(2)">
+      <img src="img/IMG-20260416-WA0021.jpg" alt="Traverse 21 — LED Wall Setup" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060c20,#0c1840)'">
+      <div class="g-item-overlay"><div class="g-item-label">Traverse 21 — LED Wall Setup</div></div>
+    </div>
+    <!-- Speerit Day large corporate gala -->
+    <div class="g-item wide" data-cat="corporate" onclick="openLightbox(3)">
+      <img src="img/IMG-20260416-WA0020.jpg" alt="Moments That Matter — Speerit Day 2023" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#100608,#280c18)'">
+      <div class="g-item-overlay"><div class="g-item-label">Speerit Day 2023 — Large Scale Corporate Gala</div></div>
+    </div>
+    <!-- Elegant private dinner -->
+    <div class="g-item tall" data-cat="private" onclick="openLightbox(4)">
+      <img src="img/IMG-20260416-WA0019.jpg" alt="Private Dinner Event" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060f08,#0c2618)'">
+      <div class="g-item-overlay"><div class="g-item-label">Private Dinner — LED Ambient</div></div>
+    </div>
+    <!-- San Jose Civic -->
+    <div class="g-item" data-cat="led stage" onclick="openLightbox(5)">
+      <img src="img/IMG-20260416-WA0006.jpg" alt="San Jose Civic" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060a1a,#0c1a40)'">
+      <div class="g-item-overlay"><div class="g-item-label">San Jose Civic — Live Show</div></div>
+    </div>
+    <!-- Circular LED truss ring -->
+    <div class="g-item" data-cat="led stage" onclick="openLightbox(6)">
+      <img src="img/IMG-20260416-WA0004.jpg" alt="Circular LED Rig" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060a1a,#091430)'">
+      <div class="g-item-overlay"><div class="g-item-label">Custom Circular LED Rig</div></div>
+    </div>
+    <!-- iSMG Studio -->
+    <div class="g-item wide" data-cat="led corporate" onclick="openLightbox(7)">
+      <img src="img/IMG-20260416-WA0003.jpg" alt="iSMG Studio" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060a1a,#0a1428)'">
+      <div class="g-item-overlay"><div class="g-item-label">iSMG Studio — Curved LED Wall</div></div>
+    </div>
+    <!-- Traverse 21 live stage -->
+    <div class="g-item" data-cat="stage corporate" onclick="openLightbox(8)">
+      <img src="img/IMG-20260416-WA0018.jpg" alt="Traverse 21 Live Stage" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#080610,#140c28)'">
+      <div class="g-item-overlay"><div class="g-item-label">Traverse 21 — Live Stage</div></div>
+    </div>
+    <!-- Alanija private gala -->
+    <div class="g-item" data-cat="private" onclick="openLightbox(9)">
+      <img src="img/IMG-20260416-WA0017.jpg" alt="Alanija Private Gala" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#100608,#280c18)'">
+      <div class="g-item-overlay"><div class="g-item-label">Alanija — Private Gala</div></div>
+    </div>
+  </div>
+
+  <section class="cta-band" style="padding-top:60px;">
+    <h2 class="cta-title reveal">Your Event <span class="accent">Next</span></h2>
+    <p style="font-size:15px;color:var(--muted);margin-top:18px;position:relative;" class="reveal d1">Ready to create something extraordinary? Let's build your production together.</p>
+    <div class="cta-btns reveal d2">
+      <button class="btn btn-blue" onclick="go('contact')" style="padding:16px 40px;">Get a Quote</button>
+      <a href="https://wa.me/15107926800" target="_blank" rel="noopener noreferrer" class="btn btn-wa"><svg width="16" height="16" style="flex-shrink:0"><use href="#ico-chat"/></svg> WhatsApp Us</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="fbrand">
+        <div class="footer-logo" onclick="go('home')">
+          <div class="nav-logo-icon" style="width:38px;height:30px;"><span class="nav-logo-icon-text" style="font-size:14px;">EFX</span></div>
+          <div class="nav-logo-text"><div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div></div>
+        </div>
+        <p>Complete event production &amp; LED solutions. Serving the Bay Area, LA, and Washington State.</p>
+      </div>
+      <div class="fcol"><h4>Navigate</h4><a onclick="go('home')">Home</a><a onclick="go('services')">Services</a><a onclick="go('gallery')">Gallery</a><a onclick="go('about')">About</a><a onclick="go('contact')">Contact</a></div>
+      <div class="fcol"><h4>Links</h4><a href="https://share.google/K7JsGHQRxYJJzjWpD" target="_blank">LED Screens ↗</a><a href="https://www.rhythmbyanitesh.in" target="_blank">DJ Partner ↗</a></div>
+      <div class="fcol"><h4>Contact</h4>
+        <a href="tel:+15107926800"><svg width="14" height="14" style="color:var(--blue)"><use href="#ico-phone"/></svg> +1 (510) 792-6800</a>
+        <a href="https://wa.me/15107926800" target="_blank"><svg width="14" height="14" style="color:var(--blue)"><use href="#ico-chat"/></svg> WhatsApp</a>
+        <a onclick="go('contact')"><svg width="14" height="14" style="color:var(--blue)"><use href="#ico-pin"/></svg> Fremont, CA</a>
+      </div>
+    </div>
+    <div class="footer-bot"><span>© 2025 EFX Production. All rights reserved.</span><span style="color:var(--blue);">USA-Based Event Production</span></div>
+  </footer>
+</div><!-- /gallery -->
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="lbNav(-1)">&#8249;</button>
+  <img class="lightbox-img" id="lbImg" src="" alt="">
+  <button class="lightbox-nav lightbox-next" onclick="lbNav(1)">&#8250;</button>
+  <div class="lightbox-caption" id="lbCaption"></div>
+</div>
+
+<!-- ═══════════════════════════════════════
+   SCRIPTS
+═══════════════════════════════════════ -->
+<script>
+/* ── PAGE ROUTING ──────────────────────── */
+function go(name) {
+  // Hide ALL pages - force display none via class
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+    p.style.display = ''; // clear any inline styles
+  });
+
+  // Show ONLY target page
+  const pg = document.getElementById('pg-' + name);
+  if (!pg) return;
+  pg.classList.add('active');
+
+  // Update nav active states
+  document.querySelectorAll('[data-page]').forEach(a => {
+    a.classList.toggle('active', a.dataset.page === name);
+  });
+
+  // Close mobile menu
+  closeMobileMenu();
+
+  // Scroll to top instantly
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  window.scrollTo(0, 0);
+
+  // Reset and re-run reveal animations
+  pg.querySelectorAll('.reveal').forEach(el => el.classList.remove('visible'));
+  setTimeout(runReveal, 100);
+}
+
+/* ── MOBILE MENU ───────────────────────── */
+function toggleMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const burger = document.getElementById('burger');
+  const isOpen = menu.classList.toggle('open');
+  burger.classList.toggle('open', isOpen);
+  // Prevent body scroll when menu open
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('burger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+// Close mobile menu on outside click
+document.addEventListener('click', e => {
+  if (!e.target.closest('nav') && !e.target.closest('.mobile-menu')) {
+    closeMobileMenu();
+  }
+});
+
+/* ── NAVBAR SCROLL ─────────────────────── */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+}, { passive: true });
+
+/* ── SCROLL REVEAL ─────────────────────── */
+let revealObserver;
+function runReveal() {
+  // Disconnect old observer
+  if (revealObserver) revealObserver.disconnect();
+
+  revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  // Only observe elements in currently active page
+  const activePage = document.querySelector('.page.active');
+  if (!activePage) return;
+  activePage.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+    revealObserver.observe(el);
+  });
+}
+// Run on load
+window.addEventListener('load', () => setTimeout(runReveal, 100));
+// Also run immediately
+setTimeout(runReveal, 200);
+
+/* ── LED PIXEL GRID ────────────────────── */
+function buildLedGrid() {
+  const grid = document.getElementById('ledGrid');
+  if (!grid) return;
+  const cols = [
+    'rgba(14,143,255,', 'rgba(0,212,255,',
+    'rgba(30,100,255,', 'rgba(80,180,255,'
+  ];
+  let html = '';
+  for (let i = 0; i < 198; i++) {
+    const c = cols[Math.floor(Math.random() * cols.length)];
+    const baseOp = 0.05 + Math.random() * 0.2;
+    const dur = (1.5 + Math.random() * 3).toFixed(2);
+    const del = (Math.random() * 3).toFixed(2);
+    const hi = Math.min(1, baseOp + 0.5 + Math.random() * 0.3).toFixed(2);
+    html += `<div class="lpx" style="background:${c}${baseOp.toFixed(2)});--dur:${dur}s;--del:${del}s;--lo:${baseOp.toFixed(2)};--hi:${hi};"></div>`;
+  }
+  grid.innerHTML = html;
+}
+buildLedGrid();
+
+/* ── 3D CARD TILT ──────────────────────── */
+document.querySelectorAll('.svc-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    card.style.transform = `translateY(-4px) rotateY(${x*10}deg) rotateX(${-y*8}deg)`;
+  });
+  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+});
+
+/* ── PARALLAX BEAMS ON SCROLL ──────────── */
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (Math.abs(y - lastScroll) < 2) return;
+  lastScroll = y;
+  document.querySelectorAll('.beam').forEach((b, i) => {
+    b.style.marginBottom = `${y * (0.04 + i * 0.015)}px`;
+  });
+}, { passive: true });
+
+/* ── FORM SUBMIT ───────────────────────── */
+function submitForm() {
+  const name  = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  if (!name)  { document.getElementById('f-name').focus(); return; }
+  if (!email) { document.getElementById('f-email').focus(); return; }
+  const success = document.getElementById('fSuccess');
+  success.style.display = 'block';
+  document.querySelectorAll('#contactForm input, #contactForm select, #contactForm textarea')
+    .forEach(f => f.value = '');
+  setTimeout(() => { success.style.display = 'none'; }, 6000);
+}
+
+
+/* ── GALLERY FILTER ────────────────────── */
+const galleryItems = [
+  { src:'img/IMG-20260416-WA0023.jpg', label:'Humanoids Summit — Corporate Event' },
+  { src:'img/IMG-20260416-WA0022.jpg', label:'Outdoor LED Screen — Truss Rig' },
+  { src:'img/IMG-20260416-WA0021.jpg', label:'Traverse 21 — LED Wall Setup' },
+  { src:'img/IMG-20260416-WA0020.jpg', label:'Speerit Day 2023 — Large Scale Corporate Gala' },
+  { src:'img/IMG-20260416-WA0019.jpg', label:'Private Dinner — LED Ambient' },
+  { src:'img/IMG-20260416-WA0006.jpg', label:'San Jose Civic — Live Show' },
+  { src:'img/IMG-20260416-WA0004.jpg', label:'Custom Circular LED Rig' },
+  { src:'img/IMG-20260416-WA0003.jpg', label:'iSMG Studio — Curved LED Wall' },
+  { src:'img/IMG-20260416-WA0018.jpg', label:'Traverse 21 — Live Stage' },
+  { src:'img/IMG-20260416-WA0017.jpg', label:'Alanija — Private Gala' },
+];
+let lbIndex = 0;
+
+function filterGallery(cat, btn) {
+  document.querySelectorAll('.gf-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#galleryGrid .g-item').forEach(item => {
+    const cats = item.dataset.cat || '';
+    item.style.display = (cat === 'all' || cats.includes(cat)) ? '' : 'none';
+  });
+}
+function openLightbox(idx) {
+  lbIndex = idx;
+  const item = galleryItems[idx];
+  document.getElementById('lbImg').src = item.src;
+  document.getElementById('lbCaption').textContent = item.label;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeLightboxOnBg(e) {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+}
+function lbNav(dir) {
+  lbIndex = (lbIndex + dir + galleryItems.length) % galleryItems.length;
+  const item = galleryItems[lbIndex];
+  const img = document.getElementById('lbImg');
+  img.style.opacity = '0';
+  setTimeout(() => {
+    img.src = item.src;
+    document.getElementById('lbCaption').textContent = item.label;
+    img.style.opacity = '1';
+  }, 150);
+}
+// Keyboard nav for lightbox
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'ArrowRight') lbNav(1);
+  if (e.key === 'ArrowLeft') lbNav(-1);
+  if (e.key === 'Escape') closeLightbox();
+});
+// Smooth image fade transition
+document.getElementById('lbImg').style.transition = 'opacity 0.15s ease';
+
+
+/* ── ANIMATED COUNTERS ─────────────────── */
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const duration = 1800;
+  const start = performance.now();
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = Math.floor(eased * target);
+    el.textContent = current + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+    else el.textContent = target + suffix;
+  }
+  requestAnimationFrame(update);
+}
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !e.target.dataset.counted) {
+      e.target.dataset.counted = '1';
+      animateCounter(e.target);
+      counterObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+/* ── PAGE INIT (iOS Safari safe) ── */
+// DOMContentLoaded handler in <head> sets home page active.
+// Fallback: if somehow nothing is active, go home.
+if (document.readyState !== 'loading') {
+  if (!document.querySelector('.page.active')) go('home');
+} else {
+  document.addEventListener('DOMContentLoaded', function() {
+    if (!document.querySelector('.page.active')) go('home');
+  });
+}
+</script>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/15107926800" target="_blank" rel="noopener noreferrer" class="float-wa" aria-label="Chat on WhatsApp">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+  <span>WhatsApp Us</span>
+  <div class="float-wa-dot"></div>
+</a>
+</body>
+</html>
