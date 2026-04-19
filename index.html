@@ -2639,77 +2639,166 @@ if (document.readyState !== 'loading') {
   });
 }
 </script>
-<!-- Chatbot Widget - Add this right before </body> -->
+<!-- Chatbot Widget - FIXED VERSION (Add this ONCE before </body>) -->
 <div id="chatbot-widget" style="position:fixed; bottom:100px; right:28px; z-index:1000; font-family:'Barlow',sans-serif;">
-  <button id="chat-toggle" style="background:var(--blue); border:none; width:56px; height:56px; border-radius:50%; cursor:pointer; box-shadow:0 4px 20px rgba(14,143,255,0.4); display:flex; align-items:center; justify-content:center; transition:transform 0.2s;">
+  <button id="chat-toggle" style="background:linear-gradient(135deg, var(--blue), var(--cyan)); border:none; width:56px; height:56px; border-radius:50%; cursor:pointer; box-shadow:0 4px 20px rgba(14,143,255,0.4); display:flex; align-items:center; justify-content:center; transition:transform 0.2s;">
     <svg width="28" height="28" viewBox="0 0 24 24" fill="white" stroke="none"><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2z"/></svg>
   </button>
-  <div id="chat-window" style="display:none; position:absolute; bottom:70px; right:0; width:320px; background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; box-shadow:0 20px 40px rgba(0,0,0,0.5);">
-    <div style="background:var(--blue); padding:14px 16px; color:white; font-weight:600; letter-spacing:1px;">EFX Support</div>
-    <div id="chat-messages" style="height:300px; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px;">
-      <div style="background:var(--blue-dim); padding:8px 12px; border-radius:12px; align-self:flex-start; font-size:13px;">👋 Hi! Need help with your event?</div>
+  <div id="chat-window" style="display:none; position:absolute; bottom:70px; right:0; width:350px; background:var(--card); border:1px solid var(--border); border-radius:16px; overflow:hidden; box-shadow:0 20px 40px rgba(0,0,0,0.5);">
+    <div style="background:linear-gradient(135deg, var(--blue), var(--cyan)); padding:14px 16px; color:white; font-weight:600; letter-spacing:1px; display:flex; align-items:center; gap:8px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white" stroke="none"><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2z"/></svg>
+      EFX AI Assistant
     </div>
-    <div style="padding:12px; border-top:1px solid var(--border); display:flex; gap:8px;">
-      <input type="text" id="chat-input" placeholder="Ask about services..." style="flex:1; background:var(--surface); border:1px solid var(--border); padding:10px; border-radius:20px; color:white; outline:none;">
-      <button id="chat-send" style="background:var(--blue); border:none; padding:8px 16px; border-radius:20px; color:white; cursor:pointer;">Send</button>
+    <div id="chat-messages" style="height:350px; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px;">
+      <div style="background:var(--blue-dim); padding:10px 14px; border-radius:16px; align-self:flex-start; font-size:13px; max-width:85%;">
+        👋 Hey there! I'm EFX AI. Ask me about:<br>
+        • EFX Production company info<br>
+        • Services (Audio, Lighting, LED, DJ)<br>
+        • Pricing & Quotes<br>
+        • Events (Corporate, Weddings, Private)<br>
+        • Contact & Location
+      </div>
+    </div>
+    <div style="padding:12px; border-top:1px solid var(--border); display:flex; gap:8px; background:var(--surface);">
+      <input type="text" id="chat-input" placeholder="Ask me about EFX, services, pricing..." style="flex:1; background:var(--card); border:1px solid var(--border); padding:12px; border-radius:24px; color:white; outline:none; font-size:13px;">
+      <button id="chat-send" style="background:var(--blue); border:none; padding:10px 20px; border-radius:24px; color:white; cursor:pointer; font-weight:500;">Send</button>
     </div>
   </div>
 </div>
-<script>
-// Simple chatbot responses
-const chatResponses = {
-  'price': 'Our pricing varies based on event size and requirements. Contact us for a free custom quote!',
-  'cost': 'We offer competitive rates. Get a free quote by filling out our contact form!',
-  'audio': 'We provide professional-grade sound systems, mixers, wireless mics, and line arrays for any venue size.',
-  'lighting': 'Our lighting services include stage lighting, ambient effects, moving heads, lasers, and camera systems.',
-  'led': 'Our LED division delivers high-resolution screens, custom configurations, and content management. Check our LED page!',
-  'dj': 'We partner with Rhythm by Anitesh for professional DJ services. Ask us about availability!',
-  'corporate': 'Yes! We specialize in corporate events, conferences, product launches, and galas.',
-  'wedding': 'Absolutely! We provide full wedding production - audio, lighting, LED, and DJ services.',
-  'quote': 'Click the "Get Free Quote" button or fill out our contact form! We respond within 24 hours.',
-  'contact': 'Call us at +1 (510) 792-6800, email info@efxproduction.com, or WhatsApp us!',
-  'default': 'Thanks for your message! Our team will get back to you shortly. For immediate help, call us at (510) 792-6800.'
-};
 
-document.getElementById('chat-toggle').onclick = () => {
-  const win = document.getElementById('chat-window');
-  win.style.display = win.style.display === 'none' ? 'block' : 'none';
-};
+<script>
+// FIXED: Enhanced chatbot with EFX keyword and better responses
+const chatResponses = [
+  // EFX COMPANY INFO - This is what you were missing!
+  { keywords: ['efx', 'about efx', 'what is efx', 'tell me about efx', 'efx production', 'company info', 'who are you'], 
+    response: '🎬 EFX Production is a full-service event production company based in Fremont, CA. We specialize in audio, lighting, LED walls, staging, and DJ services for corporate events, private parties, weddings, and live shows across the Bay Area, Los Angeles, and Washington State. We have 10+ years of experience and have produced 500+ successful events!' },
+  
+  { keywords: ['services', 'what do you do', 'offer', 'provide', 'what services'], 
+    response: '🔊 We offer: Audio Systems, Lighting Design, LED Walls, Staging, DJ Services, Corporate Events, Private Events, Weddings, and Equipment Rentals. Which service are you interested in?' },
+  
+  { keywords: ['audio', 'sound', 'speaker', 'mic', 'microphone', 'pa system'], 
+    response: '🎧 Our audio services include professional-grade sound systems, line arrays, digital mixers, wireless microphones, and in-ear monitoring. We ensure crystal-clear audio for any venue size!' },
+  
+  { keywords: ['lighting', 'lights', 'stage light', 'led light', 'camera'], 
+    response: '💡 We provide complete lighting solutions: stage lighting, moving heads, lasers, uplighting, ambient effects, and professional camera systems for live capture. Our lighting design transforms any venue!' },
+  
+  { keywords: ['led', 'screen', 'display', 'video wall', 'visual', 'led wall'], 
+    response: '📺 Our LED division (EFX LED Screens) delivers high-resolution LED walls, custom configurations, indoor/outdoor displays, and content management. Perfect for concerts, conferences, and brand activations!' },
+  
+  { keywords: ['dj', 'music', 'dj service', 'dj booking', 'rhythm'], 
+    response: '🎵 We partner with "Rhythm by Anitesh" for professional DJ services. Available for weddings, corporate events, private parties, and live shows. Ask us about availability and pricing!' },
+  
+  { keywords: ['corporate', 'conference', 'business', 'product launch', 'gala', 'company'], 
+    response: '🏢 Yes! We specialize in corporate events including conferences, product launches, brand activations, executive galas, and company parties. We handle full production - audio, lighting, LED walls, and staging.' },
+  
+  { keywords: ['wedding', 'marriage', 'ceremony', 'reception', 'bride', 'groom'], 
+    response: '💒 Absolutely! We provide complete wedding production: ceremony audio, reception lighting, LED dance floors, DJ services, and photo/video support. Let\'s make your special day unforgettable!' },
+  
+  { keywords: ['private', 'party', 'birthday', 'celebration', 'home', 'anniversary'], 
+    response: '🎉 Yes! We produce private events, birthday parties, anniversary celebrations, and exclusive shows. Intimate or grand - we tailor everything to your vision.' },
+  
+  { keywords: ['price', 'cost', 'quote', 'how much', 'pricing', 'budget', 'expensive'], 
+    response: '💰 Pricing varies based on event size, duration, equipment needs, and location. Good news: We offer FREE quotes! Click the "Get Free Quote" button or fill out our contact form. We respond within 24 hours.' },
+  
+  { keywords: ['contact', 'phone', 'email', 'reach', 'call', 'number'], 
+    response: '📞 You can reach us at: Phone: +1 (510) 792-6800 | Email: info@efxproduction.com | WhatsApp: +1 (510) 792-6800 | Address: 44711 Unit E, South Grimmer Blvd, Fremont, CA 94538' },
+  
+  { keywords: ['location', 'where', 'address', 'fremont', 'bay area', 'office'], 
+    response: '📍 We are based in Fremont, CA (44711 Unit E, South Grimmer Blvd) and serve the entire Bay Area, Los Angeles, and Washington State. We travel nationwide for large events!' },
+  
+  { keywords: ['hours', 'availability', '24/7', 'support', 'open'], 
+    response: '⏰ We offer 24/7 event support! Our team is available around the clock for setup, troubleshooting, and on-site production management. Regular business hours: Mon-Sat, 9AM-6PM.' },
+  
+  { keywords: ['rental', 'rent', 'equipment', 'generator', 'gear'], 
+    response: '🔌 Yes! We offer equipment rentals including power generators, staging components, and essential production gear. Contact us directly for rental availability and pricing.' },
+  
+  { keywords: ['experience', 'years', 'events done', 'portfolio', 'history'], 
+    response: '🏆 EFX Production has 10+ years of experience with 500+ successful events across corporate, private, and entertainment sectors. Check our Gallery page for real event photos!' },
+  
+  { keywords: ['hello', 'hi', 'hey', 'greetings', 'good morning', 'good evening', 'hola'], 
+    response: '👋 Hello! Welcome to EFX Production. How can I help you today? Feel free to ask about our services, pricing, or upcoming availability!' },
+  
+  { keywords: ['thanks', 'thank you', 'appreciate', 'good'], 
+    response: '🙏 You\'re welcome! We\'re here to help. Anything else you\'d like to know about EFX Production?' },
+  
+  { keywords: ['bye', 'goodbye', 'see you', 'bye bye'], 
+    response: '👋 Thank you for chatting! Feel free to reach out anytime. Have a great day! 🎉' }
+];
+
 function addMessage(text, isUser) {
   const msgs = document.getElementById('chat-messages');
   const div = document.createElement('div');
-  div.style.cssText = `background:${isUser ? 'var(--blue)' : 'var(--blue-dim)'}; padding:8px 12px; border-radius:12px; align-self:${isUser ? 'flex-end' : 'flex-start'}; font-size:13px; max-width:85%;`;
+  div.style.cssText = `background:${isUser ? 'var(--blue)' : 'var(--blue-dim)'}; padding:10px 14px; border-radius:16px; align-self:${isUser ? 'flex-end' : 'flex-start'}; font-size:13px; max-width:85%; white-space:pre-line;`;
   div.textContent = text;
   msgs.appendChild(div);
   msgs.scrollTop = msgs.scrollHeight;
 }
+
+function getResponse(userMessage) {
+  const msg = userMessage.toLowerCase().trim();
+  
+  for (let item of chatResponses) {
+    for (let keyword of item.keywords) {
+      if (msg.includes(keyword.toLowerCase())) {
+        return item.response;
+      }
+    }
+  }
+  
+  // Partial matches for common terms
+  if (msg.includes('stage')) return '🎭 We provide professional staging structures through trusted partners. Modular platforms, truss systems, and riser configurations available for any event size.';
+  if (msg.includes('outdoor')) return '🌳 Absolutely! Our LED screens and audio systems are available for outdoor events. Weather-resistant setups available upon request.';
+  
+  return "🤔 I'm not sure about that. You can ask me about:\n• EFX Production company info\n• Services (audio, lighting, LED, DJ)\n• Pricing & quotes\n• Corporate/private events\n• Contact & location";
+}
+
+// Setup event handlers
+document.getElementById('chat-toggle').onclick = () => {
+  const win = document.getElementById('chat-window');
+  win.style.display = win.style.display === 'none' ? 'block' : 'none';
+};
+
 document.getElementById('chat-send').onclick = () => {
   const input = document.getElementById('chat-input');
-  const msg = input.value.trim().toLowerCase();
+  const msg = input.value.trim();
   if (!msg) return;
-  addMessage(input.value, true);
+  
+  addMessage(msg, true);
   input.value = '';
-  let reply = chatResponses.default;
-  for (let [key, val] of Object.entries(chatResponses)) {
-    if (msg.includes(key)) { reply = val; break; }
-  }
-  setTimeout(() => addMessage(reply, false), 500);
+  
+  // Add typing indicator
+  const msgs = document.getElementById('chat-messages');
+  const typingDiv = document.createElement('div');
+  typingDiv.id = 'typing-indicator';
+  typingDiv.style.cssText = 'background:var(--blue-dim); padding:10px 14px; border-radius:16px; align-self:flex-start; font-size:13px;';
+  typingDiv.textContent = '●●●';
+  typingDiv.style.animation = 'pulse 1s ease infinite';
+  msgs.appendChild(typingDiv);
+  msgs.scrollTop = msgs.scrollHeight;
+  
+  setTimeout(() => {
+    const typing = document.getElementById('typing-indicator');
+    if (typing) typing.remove();
+    const reply = getResponse(msg);
+    addMessage(reply, false);
+  }, 800);
 };
+
 document.getElementById('chat-input').addEventListener('keypress', (e) => {
   if (e.key === 'Enter') document.getElementById('chat-send').click();
 });
+
+// Add animation CSS
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+`;
+document.head.appendChild(style);
 </script>
 
-<!-- FLOATING WHATSAPP -->
-<a href="https://wa.me/15107926800" target="_blank" rel="noopener noreferrer" class="float-wa" aria-label="Chat on WhatsApp">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
-  <span>WhatsApp Us</span>
-  <div class="float-wa-dot"></div>
-</a>
-</body>
-</html>
  
 
 <!-- FLOATING WHATSAPP -->
