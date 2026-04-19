@@ -862,42 +862,179 @@ nav.scrolled {
   background: var(--blue-dim); color: var(--blue);
   border-color: rgba(14,143,255,0.3);
 }
+/* Gallery Grid with Spacing & Animations */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3px;
-  padding: 24px 5vw 0;
+  gap: 20px;
+  padding: 40px 5vw 60px;
+  max-width: 1600px;
+  margin: 0 auto;
 }
+
 .gallery-grid.masonry {
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 200px;
+  grid-auto-rows: 240px;
 }
+
 .g-item {
-  position: relative; overflow: hidden;
-  cursor: pointer; background: var(--card);
-  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--card);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: galleryFadeIn 0.6s ease forwards;
 }
-.g-item.tall { grid-row: span 2; }
-.g-item.wide { grid-column: span 2; }
+
+/* Staggered animation delays */
+.g-item:nth-child(1) { animation-delay: 0.05s; }
+.g-item:nth-child(2) { animation-delay: 0.1s; }
+.g-item:nth-child(3) { animation-delay: 0.15s; }
+.g-item:nth-child(4) { animation-delay: 0.2s; }
+.g-item:nth-child(5) { animation-delay: 0.25s; }
+.g-item:nth-child(6) { animation-delay: 0.3s; }
+.g-item:nth-child(7) { animation-delay: 0.35s; }
+.g-item:nth-child(8) { animation-delay: 0.4s; }
+.g-item:nth-child(9) { animation-delay: 0.45s; }
+.g-item:nth-child(10) { animation-delay: 0.5s; }
+.g-item:nth-child(11) { animation-delay: 0.55s; }
+.g-item:nth-child(12) { animation-delay: 0.6s; }
+
+@keyframes galleryFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.g-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(14,143,255,0.5);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(14,143,255,0.2);
+}
+
+.g-item.tall {
+  grid-row: span 2;
+}
+
+.g-item.wide {
+  grid-column: span 2;
+}
+
 .g-item img {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
   display: block;
 }
-.g-item:hover img { transform: scale(1.05); }
-.g-item-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(4,4,6,0.85) 0%, transparent 55%);
-  opacity: 0; transition: opacity 0.3s;
-  display: flex; align-items: flex-end;
-  padding: 18px;
+
+.g-item:hover img {
+  transform: scale(1.08);
 }
-.g-item:hover .g-item-overlay { opacity: 1; }
+
+.g-item-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(4,4,6,0.95) 0%, rgba(4,4,6,0.5) 40%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+  border-radius: 8px;
+}
+
+.g-item:hover .g-item-overlay {
+  opacity: 1;
+}
+
 .g-item-label {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
   color: var(--white);
+  transform: translateY(20px);
+  transition: transform 0.4s ease 0.05s;
+  font-weight: 500;
+}
+
+.g-item:hover .g-item-label {
+  transform: translateY(0);
+}
+
+/* Image shimmer effect on hover */
+.g-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.6s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.g-item:hover::before {
+  left: 100%;
+}
+
+/* Responsive */
+@media(max-width: 900px) {
+  .gallery-grid {
+    gap: 15px;
+    padding: 30px 4vw 50px;
+  }
+  .gallery-grid.masonry {
+    grid-auto-rows: 200px;
+  }
+  .g-item-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+}
+
+@media(max-width: 640px) {
+  .gallery-grid {
+    gap: 12px;
+    padding: 20px 3vw 40px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .gallery-grid.masonry {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 160px;
+  }
+  .g-item.wide {
+    grid-column: span 1;
+  }
+  .g-item-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+  }
+  .g-item-overlay {
+    padding: 16px;
+  }
+}
+
+@media(max-width: 480px) {
+  .gallery-grid {
+    gap: 10px;
+    padding: 15px 3vw 30px;
+  }
+  .gallery-grid.masonry {
+    grid-auto-rows: 130px;
+  }
 }
 /* Lightbox */
 .lightbox {
@@ -1621,65 +1758,68 @@ nav {
         </div>
       </div>
       <div class="led-visual reveal d2">
-        <!-- Real LED event photo background -->
-        <img src="img/IMG-20260416-WA0022.jpg" alt="EFX LED Screen" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.5;">
-        <div class="led-grid-canvas" id="ledGrid" style="opacity:0.3;"></div>
-        <div class="led-over"></div>
-        <div class="led-label">
-          <!-- EFX LED Screens styled logo -->
-          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:20px;background:rgba(4,4,6,0.6);border-radius:4px;border:1px solid rgba(14,143,255,0.3);">
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3.5vw,42px);letter-spacing:6px;color:var(--white);text-shadow:0 0 30px var(--blue);">EFX <span style="color:var(--blue);">LED</span></div>
-            <div style="width:48px;height:1.5px;background:linear-gradient(90deg,var(--blue),var(--cyan));box-shadow:0 0 12px var(--blue);"></div>
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--cyan);">Screen Division</div>
-          </div>
-        </div>
-      </div>
+  <!-- Real LED event photo background -->
+  <img src="images/IMG-20260416-WA0022.jpg" alt="EFX LED Screen" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.5;">
+  <div class="led-grid-canvas" id="ledGrid" style="opacity:0.3;"></div>
+  <div class="led-over"></div>
+  <div class="led-label">
+    <!-- EFX LED Screens styled logo -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:20px;background:rgba(4,4,6,0.6);border-radius:4px;border:1px solid rgba(14,143,255,0.3);">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3.5vw,42px);letter-spacing:6px;color:var(--white);text-shadow:0 0 30px var(--blue);">EFX <span style="color:var(--blue);">LED</span></div>
+      <div style="width:48px;height:1.5px;background:linear-gradient(90deg,var(--blue),var(--cyan));box-shadow:0 0 12px var(--blue);"></div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--cyan);">Screen Division</div>
+    </div>
+  </div>
+</div>
     </div>
   </section>
 
   <div class="divider"></div>
 
   <!-- EVENTS -->
-  <section class="pad">
-    <div class="reveal">
-      <div class="section-label">What We Produce</div>
-      <h2 class="section-title">Events We <span class="accent">Execute</span></h2>
-    </div>
-    <div class="events-grid">
-      <!-- Corporate Event — concert/conference image from Unsplash (free) -->
-      <div class="event-card reveal d1" onclick="go('gallery')">
-        <div class="event-img" style="background-image:url('img/IMG-20260416-WA0023.jpg');background-size:cover;background-position:center;position:absolute;inset:0;"></div>
-        <div class="event-tint" style="background:rgba(0,10,40,0.45);"></div>
-        <div class="event-info">
-          <div class="event-tag">Professional</div>
-          <div class="event-title">Corporate Events</div>
-          <p class="event-desc">Conferences, product launches, brand activations, and executive galas — produced with precision.</p>
-        </div>
-      </div>
-      <div class="event-card reveal d2" onclick="go('gallery')">
-        <div class="event-img" style="background-image:url('img/IMG-20260416-WA0019.jpg');background-size:cover;background-position:center;position:absolute;inset:0;"></div>
-        <div class="event-tint" style="background:rgba(20,0,30,0.4);"></div>
-        <div class="event-info">
-          <div class="event-tag">Exclusive</div>
-          <div class="event-title">Private Events</div>
-          <p class="event-desc">Intimate celebrations, private parties, and exclusive shows crafted entirely to your vision.</p>
-        </div>
-      </div>
-      <div class="event-card reveal d3" onclick="go('gallery')">
-        <div class="event-img" style="background-image:url('img/IMG-20260416-WA0020.jpg');background-size:cover;background-position:center;position:absolute;inset:0;"></div>
-        <div class="event-tint" style="background:rgba(0,10,20,0.4);"></div>
-        <div class="event-info">
-          <div class="event-tag">Celebration</div>
-          <div class="event-title">Weddings &amp; Shows</div>
-          <p class="event-desc">Cinematic productions for weddings, live performances, and entertainment shows.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <div class="events-cta reveal" style="text-align:center;padding:0 5vw 60px;">
-    <p style="font-size:14px;color:var(--muted);margin-bottom:20px;font-weight:300;">Have a specific event in mind? Let's talk about making it exceptional.</p>
-    <button class="btn btn-blue" onclick="go('contact')">Discuss Your Event →</button>
+ <!-- EVENTS -->
+<section class="pad">
+  <div class="reveal">
+    <div class="section-label">What We Produce</div>
+    <h2 class="section-title">Events We <span class="accent">Execute</span></h2>
   </div>
+  <div class="events-grid">
+    <!-- Corporate Event -->
+    <div class="event-card reveal d1" onclick="go('gallery')">
+      <div class="event-img" style="background-image:url('images/IMG-20260416-WA0023.jpg');background-size:cover;background-position:center;position:absolute;inset:0;"></div>
+      <div class="event-tint" style="background:rgba(0,10,40,0.45);"></div>
+      <div class="event-info">
+        <div class="event-tag">Professional</div>
+        <div class="event-title">Corporate Events</div>
+        <p class="event-desc">Conferences, product launches, brand activations, and executive galas — produced with precision.</p>
+      </div>
+    </div>
+    <!-- Private Event -->
+    <div class="event-card reveal d2" onclick="go('gallery')">
+      <div class="event-img" style="background-image:url('images/IMG-20260416-WA0019.jpg');background-size:cover;background-position:center;position:absolute;inset:0;"></div>
+      <div class="event-tint" style="background:rgba(20,0,30,0.4);"></div>
+      <div class="event-info">
+        <div class="event-tag">Exclusive</div>
+        <div class="event-title">Private Events</div>
+        <p class="event-desc">Intimate celebrations, private parties, and exclusive shows crafted entirely to your vision.</p>
+      </div>
+    </div>
+    <!-- Weddings/Shows -->
+    <div class="event-card reveal d3" onclick="go('gallery')">
+      <div class="event-img" style="background-image:url('images/IMG-20260416-WA0020.jpg');background-size:cover;background-position:center;position:absolute;inset:0;"></div>
+      <div class="event-tint" style="background:rgba(0,10,20,0.4);"></div>
+      <div class="event-info">
+        <div class="event-tag">Celebration</div>
+        <div class="event-title">Weddings &amp; Shows</div>
+        <p class="event-desc">Cinematic productions for weddings, live performances, and entertainment shows.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="events-cta reveal" style="text-align:center;padding:0 5vw 60px;">
+  <p style="font-size:14px;color:var(--muted);margin-bottom:20px;font-weight:300;">Have a specific event in mind? Let's talk about making it exceptional.</p>
+  <button class="btn btn-blue" onclick="go('contact')">Discuss Your Event →</button>
+</div>
 
 
   <!-- WHY CHOOSE US -->
@@ -1964,14 +2104,13 @@ nav {
     </div>
   </div>
 
-  
-  <!-- REAL WORK PHOTOS STRIP -->
-  <div class="about-photos reveal" style="padding:0 5vw;">
-    <div class="about-photo"><img src="img/IMG-20260416-WA0023.jpg" alt="Humanoids Summit — Corporate Event" loading="lazy"></div>
-    <div class="about-photo"><img src="img/IMG-20260416-WA0022.jpg" alt="Outdoor LED Screen Setup" loading="lazy"></div>
-    <div class="about-photo"><img src="img/IMG-20260416-WA0021.jpg" alt="Traverse 21 — LED Wall" loading="lazy"></div>
-    <div class="about-photo"><img src="img/IMG-20260416-WA0006.jpg" alt="San Jose Civic — LED Screens" loading="lazy"></div>
-  </div>
+<!-- REAL WORK PHOTOS STRIP -->
+<div class="about-photos reveal" style="padding:0 5vw;">
+  <div class="about-photo"><img src="images/IMG-20260416-WA0023.jpg" alt="Humanoids Summit — Corporate Event" loading="lazy"></div>
+  <div class="about-photo"><img src="images/IMG-20260416-WA0022.jpg" alt="Outdoor LED Screen Setup" loading="lazy"></div>
+  <div class="about-photo"><img src="images/IMG-20260416-WA0021.jpg" alt="Traverse 21 — LED Wall" loading="lazy"></div>
+  <div class="about-photo"><img src="images/IMG-20260416-WA0006.jpg" alt="San Jose Civic — LED Screens" loading="lazy"></div>
+</div>
 
   <div class="divider"></div>
 
@@ -2145,58 +2284,74 @@ nav {
     <button class="gf-btn" onclick="filterGallery('stage',this)">Stage &amp; Lighting</button>
   </div>
 
-  <div class="gallery-grid masonry reveal d1" id="galleryGrid">
-    <!-- Corporate / Conference -->
-    <div class="g-item tall" data-cat="corporate" onclick="openLightbox(0)">
-      <img src="img/IMG-20260416-WA0023.jpg" alt="Humanoids Summit — Corporate Event" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060a1a,#0c1a40)'">
-      <div class="g-item-overlay"><div class="g-item-label">Humanoids Summit — Corporate</div></div>
-    </div>
-    <!-- Outdoor LED truss setup -->
-    <div class="g-item" data-cat="led stage" onclick="openLightbox(1)">
-      <img src="img/IMG-20260416-WA0022.jpg" alt="Outdoor LED Screen — Truss Rig" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060a1a,#0a1530)'">
-      <div class="g-item-overlay"><div class="g-item-label">Outdoor LED Screen — Truss Rig</div></div>
-    </div>
-    <!-- Traverse 21 LED Wall -->
-    <div class="g-item" data-cat="led corporate" onclick="openLightbox(2)">
-      <img src="img/IMG-20260416-WA0021.jpg" alt="Traverse 21 — LED Wall Setup" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060c20,#0c1840)'">
-      <div class="g-item-overlay"><div class="g-item-label">Traverse 21 — LED Wall Setup</div></div>
-    </div>
-    <!-- Speerit Day large corporate gala -->
-    <div class="g-item wide" data-cat="corporate" onclick="openLightbox(3)">
-      <img src="img/IMG-20260416-WA0020.jpg" alt="Moments That Matter — Speerit Day 2023" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#100608,#280c18)'">
-      <div class="g-item-overlay"><div class="g-item-label">Speerit Day 2023 — Large Scale Corporate Gala</div></div>
-    </div>
-    <!-- Elegant private dinner -->
-    <div class="g-item tall" data-cat="private" onclick="openLightbox(4)">
-      <img src="img/IMG-20260416-WA0019.jpg" alt="Private Dinner Event" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060f08,#0c2618)'">
-      <div class="g-item-overlay"><div class="g-item-label">Private Dinner — LED Ambient</div></div>
-    </div>
-    <!-- San Jose Civic -->
-    <div class="g-item" data-cat="led stage" onclick="openLightbox(5)">
-      <img src="img/IMG-20260416-WA0006.jpg" alt="San Jose Civic" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060a1a,#0c1a40)'">
-      <div class="g-item-overlay"><div class="g-item-label">San Jose Civic — Live Show</div></div>
-    </div>
-    <!-- Circular LED truss ring -->
-    <div class="g-item" data-cat="led stage" onclick="openLightbox(6)">
-      <img src="img/IMG-20260416-WA0004.jpg" alt="Circular LED Rig" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060a1a,#091430)'">
-      <div class="g-item-overlay"><div class="g-item-label">Custom Circular LED Rig</div></div>
-    </div>
-    <!-- iSMG Studio -->
-    <div class="g-item wide" data-cat="led corporate" onclick="openLightbox(7)">
-      <img src="img/IMG-20260416-WA0003.jpg" alt="iSMG Studio" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#060a1a,#0a1428)'">
-      <div class="g-item-overlay"><div class="g-item-label">iSMG Studio — Curved LED Wall</div></div>
-    </div>
-    <!-- Traverse 21 live stage -->
-    <div class="g-item" data-cat="stage corporate" onclick="openLightbox(8)">
-      <img src="img/IMG-20260416-WA0018.jpg" alt="Traverse 21 Live Stage" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#080610,#140c28)'">
-      <div class="g-item-overlay"><div class="g-item-label">Traverse 21 — Live Stage</div></div>
-    </div>
-    <!-- Alanija private gala -->
-    <div class="g-item" data-cat="private" onclick="openLightbox(9)">
-      <img src="img/IMG-20260416-WA0017.jpg" alt="Alanija Private Gala" loading="lazy" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#100608,#280c18)'">
-      <div class="g-item-overlay"><div class="g-item-label">Alanija — Private Gala</div></div>
-    </div>
+ <!-- GALLERY GRID HTML -->
+<div class="gallery-grid masonry reveal d1" id="galleryGrid">
+  <!-- Image 1 - Alanija Private Gala -->
+  <div class="g-item tall" data-cat="private" onclick="openLightbox(0)">
+    <img src="images/IMG-20260416-WA0017.jpg" alt="Alanija Private Gala" loading="lazy" onerror="this.style.display='none'">
+    <div class="g-item-overlay"><div class="g-item-label">Alanija — Private Gala</div></div>
   </div>
+  
+  <!-- Image 2 - iSMG Curved LED Wall -->
+  <div class="g-item" data-cat="led corporate" onclick="openLightbox(1)">
+    <img src="images/IMG-20260416-WA0003.jpg" alt="iSMG Curved LED Wall" loading="lazy" onerror="this.style.display='none'">
+    <div class="g-item-overlay"><div class="g-item-label">iSMG Studio — Curved LED</div></div>
+  </div>
+  
+  <!-- Image 3 - Event Setup -->
+  <div class="g-item" data-cat="corporate" onclick="openLightbox(2)">
+    <img src="images/IMG-20260416-WA0005.jpg" alt="Corporate Event Setup" loading="lazy" onerror="this.style.display='none'">
+    <div class="g-item-overlay"><div class="g-item-label">Corporate Production Setup</div></div>
+  </div>
+  
+  <!-- Image 4 - San Jose Civic -->
+  <div class="g-item wide" data-cat="led stage" onclick="openLightbox(3)">
+    <img src="images/IMG-20260416-WA0006.jpg" alt="San Jose Civic Live Show" loading="lazy" onerror="this.style.display='none'">
+    <div class="g-item-overlay"><div class="g-item-label">San Jose Civic — Live Show</div></div>
+  </div>
+  
+  <!-- Image 5 - Corporate Production -->
+  <div class="g-item" data-cat="corporate" onclick="openLightbox(4)">
+    <img src="images/IMG-20260416-WA0010.jpg" alt="Corporate Production" loading="lazy" onerror="this.style.display='none'">
+    <div class="g-item-overlay"><div class="g-item-label">Corporate Event Production</div></div>
+  </div>
+  
+  <!-- Image 6 - Traverse 21 Live Stage -->
+  <div class="g-item" data-cat="stage corporate" onclick="openLightbox(5)">
+    <img src="images/IMG-20260416-WA0018.jpg" alt="Traverse 21 Live Stage" loading="lazy" onerror="this.style.display='none'">
+    <div class="g-item-overlay"><div class="g-item-label">Traverse 21 — Live Stage</div></div>
+  </div>
+  
+  <!-- Image 7 - Private Dinner LED -->
+  <div class="g-item tall" data-cat="private" onclick="openLightbox(6)">
+    <img src="images/IMG-20260416-WA0019.jpg" alt="Private Dinner LED Ambient" loading="lazy" onerror="this.style.display='none'">
+    <div class="g-item-overlay"><div class="g-item-label">Private Dinner — LED Ambient</div></div>
+  </div>
+  
+  <!-- Image 8 - Speerit Day Gala -->
+  <div class="g-item wide" data-cat="corporate" onclick="openLightbox(7)">
+    <img src="images/IMG-20260416-WA0020.jpg" alt="Speerit Day Corporate Gala" loading="lazy" onerror="this.style.display='none'">
+    <div class="g-item-overlay"><div class="g-item-label">Speerit Day 2023 — Corporate Gala</div></div>
+  </div>
+  
+  <!-- Image 9 - Traverse 21 LED Wall -->
+  <div class="g-item" data-cat="led corporate" onclick="openLightbox(8)">
+    <img src="images/IMG-20260416-WA0021.jpg" alt="Traverse 21 LED Wall" loading="lazy" onerror="this.style.display='none'">
+    <div class="g-item-overlay"><div class="g-item-label">Traverse 21 — LED Wall Setup</div></div>
+  </div>
+  
+  <!-- Image 10 - Outdoor LED Truss -->
+  <div class="g-item" data-cat="led stage" onclick="openLightbox(9)">
+    <img src="images/IMG-20260416-WA0022.jpg" alt="Outdoor LED Truss Rig" loading="lazy" onerror="this.style.display='none'">
+    <div class="g-item-overlay"><div class="g-item-label">Outdoor LED Screen — Truss Rig</div></div>
+  </div>
+  
+  <!-- Image 11 - Humanoids Summit -->
+  <div class="g-item tall" data-cat="corporate" onclick="openLightbox(10)">
+    <img src="images/IMG-20260416-WA0023.jpg" alt="Humanoids Summit Corporate" loading="lazy" onerror="this.style.display='none'">
+    <div class="g-item-overlay"><div class="g-item-label">Humanoids Summit — Corporate Event</div></div>
+  </div>
+</div>
 
   <section class="cta-band" style="padding-top:60px;">
     <h2 class="cta-title reveal">Your Event <span class="accent">Next</span></h2>
@@ -2383,18 +2538,21 @@ function submitForm() {
 
 
 /* ── GALLERY FILTER ────────────────────── */
+// Find this array and replace with:
 const galleryItems = [
-  { src:'img/IMG-20260416-WA0023.jpg', label:'Humanoids Summit — Corporate Event' },
-  { src:'img/IMG-20260416-WA0022.jpg', label:'Outdoor LED Screen — Truss Rig' },
-  { src:'img/IMG-20260416-WA0021.jpg', label:'Traverse 21 — LED Wall Setup' },
-  { src:'img/IMG-20260416-WA0020.jpg', label:'Speerit Day 2023 — Large Scale Corporate Gala' },
-  { src:'img/IMG-20260416-WA0019.jpg', label:'Private Dinner — LED Ambient' },
-  { src:'img/IMG-20260416-WA0006.jpg', label:'San Jose Civic — Live Show' },
-  { src:'img/IMG-20260416-WA0004.jpg', label:'Custom Circular LED Rig' },
-  { src:'img/IMG-20260416-WA0003.jpg', label:'iSMG Studio — Curved LED Wall' },
-  { src:'img/IMG-20260416-WA0018.jpg', label:'Traverse 21 — Live Stage' },
-  { src:'img/IMG-20260416-WA0017.jpg', label:'Alanija — Private Gala' },
+  { src:'images/IMG-20260416-WA0017.jpg', label:'Alanija — Private Gala' },
+  { src:'images/IMG-20260416-WA0003.jpg', label:'iSMG Studio — Curved LED Wall' },
+  { src:'images/IMG-20260416-WA0005.jpg', label:'Corporate Production Setup' },
+  { src:'images/IMG-20260416-WA0006.jpg', label:'San Jose Civic — Live Show' },
+  { src:'images/IMG-20260416-WA0010.jpg', label:'Corporate Event Production' },
+  { src:'images/IMG-20260416-WA0018.jpg', label:'Traverse 21 — Live Stage' },
+  { src:'images/IMG-20260416-WA0019.jpg', label:'Private Dinner — LED Ambient' },
+  { src:'images/IMG-20260416-WA0020.jpg', label:'Speerit Day 2023 — Corporate Gala' },
+  { src:'images/IMG-20260416-WA0021.jpg', label:'Traverse 21 — LED Wall Setup' },
+  { src:'images/IMG-20260416-WA0022.jpg', label:'Outdoor LED Screen — Truss Rig' },
+  { src:'images/IMG-20260416-WA0023.jpg', label:'Humanoids Summit — Corporate Event' },
 ];
+
 let lbIndex = 0;
 
 function filterGallery(cat, btn) {
@@ -2481,6 +2639,66 @@ if (document.readyState !== 'loading') {
   });
 }
 </script>
+<!-- Chatbot Widget - Add this right before </body> -->
+<div id="chatbot-widget" style="position:fixed; bottom:100px; right:28px; z-index:1000; font-family:'Barlow',sans-serif;">
+  <button id="chat-toggle" style="background:var(--blue); border:none; width:56px; height:56px; border-radius:50%; cursor:pointer; box-shadow:0 4px 20px rgba(14,143,255,0.4); display:flex; align-items:center; justify-content:center; transition:transform 0.2s;">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white" stroke="none"><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2z"/></svg>
+  </button>
+  <div id="chat-window" style="display:none; position:absolute; bottom:70px; right:0; width:320px; background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; box-shadow:0 20px 40px rgba(0,0,0,0.5);">
+    <div style="background:var(--blue); padding:14px 16px; color:white; font-weight:600; letter-spacing:1px;">EFX Support</div>
+    <div id="chat-messages" style="height:300px; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px;">
+      <div style="background:var(--blue-dim); padding:8px 12px; border-radius:12px; align-self:flex-start; font-size:13px;">👋 Hi! Need help with your event?</div>
+    </div>
+    <div style="padding:12px; border-top:1px solid var(--border); display:flex; gap:8px;">
+      <input type="text" id="chat-input" placeholder="Ask about services..." style="flex:1; background:var(--surface); border:1px solid var(--border); padding:10px; border-radius:20px; color:white; outline:none;">
+      <button id="chat-send" style="background:var(--blue); border:none; padding:8px 16px; border-radius:20px; color:white; cursor:pointer;">Send</button>
+    </div>
+  </div>
+</div>
+<script>
+// Simple chatbot responses
+const chatResponses = {
+  'price': 'Our pricing varies based on event size and requirements. Contact us for a free custom quote!',
+  'cost': 'We offer competitive rates. Get a free quote by filling out our contact form!',
+  'audio': 'We provide professional-grade sound systems, mixers, wireless mics, and line arrays for any venue size.',
+  'lighting': 'Our lighting services include stage lighting, ambient effects, moving heads, lasers, and camera systems.',
+  'led': 'Our LED division delivers high-resolution screens, custom configurations, and content management. Check our LED page!',
+  'dj': 'We partner with Rhythm by Anitesh for professional DJ services. Ask us about availability!',
+  'corporate': 'Yes! We specialize in corporate events, conferences, product launches, and galas.',
+  'wedding': 'Absolutely! We provide full wedding production - audio, lighting, LED, and DJ services.',
+  'quote': 'Click the "Get Free Quote" button or fill out our contact form! We respond within 24 hours.',
+  'contact': 'Call us at +1 (510) 792-6800, email info@efxproduction.com, or WhatsApp us!',
+  'default': 'Thanks for your message! Our team will get back to you shortly. For immediate help, call us at (510) 792-6800.'
+};
+
+document.getElementById('chat-toggle').onclick = () => {
+  const win = document.getElementById('chat-window');
+  win.style.display = win.style.display === 'none' ? 'block' : 'none';
+};
+function addMessage(text, isUser) {
+  const msgs = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.style.cssText = `background:${isUser ? 'var(--blue)' : 'var(--blue-dim)'}; padding:8px 12px; border-radius:12px; align-self:${isUser ? 'flex-end' : 'flex-start'}; font-size:13px; max-width:85%;`;
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+document.getElementById('chat-send').onclick = () => {
+  const input = document.getElementById('chat-input');
+  const msg = input.value.trim().toLowerCase();
+  if (!msg) return;
+  addMessage(input.value, true);
+  input.value = '';
+  let reply = chatResponses.default;
+  for (let [key, val] of Object.entries(chatResponses)) {
+    if (msg.includes(key)) { reply = val; break; }
+  }
+  setTimeout(() => addMessage(reply, false), 500);
+};
+document.getElementById('chat-input').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') document.getElementById('chat-send').click();
+});
+</script>
 
 <!-- FLOATING WHATSAPP -->
 <a href="https://wa.me/15107926800" target="_blank" rel="noopener noreferrer" class="float-wa" aria-label="Chat on WhatsApp">
@@ -2492,3 +2710,4 @@ if (document.readyState !== 'loading') {
 </a>
 </body>
 </html>
+ 
