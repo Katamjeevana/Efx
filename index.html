@@ -2284,71 +2284,135 @@ nav {
     <button class="gf-btn" onclick="filterGallery('stage',this)">Stage &amp; Lighting</button>
   </div>
 
- <!-- GALLERY GRID HTML -->
+ <!-- GALLERY GRID HTML with Videos & Images -->
 <div class="gallery-grid masonry reveal d1" id="galleryGrid">
-  <!-- Image 1 - Alanija Private Gala -->
-  <div class="g-item tall" data-cat="private" onclick="openLightbox(0)">
-    <img src="images/IMG-20260416-WA0017.jpg" alt="Alanija Private Gala" loading="lazy" onerror="this.style.display='none'">
+  
+  <!-- VIDEO 1 -->
+  <div class="g-item" data-cat="corporate" onclick="openLightboxVideo(0)">
+    <video src="images/VID-20260416-WA0002.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
+    <div class="video-badge">📹 EVENT HIGHLIGHT</div>
+    <div class="g-item-overlay"><div class="g-item-label">Event Highlight Reel</div></div>
+  </div>
+  
+  <!-- VIDEO 2 -->
+  <div class="g-item wide" data-cat="corporate" onclick="openLightboxVideo(1)">
+    <video src="images/VID-20260416-WA0007.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
+    <div class="video-badge">📹 CORPORATE EVENT</div>
+    <div class="g-item-overlay"><div class="g-item-label">Corporate Production</div></div>
+  </div>
+  
+  <!-- VIDEO 3 -->
+  <div class="g-item tall" data-cat="stage" onclick="openLightboxVideo(2)">
+    <video src="images/VID-20260416-WA0008.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
+    <div class="video-badge">📹 LIVE STAGE</div>
+    <div class="g-item-overlay"><div class="g-item-label">Live Stage Production</div></div>
+  </div>
+  
+  <!-- VIDEO 4 -->
+  <div class="g-item" data-cat="led" onclick="openLightboxVideo(3)">
+    <video src="images/VID-20260416-WA0009.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
+    <div class="video-badge">📹 LED DISPLAY</div>
+    <div class="g-item-overlay"><div class="g-item-label">LED Wall in Action</div></div>
+  </div>
+  
+  <!-- VIDEO 5 -->
+  <div class="g-item wide" data-cat="private" onclick="openLightboxVideo(4)">
+    <video src="images/VID-20260416-WA0011.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
+    <div class="video-badge">📹 PRIVATE EVENT</div>
+    <div class="g-item-overlay"><div class="g-item-label">Private Celebration</div></div>
+  </div>
+  
+  <!-- VIDEO 6 -->
+  <div class="g-item" data-cat="stage" onclick="openLightboxVideo(5)">
+    <video src="images/VID-20260416-WA0012.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
+    <div class="video-badge">📹 CONCERT LIGHTS</div>
+    <div class="g-item-overlay"><div class="g-item-label">Concert Lighting Setup</div></div>
+  </div>
+  
+  <!-- VIDEO 7 -->
+  <div class="g-item tall" data-cat="corporate" onclick="openLightboxVideo(6)">
+    <video src="images/VID-20260416-WA0013.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
+    <div class="video-badge">📹 CONFERENCE</div>
+    <div class="g-item-overlay"><div class="g-item-label">Corporate Conference</div></div>
+  </div>
+  
+  <!-- VIDEO 8 -->
+  <div class="g-item" data-cat="led" onclick="openLightboxVideo(7)">
+    <video src="images/VID-20260416-WA0014.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
+    <div class="video-badge">📹 LED WALL</div>
+    <div class="g-item-overlay"><div class="g-item-label">LED Screen Display</div></div>
+  </div>
+  
+  <!-- VIDEO 9 -->
+  <div class="g-item wide" data-cat="private" onclick="openLightboxVideo(8)">
+    <video src="images/VID-20260416-WA0015.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
+    <div class="video-badge">📹 WEDDING</div>
+    <div class="g-item-overlay"><div class="g-item-label">Wedding Production</div></div>
+  </div>
+
+  <!-- IMAGE 1 - Alanija Private Gala -->
+  <div class="g-item tall" data-cat="private" onclick="openLightbox(9)">
+    <img src="images/IMG-20260416-WA0017.jpg" alt="Alanija Private Gala" loading="lazy">
     <div class="g-item-overlay"><div class="g-item-label">Alanija — Private Gala</div></div>
   </div>
   
-  <!-- Image 2 - iSMG Curved LED Wall -->
-  <div class="g-item" data-cat="led corporate" onclick="openLightbox(1)">
-    <img src="images/IMG-20260416-WA0003.jpg" alt="iSMG Curved LED Wall" loading="lazy" onerror="this.style.display='none'">
+  <!-- IMAGE 2 - iSMG Curved LED Wall -->
+  <div class="g-item" data-cat="led corporate" onclick="openLightbox(10)">
+    <img src="images/IMG-20260416-WA0003.jpg" alt="iSMG Curved LED Wall" loading="lazy">
     <div class="g-item-overlay"><div class="g-item-label">iSMG Studio — Curved LED</div></div>
   </div>
   
-  <!-- Image 3 - Event Setup -->
-  <div class="g-item" data-cat="corporate" onclick="openLightbox(2)">
-    <img src="images/IMG-20260416-WA0005.jpg" alt="Corporate Event Setup" loading="lazy" onerror="this.style.display='none'">
+  <!-- IMAGE 3 - Event Setup -->
+  <div class="g-item" data-cat="corporate" onclick="openLightbox(11)">
+    <img src="images/IMG-20260416-WA0005.jpg" alt="Corporate Event Setup" loading="lazy">
     <div class="g-item-overlay"><div class="g-item-label">Corporate Production Setup</div></div>
   </div>
   
-  <!-- Image 4 - San Jose Civic -->
-  <div class="g-item wide" data-cat="led stage" onclick="openLightbox(3)">
-    <img src="images/IMG-20260416-WA0006.jpg" alt="San Jose Civic Live Show" loading="lazy" onerror="this.style.display='none'">
+  <!-- IMAGE 4 - San Jose Civic -->
+  <div class="g-item wide" data-cat="led stage" onclick="openLightbox(12)">
+    <img src="images/IMG-20260416-WA0006.jpg" alt="San Jose Civic Live Show" loading="lazy">
     <div class="g-item-overlay"><div class="g-item-label">San Jose Civic — Live Show</div></div>
   </div>
   
-  <!-- Image 5 - Corporate Production -->
-  <div class="g-item" data-cat="corporate" onclick="openLightbox(4)">
-    <img src="images/IMG-20260416-WA0010.jpg" alt="Corporate Production" loading="lazy" onerror="this.style.display='none'">
+  <!-- IMAGE 5 - Corporate Production -->
+  <div class="g-item" data-cat="corporate" onclick="openLightbox(13)">
+    <img src="images/IMG-20260416-WA0010.jpg" alt="Corporate Production" loading="lazy">
     <div class="g-item-overlay"><div class="g-item-label">Corporate Event Production</div></div>
   </div>
   
-  <!-- Image 6 - Traverse 21 Live Stage -->
-  <div class="g-item" data-cat="stage corporate" onclick="openLightbox(5)">
-    <img src="images/IMG-20260416-WA0018.jpg" alt="Traverse 21 Live Stage" loading="lazy" onerror="this.style.display='none'">
+  <!-- IMAGE 6 - Traverse 21 Live Stage -->
+  <div class="g-item" data-cat="stage corporate" onclick="openLightbox(14)">
+    <img src="images/IMG-20260416-WA0018.jpg" alt="Traverse 21 Live Stage" loading="lazy">
     <div class="g-item-overlay"><div class="g-item-label">Traverse 21 — Live Stage</div></div>
   </div>
   
-  <!-- Image 7 - Private Dinner LED -->
-  <div class="g-item tall" data-cat="private" onclick="openLightbox(6)">
-    <img src="images/IMG-20260416-WA0019.jpg" alt="Private Dinner LED Ambient" loading="lazy" onerror="this.style.display='none'">
+  <!-- IMAGE 7 - Private Dinner LED -->
+  <div class="g-item tall" data-cat="private" onclick="openLightbox(15)">
+    <img src="images/IMG-20260416-WA0019.jpg" alt="Private Dinner LED Ambient" loading="lazy">
     <div class="g-item-overlay"><div class="g-item-label">Private Dinner — LED Ambient</div></div>
   </div>
   
-  <!-- Image 8 - Speerit Day Gala -->
-  <div class="g-item wide" data-cat="corporate" onclick="openLightbox(7)">
-    <img src="images/IMG-20260416-WA0020.jpg" alt="Speerit Day Corporate Gala" loading="lazy" onerror="this.style.display='none'">
+  <!-- IMAGE 8 - Speerit Day Gala -->
+  <div class="g-item wide" data-cat="corporate" onclick="openLightbox(16)">
+    <img src="images/IMG-20260416-WA0020.jpg" alt="Speerit Day Corporate Gala" loading="lazy">
     <div class="g-item-overlay"><div class="g-item-label">Speerit Day 2023 — Corporate Gala</div></div>
   </div>
   
-  <!-- Image 9 - Traverse 21 LED Wall -->
-  <div class="g-item" data-cat="led corporate" onclick="openLightbox(8)">
-    <img src="images/IMG-20260416-WA0021.jpg" alt="Traverse 21 LED Wall" loading="lazy" onerror="this.style.display='none'">
+  <!-- IMAGE 9 - Traverse 21 LED Wall -->
+  <div class="g-item" data-cat="led corporate" onclick="openLightbox(17)">
+    <img src="images/IMG-20260416-WA0021.jpg" alt="Traverse 21 LED Wall" loading="lazy">
     <div class="g-item-overlay"><div class="g-item-label">Traverse 21 — LED Wall Setup</div></div>
   </div>
   
-  <!-- Image 10 - Outdoor LED Truss -->
-  <div class="g-item" data-cat="led stage" onclick="openLightbox(9)">
-    <img src="images/IMG-20260416-WA0022.jpg" alt="Outdoor LED Truss Rig" loading="lazy" onerror="this.style.display='none'">
+  <!-- IMAGE 10 - Outdoor LED Truss -->
+  <div class="g-item" data-cat="led stage" onclick="openLightbox(18)">
+    <img src="images/IMG-20260416-WA0022.jpg" alt="Outdoor LED Truss Rig" loading="lazy">
     <div class="g-item-overlay"><div class="g-item-label">Outdoor LED Screen — Truss Rig</div></div>
   </div>
   
-  <!-- Image 11 - Humanoids Summit -->
-  <div class="g-item tall" data-cat="corporate" onclick="openLightbox(10)">
-    <img src="images/IMG-20260416-WA0023.jpg" alt="Humanoids Summit Corporate" loading="lazy" onerror="this.style.display='none'">
+  <!-- IMAGE 11 - Humanoids Summit -->
+  <div class="g-item tall" data-cat="corporate" onclick="openLightbox(19)">
+    <img src="images/IMG-20260416-WA0023.jpg" alt="Humanoids Summit Corporate" loading="lazy">
     <div class="g-item-overlay"><div class="g-item-label">Humanoids Summit — Corporate Event</div></div>
   </div>
 </div>
@@ -2383,11 +2447,12 @@ nav {
   </footer>
 </div><!-- /gallery -->
 
-<!-- LIGHTBOX -->
+<!-- LIGHTBOX - Add video element -->
 <div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
   <button class="lightbox-close" onclick="closeLightbox()">✕</button>
   <button class="lightbox-nav lightbox-prev" onclick="lbNav(-1)">&#8249;</button>
-  <img class="lightbox-img" id="lbImg" src="" alt="">
+  <img class="lightbox-img" id="lbImg" src="" alt="" style="display:block;">
+  <video class="lightbox-img" id="lbVideo" style="display:none;" muted autoplay loop playsinline disableRemotePlayback></video>
   <button class="lightbox-nav lightbox-next" onclick="lbNav(1)">&#8250;</button>
   <div class="lightbox-caption" id="lbCaption"></div>
 </div>
@@ -2552,6 +2617,20 @@ const galleryItems = [
   { src:'images/IMG-20260416-WA0022.jpg', label:'Outdoor LED Screen — Truss Rig' },
   { src:'images/IMG-20260416-WA0023.jpg', label:'Humanoids Summit — Corporate Event' },
 ];
+const videoItems = [
+  { src:'images/VID-20260416-WA0002.mp4', label:'Event Highlight Reel', type:'video' },
+  { src:'images/VID-20260416-WA0007.mp4', label:'Corporate Production', type:'video' },
+  { src:'images/VID-20260416-WA0008.mp4', label:'Live Stage Production', type:'video' },
+  { src:'images/VID-20260416-WA0009.mp4', label:'LED Wall in Action', type:'video' },
+  { src:'images/VID-20260416-WA0011.mp4', label:'Private Celebration', type:'video' },
+  { src:'images/VID-20260416-WA0012.mp4', label:'Concert Lighting Setup', type:'video' },
+  { src:'images/VID-20260416-WA0013.mp4', label:'Corporate Conference', type:'video' },
+  { src:'images/VID-20260416-WA0014.mp4', label:'LED Screen Display', type:'video' },
+  { src:'images/VID-20260416-WA0015.mp4', label:'Wedding Production', type:'video' },
+];
+
+let currentMediaIndex = 0;
+let currentMediaType = 'image';
 
 let lbIndex = 0;
 
@@ -2563,14 +2642,75 @@ function filterGallery(cat, btn) {
     item.style.display = (cat === 'all' || cats.includes(cat)) ? '' : 'none';
   });
 }
-function openLightbox(idx) {
-  lbIndex = idx;
-  const item = galleryItems[idx];
-  document.getElementById('lbImg').src = item.src;
+// Video Lightbox functions
+function openLightboxVideo(idx) {
+  currentMediaIndex = idx;
+  currentMediaType = 'video';
+  const item = videoItems[idx];
+  const lbImg = document.getElementById('lbImg');
+  const lbVideo = document.getElementById('lbVideo');
+  
+  // Hide image, show video
+  lbImg.style.display = 'none';
+  lbVideo.style.display = 'block';
+  lbVideo.src = item.src;
+  lbVideo.muted = true;
+  lbVideo.autoplay = true;
+  lbVideo.loop = true;
+  lbVideo.playsInline = true;
+  lbVideo.play();
+  
   document.getElementById('lbCaption').textContent = item.label;
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
+
+function openLightbox(idx) {
+  currentMediaIndex = idx;
+  currentMediaType = 'image';
+  const item = galleryItems[idx];
+  const lbImg = document.getElementById('lbImg');
+  const lbVideo = document.getElementById('lbVideo');
+  
+  // Hide video, show image
+  lbVideo.style.display = 'none';
+  lbVideo.pause();
+  lbImg.style.display = 'block';
+  lbImg.src = item.src;
+  
+  document.getElementById('lbCaption').textContent = item.label;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function lbNav(dir) {
+  if (currentMediaType === 'image') {
+    currentMediaIndex = (currentMediaIndex + dir + galleryItems.length) % galleryItems.length;
+    const item = galleryItems[currentMediaIndex];
+    const img = document.getElementById('lbImg');
+    img.style.opacity = '0';
+    setTimeout(() => {
+      img.src = item.src;
+      document.getElementById('lbCaption').textContent = item.label;
+      img.style.opacity = '1';
+    }, 150);
+  } else {
+    currentMediaIndex = (currentMediaIndex + dir + videoItems.length) % videoItems.length;
+    const item = videoItems[currentMediaIndex];
+    const video = document.getElementById('lbVideo');
+    video.style.opacity = '0';
+    setTimeout(() => {
+      video.src = item.src;
+      video.muted = true;
+      video.autoplay = true;
+      video.loop = true;
+      video.play();
+      document.getElementById('lbCaption').textContent = item.label;
+      video.style.opacity = '1';
+    }, 150);
+  }
+}
+
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
   document.body.style.overflow = '';
@@ -2578,26 +2718,7 @@ function closeLightbox() {
 function closeLightboxOnBg(e) {
   if (e.target === document.getElementById('lightbox')) closeLightbox();
 }
-function lbNav(dir) {
-  lbIndex = (lbIndex + dir + galleryItems.length) % galleryItems.length;
-  const item = galleryItems[lbIndex];
-  const img = document.getElementById('lbImg');
-  img.style.opacity = '0';
-  setTimeout(() => {
-    img.src = item.src;
-    document.getElementById('lbCaption').textContent = item.label;
-    img.style.opacity = '1';
-  }, 150);
-}
-// Keyboard nav for lightbox
-document.addEventListener('keydown', e => {
-  if (!document.getElementById('lightbox').classList.contains('open')) return;
-  if (e.key === 'ArrowRight') lbNav(1);
-  if (e.key === 'ArrowLeft') lbNav(-1);
-  if (e.key === 'Escape') closeLightbox();
-});
-// Smooth image fade transition
-document.getElementById('lbImg').style.transition = 'opacity 0.15s ease';
+
 
 
 /* ── ANIMATED COUNTERS ─────────────────── */
