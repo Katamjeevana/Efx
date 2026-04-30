@@ -1559,6 +1559,37 @@ nav {
 .g-item.is-video {
   position: relative;
 }
+
+/* Gallery video thumbnail improvements */
+.g-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+.g-item.video-thumb video {
+  /* Show as static clip - very short autoplay for preview effect */
+}
+.vid-overlay-btn {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 52px; height: 52px;
+  background: rgba(14,143,255,0.85);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+  box-shadow: 0 0 24px rgba(14,143,255,0.5);
+  transition: all 0.3s;
+}
+.vid-overlay-btn svg { margin-left: 4px; }
+.g-item:hover .vid-overlay-btn {
+  background: rgba(0,212,255,0.9);
+  box-shadow: 0 0 40px rgba(0,212,255,0.6);
+  transform: translate(-50%, -50%) scale(1.12);
+}
 .g-item.is-video::before {
   content: '';
   position: absolute; inset: 0; z-index: 1;
@@ -1956,12 +1987,19 @@ nav {
 <!-- ═══════════════════════════════════════ NAV ═══ -->
 <nav id="navbar">
   <div class="nav-logo" onclick="go('home')">
-    <div class="nav-logo-icon">
-      <span class="nav-logo-icon-text">EFX</span>
-    </div>
-    <div class="nav-logo-text">
-      <div class="nav-logo-main">EFX<br><span>PRODUCTION</span></div>
-      <div class="nav-logo-sub">Event &amp; LED Solutions</div>
+     <div class="nav-logo-text">
+    
+      <div class="nav-logo-text"><div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div></div>
+       <div class="nav-logo-sub">Event &amp; LED Solutions</div>
+       </div>
+    <div id="nav-logo-fallback" style="display:none;align-items:center;gap:10px;">
+      <div class="nav-logo-icon">
+        <span class="nav-logo-icon-text">EFX</span>
+      </div>
+      <div class="nav-logo-text">
+        <div class="nav-logo-main">EFX<br><span>PRODUCTION</span></div>
+        <div class="nav-logo-sub">Event &amp; LED Solutions</div>
+      </div>
     </div>
   </div>
 
@@ -1973,7 +2011,7 @@ nav {
     <li><a data-page="contact" onclick="go('contact')">Contact</a></li>
   </ul>
 
-  <button class="nav-quote" onclick="go('contact')">Get Free Quote</button>
+  <button class="nav-quote" onclick="go('contact')">Get Quote — Same Day</button>
   <button class="nav-burger" id="burger" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -2363,7 +2401,8 @@ nav {
       <!-- Rhythm by Anitesh -->
       <div style="background:var(--card);border:1px solid var(--border);padding:32px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;transition:border-color .3s;cursor:pointer;" onmouseenter="this.style.borderColor='rgba(14,143,255,0.4)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.07)'" onclick="window.open('https://www.rhythmbyanitesh.in','_blank')">
         <div style="padding:12px 0;width:100%;display:flex;align-items:center;justify-content:center;min-height:60px;">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:var(--blue);text-shadow:0 0 20px var(--blue-glow);">RHYTHM</div>
+          <img src="https://www.rhythmbyanitesh.in/wp-content/uploads/2023/01/Rhythm-by-Anitesh-Logo.png" alt="Rhythm by Anitesh" style="height:56px;width:auto;mix-blend-mode:screen;filter:brightness(1.3) contrast(1.1);" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div style="display:none;font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:var(--blue);text-shadow:0 0 20px var(--blue-glow);">RHYTHM</div>
         </div>
         <div>
           <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;margin-bottom:6px;">Rhythm by Anitesh</div>
@@ -2391,14 +2430,15 @@ nav {
   <footer class="site-footer">
     <div class="footer-top">
       <div class="fbrand">
-        <div class="footer-logo" onclick="go('home')">
-          <div class="nav-logo-icon" style="width:38px;height:30px;">
-            <span class="nav-logo-icon-text" style="font-size:14px;">EFX</span>
-          </div>
-          <div class="nav-logo-text"><div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div></div>
-        </div>
-        <p>Complete event production &amp; LED solutions. Serving the Bay Area, Sacramento, LA, Dallas, Las Vegas &amp; Washington State with cinematic-grade audio, lighting, staging, and visual experiences.</p>
-      </div>
+  <div class="footer-logo" onclick="go('home')" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+    <img src="images/logo.jpeg" alt="EFX Production Logo" style="height:44px;width:auto;background:transparent;" onerror="this.style.display='none';">
+    <div class="nav-logo-text">
+      <div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div>
+      <div class="nav-logo-sub" style="font-size:8px; letter-spacing:2px;">Event &amp; LED Solutions</div>
+    </div>
+  </div>
+  <p>Complete event production &amp; LED solutions. Serving the Bay Area, Sacramento, LA, Dallas, Las Vegas &amp; Washington State with cinematic-grade audio, lighting, staging, and visual experiences.</p>
+</div>
       <div class="fcol">
         <h4>Navigate</h4>
         <a onclick="go('home')">Home</a>
@@ -2419,7 +2459,7 @@ nav {
         <h4>Connect</h4>
         <a href="https://www.instagram.com" target="_blank">Instagram ↗</a>
         <a href="https://www.facebook.com" target="_blank">Facebook ↗</a>
-        <a href="https://www.youtube.com" target="_blank">YouTube ↗</a>
+        <a href="https://www.youtube.com/@efxledscreens" target="_blank">YouTube ↗</a>
         <a onclick="go('contact')">Get a Free Quote</a>
       </div>
       <div class="fcol">
@@ -2503,7 +2543,7 @@ nav {
         </div>
         <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;">
           <a href="https://share.google/K7JsGHQRxYJJzjWpD" target="_blank" rel="noopener noreferrer" class="ext-link">View LED Screen Division ↗</a>
-          <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="ext-link" style="color:var(--cyan);">Watch LED Repair Video ↗</a>
+          <a href="https://www.youtube.com/@efxledscreens" target="_blank" rel="noopener noreferrer" class="ext-link" style="color:var(--cyan);">Watch LED Repair Video ↗</a>
         </div>
       </div>
     </div>
@@ -2549,10 +2589,13 @@ nav {
   <footer class="site-footer">
     <div class="footer-top">
       <div class="fbrand">
-        <div class="footer-logo" onclick="go('home')">
-          <div class="nav-logo-icon" style="width:38px;height:30px;"><span class="nav-logo-icon-text" style="font-size:14px;">EFX</span></div>
-          <div class="nav-logo-text"><div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div></div>
-        </div>
+       <div class="footer-logo" onclick="go('home')" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+    <img src="images/logo.jpeg" alt="EFX Production Logo" style="height:44px;width:auto;background:transparent;" onerror="this.style.display='none';">
+    <div class="nav-logo-text">
+      <div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div>
+      <div class="nav-logo-sub" style="font-size:8px; letter-spacing:2px;">Event &amp; LED Solutions</div>
+    </div>
+  </div>
         <p>Complete event production &amp; LED solutions. Serving the Bay Area, Sacramento, LA, Dallas, Las Vegas &amp; Washington State.</p>
       </div>
       <div class="fcol"><h4>Navigate</h4><a onclick="go('home')">Home</a><a onclick="go('services')">Services</a><a onclick="go('gallery')">Gallery</a><a onclick="go('about')">About</a><a onclick="go('contact')">Contact</a></div>
@@ -2655,10 +2698,13 @@ nav {
    <footer class="site-footer">
     <div class="footer-top">
       <div class="fbrand">
-        <div class="footer-logo" onclick="go('home')">
-          <div class="nav-logo-icon" style="width:38px;height:30px;"><span class="nav-logo-icon-text" style="font-size:14px;">EFX</span></div>
-          <div class="nav-logo-text"><div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div></div>
-        </div>
+       <div class="footer-logo" onclick="go('home')" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+    <img src="images/logo.jpeg" alt="EFX Production Logo" style="height:44px;width:auto;background:transparent;" onerror="this.style.display='none';">
+    <div class="nav-logo-text">
+      <div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div>
+      <div class="nav-logo-sub" style="font-size:8px; letter-spacing:2px;">Event &amp; LED Solutions</div>
+    </div>
+  </div>
         <p>Complete event production &amp; LED solutions. Serving the USA.</p>
       </div>
       <div class="fcol"><h4>Navigate</h4><a onclick="go('home')">Home</a><a onclick="go('services')">Services</a><a onclick="go('gallery')">Gallery</a><a onclick="go('about')">About</a><a onclick="go('contact')">Contact</a></div>
@@ -2674,7 +2720,7 @@ nav {
   <div class="page-hero">
     <div class="section-label reveal">Get in Touch</div>
     <h1 class="section-title reveal d1" style="font-size:clamp(52px,8vw,100px);">Let's Build Your<br><span class="accent">Next Event</span></h1>
-    <p class="section-body reveal d2">Tell us your vision, timeline, and requirements. We'll respond within 24 hours with a tailored production proposal.</p>
+    <p class="section-body reveal d2">Tell us your vision, timeline, and requirements. We'll respond the same day with a tailored production proposal.</p>
   </div>
 
   <!-- CONTACT INFO STRIP -->
@@ -2683,7 +2729,7 @@ nav {
       <svg width="20" height="20" style="color:var(--blue);flex-shrink:0"><use href="#ico-clock"/></svg>
       <div>
         <div class="cis-title">Fast Response</div>
-        <div class="cis-sub">We reply within 24 hours</div>
+        <div class="cis-sub">We reply the same day</div>
       </div>
     </div>
     <div class="cis-divider"></div>
@@ -2788,7 +2834,7 @@ nav {
         </div>
         <div class="fg"><label>Message</label><textarea id="f-msg" placeholder="Tell us about your event — date, venue, size, and any specific requirements…"></textarea></div>
         <button class="form-submit" type="button" onclick="submitForm()">Send Message →</button>
-        <div class="form-success" id="fSuccess"><svg width="16" height="16" style="flex-shrink:0;color:var(--green)"><use href="#ico-check"/></svg> Message sent! We'll be in touch within 24 hours.</div>
+        <div class="form-success" id="fSuccess"><svg width="16" height="16" style="flex-shrink:0;color:var(--green)"><use href="#ico-check"/></svg> Message sent! We'll be in touch the same day.</div>
       </div>
     </div>
   </div>
@@ -2796,10 +2842,14 @@ nav {
   <footer class="site-footer">
     <div class="footer-top">
       <div class="fbrand">
-        <div class="footer-logo" onclick="go('home')">
-          <div class="nav-logo-icon" style="width:38px;height:30px;"><span class="nav-logo-icon-text" style="font-size:14px;">EFX</span></div>
-          <div class="nav-logo-text"><div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div></div>
-        </div>
+       <div class="footer-logo" onclick="go('home')" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+    <img src="images/logo.jpeg" alt="EFX Production Logo" style="height:44px;width:auto;background:transparent;" onerror="this.style.display='none';">
+    <div class="nav-logo-text">
+      <div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div>
+      <div class="nav-logo-sub" style="font-size:8px; letter-spacing:2px;">Event &amp; LED Solutions</div>
+    </div>
+  </div>
+
         <p>Complete event production &amp; LED solutions. Serving the Bay Area, Sacramento, LA, Dallas, Las Vegas &amp; Washington State.</p>
       </div>
       <div class="fcol"><h4>Navigate</h4><a onclick="go('home')">Home</a><a onclick="go('services')">Services</a><a onclick="go('gallery')">Gallery</a><a onclick="go('about')">About</a><a onclick="go('contact')">Contact</a></div>
@@ -2831,64 +2881,73 @@ nav {
   
   <!-- VIDEO 1 -->
   <div class="g-item" data-cat="corporate" onclick="openLightboxVideo(0)">
-    <video src="images/VID-20260416-WA0002.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
-    <div class="video-badge">📹 EVENT HIGHLIGHT</div>
+    <video poster="" preload="metadata" src="images/VID-20260416-WA0002.mp4" muted playsinline disableRemotePlayback></video>
+    <div class="vid-overlay-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+  <div class="video-badge">📹 EVENT HIGHLIGHT</div>
     <div class="g-item-overlay"><div class="g-item-label">Event Highlight Reel</div></div>
   </div>
   
   <!-- VIDEO 2 -->
   <div class="g-item wide" data-cat="corporate" onclick="openLightboxVideo(1)">
-    <video src="images/VID-20260416-WA0007.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
-    <div class="video-badge">📹 CORPORATE EVENT</div>
+    <video poster="" preload="metadata" src="images/VID-20260416-WA0007.mp4" muted playsinline disableRemotePlayback></video>
+    <div class="vid-overlay-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+  <div class="video-badge">📹 CORPORATE EVENT</div>
     <div class="g-item-overlay"><div class="g-item-label">Corporate Production</div></div>
   </div>
   
   <!-- VIDEO 3 -->
   <div class="g-item tall" data-cat="stage" onclick="openLightboxVideo(2)">
-    <video src="images/VID-20260416-WA0008.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
-    <div class="video-badge">📹 LIVE STAGE</div>
+    <video poster="" preload="metadata" src="images/VID-20260416-WA0008.mp4" muted playsinline disableRemotePlayback></video>
+    <div class="vid-overlay-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+  <div class="video-badge">📹 LIVE STAGE</div>
     <div class="g-item-overlay"><div class="g-item-label">Live Stage Production</div></div>
   </div>
   
   <!-- VIDEO 4 -->
   <div class="g-item" data-cat="led" onclick="openLightboxVideo(3)">
-    <video src="images/VID-20260416-WA0009.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
-    <div class="video-badge">📹 LED DISPLAY</div>
+    <video poster="" preload="metadata" src="images/VID-20260416-WA0009.mp4" muted playsinline disableRemotePlayback></video>
+    <div class="vid-overlay-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+  <div class="video-badge">📹 LED DISPLAY</div>
     <div class="g-item-overlay"><div class="g-item-label">LED Wall in Action</div></div>
   </div>
   
   <!-- VIDEO 5 -->
   <div class="g-item wide" data-cat="private" onclick="openLightboxVideo(4)">
-    <video src="images/VID-20260416-WA0011.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
-    <div class="video-badge">📹 PRIVATE EVENT</div>
+    <video poster="" preload="metadata" src="images/VID-20260416-WA0011.mp4" muted playsinline disableRemotePlayback></video>
+    <div class="vid-overlay-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+  <div class="video-badge">📹 PRIVATE EVENT</div>
     <div class="g-item-overlay"><div class="g-item-label">Private Celebration</div></div>
   </div>
   
   <!-- VIDEO 6 -->
   <div class="g-item" data-cat="stage" onclick="openLightboxVideo(5)">
-    <video src="images/VID-20260416-WA0012.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
-    <div class="video-badge">📹 CONCERT LIGHTS</div>
+    <video poster="" preload="metadata" src="images/VID-20260416-WA0012.mp4" muted playsinline disableRemotePlayback></video>
+    <div class="vid-overlay-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+  <div class="video-badge">📹 CONCERT LIGHTS</div>
     <div class="g-item-overlay"><div class="g-item-label">Concert Lighting Setup</div></div>
   </div>
   
   <!-- VIDEO 7 -->
   <div class="g-item tall" data-cat="corporate" onclick="openLightboxVideo(6)">
-    <video src="images/VID-20260416-WA0013.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
-    <div class="video-badge">📹 CONFERENCE</div>
+    <video poster="" preload="metadata" src="images/VID-20260416-WA0013.mp4" muted playsinline disableRemotePlayback></video>
+    <div class="vid-overlay-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+  <div class="video-badge">📹 CONFERENCE</div>
     <div class="g-item-overlay"><div class="g-item-label">Corporate Conference</div></div>
   </div>
   
   <!-- VIDEO 8 -->
   <div class="g-item" data-cat="led" onclick="openLightboxVideo(7)">
-    <video src="images/VID-20260416-WA0014.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
-    <div class="video-badge">📹 LED WALL</div>
+    <video poster="" preload="metadata" src="images/VID-20260416-WA0014.mp4" muted playsinline disableRemotePlayback></video>
+    <div class="vid-overlay-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+  <div class="video-badge">📹 LED WALL</div>
     <div class="g-item-overlay"><div class="g-item-label">LED Screen Display</div></div>
   </div>
   
   <!-- VIDEO 9 -->
   <div class="g-item wide" data-cat="private" onclick="openLightboxVideo(8)">
-    <video src="images/VID-20260416-WA0015.mp4" autoplay loop muted playsinline disableRemotePlayback></video>
-    <div class="video-badge">📹 WEDDING</div>
+    <video poster="" preload="metadata" src="images/VID-20260416-WA0015.mp4" muted playsinline disableRemotePlayback></video>
+    <div class="vid-overlay-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+  <div class="video-badge">📹 WEDDING</div>
     <div class="g-item-overlay"><div class="g-item-label">Wedding Production</div></div>
   </div>
 
@@ -2971,10 +3030,13 @@ nav {
   <footer class="site-footer">
     <div class="footer-top">
       <div class="fbrand">
-        <div class="footer-logo" onclick="go('home')">
-          <div class="nav-logo-icon" style="width:38px;height:30px;"><span class="nav-logo-icon-text" style="font-size:14px;">EFX</span></div>
-          <div class="nav-logo-text"><div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div></div>
-        </div>
+       <div class="footer-logo" onclick="go('home')" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+    <img src="images/logo.jpeg" alt="EFX Production Logo" style="height:44px;width:auto;background:transparent;" onerror="this.style.display='none';">
+    <div class="nav-logo-text">
+      <div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div>
+      <div class="nav-logo-sub" style="font-size:8px; letter-spacing:2px;">Event &amp; LED Solutions</div>
+    </div>
+  </div>
         <p>Complete event production &amp; LED solutions. Serving the Bay Area, Sacramento, LA, Dallas, Las Vegas &amp; Washington State.</p>
       </div>
       <div class="fcol"><h4>Navigate</h4><a onclick="go('home')">Home</a><a onclick="go('services')">Services</a><a onclick="go('gallery')">Gallery</a><a onclick="go('about')">About</a><a onclick="go('contact')">Contact</a></div>
@@ -2994,7 +3056,7 @@ nav {
   <button class="lightbox-close" onclick="closeLightbox()">✕</button>
   <button class="lightbox-nav lightbox-prev" onclick="lbNav(-1)">&#8249;</button>
   <img class="lightbox-img" id="lbImg" src="" alt="" style="display:block;">
-  <video class="lightbox-img" id="lbVideo" style="display:none;" muted autoplay loop playsinline disableRemotePlayback></video>
+  <video class="lightbox-img" id="lbVideo" style="display:none;max-height:90vh;max-width:90vw;" controls playsinline></video>
   <button class="lightbox-nav lightbox-next" onclick="lbNav(1)">&#8250;</button>
   <div class="lightbox-caption" id="lbCaption"></div>
 </div>
@@ -3196,11 +3258,12 @@ function openLightboxVideo(idx) {
   lbImg.style.display = 'none';
   lbVideo.style.display = 'block';
   lbVideo.src = item.src;
-  lbVideo.muted = true;
+  lbVideo.muted = false;
+  lbVideo.controls = true;
   lbVideo.autoplay = true;
-  lbVideo.loop = true;
+  lbVideo.loop = false;
   lbVideo.playsInline = true;
-  lbVideo.play();
+  lbVideo.play().catch(()=>{ lbVideo.muted = true; lbVideo.play(); });
   
   document.getElementById('lbCaption').textContent = item.label;
   document.getElementById('lightbox').classList.add('open');
