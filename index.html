@@ -2035,6 +2035,282 @@ nav {
   background: rgba(14,143,255,0.7);
   padding: 4px 12px; border-radius: 2px;
 }
+
+/* ═══════════════════════════════════════════
+   COMPREHENSIVE MOBILE FIX — ALL VIEWS
+═══════════════════════════════════════════ */
+
+/* ── BASE MOBILE BODY ── */
+@media(max-width:640px){
+  html { font-size: 15px; }
+  body { overflow-x: hidden; }
+  .pad  { padding: 48px 4vw; }
+  .pad-sm { padding: 36px 4vw; }
+}
+
+/* ── NAVBAR ── */
+@media(max-width:640px){
+  nav { padding: 0 4vw; }
+  .nav-logo img { height: 34px !important; }
+  .nav-logo-main { font-size: 14px !important; }
+  .nav-logo-sub  { font-size: 7px !important; letter-spacing:1.5px !important; }
+}
+@media(max-width:380px){
+  .nav-logo-sub { display: none; }
+  .nav-logo-main { font-size: 13px !important; }
+}
+
+/* ── HERO ── */
+@media(max-width:640px){
+  .hero-content { padding: 32px 4vw 52px; }
+  .hero-h1 { font-size: clamp(40px, 11vw, 72px) !important; line-height:0.9; }
+  .hero-badge { font-size: 9px; letter-spacing:2px; }
+  .hero-sub  { font-size: 12px; letter-spacing:3px; }
+  .hero-tags { gap: 6px; margin-top:14px; }
+  .hero-tag  { font-size: 10px; padding: 4px 8px; }
+  .hero-value{ font-size: 11px; margin-top:10px; }
+  .hero-btns { flex-direction: column; align-items: stretch; gap:10px; margin-top:24px; }
+  .hero-btns .btn { width:100%; justify-content:center; font-size:13px; padding:15px 20px; }
+  .hero-scroll { display: none; }
+}
+
+/* ── SECTION TITLES ── */
+@media(max-width:640px){
+  .section-title { font-size: clamp(32px, 9vw, 52px) !important; }
+  .section-body  { font-size: 14px; margin-top:10px; }
+  .section-label { font-size: 10px; }
+}
+
+/* ── SERVICES GRID (HOME) ── */
+@media(max-width:640px){
+  .services-grid { grid-template-columns: 1fr 1fr !important; gap: 1px; margin-top:32px; }
+  .svc-card { padding: 18px 14px; }
+  .svc-card h3 { font-size: 12px; }
+  .svc-card p  { display: none; }
+  .svc-icon    { font-size:20px; margin-bottom:10px; }
+}
+@media(max-width:360px){
+  .services-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ── LED SECTION ── */
+@media(max-width:640px){
+  .led-section { padding: 48px 4vw; }
+  .led-inner   { grid-template-columns:1fr; gap:28px; }
+  .led-visual  { aspect-ratio: 16/9; }
+}
+
+/* ── EVENTS GRID ── */
+@media(max-width:640px){
+  .events-grid { grid-template-columns:1fr; gap:12px; margin-top:28px; }
+  .event-card  { aspect-ratio: 16/9; }
+}
+
+/* ── STATS DIVIDER ── */
+@media(max-width:480px){
+  .stats-divider { flex-wrap:wrap; }
+  .sdiv-item { flex:1 1 calc(50% - 1px); padding:20px 12px; }
+  .sdiv-num  { font-size: clamp(26px,6vw,38px); }
+  .sdiv-sep  { display:none; }
+}
+
+/* ── TESTIMONIALS ── */
+@media(max-width:480px){
+  .testi-card { flex: 0 0 88vw; }
+  .testi-text { font-size: 13px; }
+  .testi-quote-mark { font-size:40px; }
+}
+
+/* ── WHY CHOOSE US ── */
+@media(max-width:640px){
+  .why-grid { grid-template-columns:1fr; gap:1px; }
+  .why-card { padding: 28px 20px; }
+}
+
+/* ── ABOUT PREVIEW ── */
+@media(max-width:640px){
+  .about-preview { grid-template-columns:1fr; gap:28px; }
+  .about-visual-box { display:none; }
+  .stats-grid { grid-template-columns:1fr 1fr; }
+  .stat-num   { font-size:36px; }
+}
+
+/* ── PARTNERS GRID BASE ── */
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+  width: 100%;
+}
+.partners-grid > div {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  transition: border-color .3s;
+  cursor: pointer;
+  min-height: 320px;
+  justify-content: space-between;
+}
+.partners-grid > div:hover { border-color: rgba(14,143,255,0.4); }
+.partner-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  transition: border-color .3s, transform .3s;
+  cursor: pointer;
+  min-height: 300px;
+  justify-content: space-between;
+  border-radius: 2px;
+}
+.partner-card:hover {
+  border-color: rgba(14,143,255,0.4);
+  transform: translateY(-2px);
+}
+.partner-logo-box {
+  padding: 12px 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+}
+
+/* ── PARTNERS GRID — single column on mobile ── */
+@media(max-width:640px){
+  .partners-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .partners-grid > div {
+    padding: 24px 20px !important;
+  }
+}
+@media(min-width:641px) and (max-width:900px){
+  .partners-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+/* ── SERVICES PAGE ── */
+@media(max-width:640px){
+  .page-hero { padding: 100px 4vw 40px; }
+  .svc-detail { grid-template-columns:1fr; margin-bottom:2px; }
+  .svc-d-label {
+    padding: 22px 18px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .svc-d-body { padding: 22px 18px; }
+  .svc-d-body p { font-size:14px; }
+  .svc-d-label h3 { font-size:24px; }
+  .svc-d-icon svg { width:26px; height:26px; }
+}
+
+/* ── DJ ANIMATION ── */
+@media(max-width:640px){
+  .dj-anim-wrap { padding: 20px 16px 18px; }
+  .dj-eq { height:36px; gap:3px; }
+  .dj-bar { width:4px; }
+  .dj-vinyl { width:60px; height:60px; }
+  .dj-pulse { width:60px; height:60px; }
+  .dj-vinyl-wrap { gap:14px; }
+  .dj-wave { height:30px; }
+  .dj-logo-box img { max-width:140px !important; max-height:52px !important; }
+  .dj-beams { height:48px; }
+}
+
+/* ── VIDEO PREVIEW ── */
+@media(max-width:640px){
+  .svc-video-preview video { max-height:160px; }
+  .svc-play-btn { width:46px; height:46px; }
+}
+
+/* ── ABOUT PAGE ── */
+@media(max-width:640px){
+  .about-story { grid-template-columns:1fr; gap:28px; padding:36px 4vw; }
+  .story-text h2 { font-size:32px; }
+  .collab-card { padding:20px 16px; }
+  .collab-card h3 { font-size:20px; }
+  .about-photos { grid-template-columns:1fr 1fr; gap:3px; padding:0 4vw; }
+  .pillars { grid-template-columns:1fr; }
+  .pillar  { padding: 28px 20px; }
+}
+
+/* ── CONTACT PAGE ── */
+@media(max-width:640px){
+  .contact-layout { grid-template-columns:1fr; gap:28px; padding:32px 4vw 60px; }
+  .form-row { grid-template-columns:1fr; }
+  .contact-info-strip { flex-wrap:wrap; margin:0 4vw 28px; }
+  .cis-item { flex: 1 1 calc(50% - 1px); padding:14px 12px; }
+  .contact-reassurance { flex-direction:column; }
+  .reassurance-item { margin-right:0; padding:12px 16px; font-size:11px; }
+  .map-wrap iframe { height:150px; }
+}
+@media(max-width:380px){
+  .cis-item { flex:1 1 100%; }
+}
+
+/* ── GALLERY ── */
+@media(max-width:640px){
+  .gallery-grid { grid-template-columns:1fr 1fr; gap:8px; padding:16px 3vw 20px; }
+  .gallery-grid.masonry { grid-auto-rows:130px; }
+  .g-item.wide { grid-column: span 1; }
+  .gallery-filters { padding:20px 3vw 0; gap:6px; flex-wrap:wrap; }
+  .gf-btn { font-size:9px; padding:6px 10px; }
+}
+@media(max-width:380px){
+  .gallery-grid { grid-template-columns:1fr; }
+  .gallery-grid.masonry { grid-auto-rows:200px; }
+  .g-item.tall { grid-row: span 1; }
+}
+
+/* ── FOOTER ── */
+@media(max-width:640px){
+  .site-footer { padding:36px 4vw 20px; }
+  .footer-top { grid-template-columns:1fr !important; gap:22px; }
+  .footer-logo img { height:34px !important; }
+  .footer-bot { flex-direction:column; text-align:center; gap:6px; font-size:11px; }
+  .fcol h4 { font-size:10px; margin-bottom:10px; }
+  .fcol a  { font-size:13px; padding:3px 0; }
+}
+
+/* ── CTA BAND ── */
+@media(max-width:480px){
+  .cta-band  { padding:48px 4vw; }
+  .cta-title { font-size: clamp(32px,10vw,60px) !important; }
+  .cta-btns  { flex-direction:column; align-items:center; }
+  .cta-btns .btn { width:100%; max-width:300px; justify-content:center; }
+}
+
+/* ── FLOATING WHATSAPP ── */
+@media(max-width:480px){
+  .float-wa { bottom:16px; right:16px; padding:12px 14px; border-radius:32px; }
+  .float-wa span { display:none; }
+}
+
+/* ── HERO TRUST BAR ── */
+@media(max-width:500px){
+  .hero-trust { display:none; }
+}
+
+/* ── LIGHTBOX ── */
+@media(max-width:640px){
+  .lightbox-nav { font-size:24px; padding:8px 10px; }
+  .lightbox-img { max-width:96vw; max-height:82vh; }
+}
+
 </style>
 <script>
 // CRITICAL: Run synchronously before paint - activates home page immediately
@@ -2577,12 +2853,12 @@ nav {
       <h2 class="section-title">Our <span class="accent">Partners</span></h2>
       <p class="section-body">We collaborate with industry-leading companies to bring you complete production solutions — from tradeshow design to large-scale event production.</p>
     </div>
-    <div class="partners-grid reveal d1" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px;">
+    <div class="partners-grid reveal d1">
 
       <!-- Planet Pro Events -->
-      <div style="background:var(--card);border:1px solid var(--border);padding:32px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;transition:border-color .3s;cursor:pointer;" onmouseenter="this.style.borderColor='rgba(14,143,255,0.4)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.07)'" onclick="window.open('https://www.planetproevents.com/','_blank')">
-        <div style="padding:12px 0;width:100%;display:flex;align-items:center;justify-content:center;min-height:60px;">
-         <img src="images/Planet pro logo.png" alt="Planet Pro Events" style="max-height:56px;max-width:160px;width:auto;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.2);">
+      <div class="partner-card" onclick="window.open('https://www.planetproevents.com/','_blank')">
+        <div class="partner-logo-box">
+          <img src="images/Planet pro logo.png" alt="Planet Pro Events" style="max-height:56px;max-width:160px;width:100%;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.2);">
         </div>
         <div>
           <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;margin-bottom:6px;">Planet Pro Events</div>
@@ -2592,9 +2868,9 @@ nav {
       </div>
 
       <!-- 3Forty Productions -->
-      <div style="background:var(--card);border:1px solid var(--border);padding:32px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;transition:border-color .3s;cursor:pointer;" onmouseenter="this.style.borderColor='rgba(14,143,255,0.4)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.07)'" onclick="window.open('https://www.go3forty.com/','_blank')">
-        <div style="padding:12px 0;width:100%;display:flex;align-items:center;justify-content:center;min-height:60px;">
-           <img src="images/3forty logo.png" alt="3Forty Productions" style="max-height:56px;max-width:160px;width:auto;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.3) contrast(1.1);">
+      <div class="partner-card" onclick="window.open('https://www.go3forty.com/','_blank')">
+        <div class="partner-logo-box">
+          <img src="images/3forty logo.png" alt="3Forty Productions" style="max-height:56px;max-width:160px;width:100%;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.3) contrast(1.1);">
         </div>
         <div>
           <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;margin-bottom:6px;">3Forty Productions</div>
@@ -2604,9 +2880,9 @@ nav {
       </div>
 
       <!-- Rhythm by Anitesh -->
-      <div style="background:var(--card);border:1px solid var(--border);padding:32px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;transition:border-color .3s;cursor:pointer;" onmouseenter="this.style.borderColor='rgba(14,143,255,0.4)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.07)'" onclick="window.open('https://www.rhythmbyanitesh.in','_blank')">
-        <div style="padding:12px 0;width:100%;display:flex;align-items:center;justify-content:center;min-height:60px;">
-          <img src="images/Aniteshlogo.jpeg" alt="Rhythm by Anitesh" style="max-height:56px;max-width:160px;width:auto;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.3) contrast(1.1);" onerror="this.style.display='none';">
+      <div class="partner-card" onclick="window.open('https://www.rhythmbyanitesh.in','_blank')">
+        <div class="partner-logo-box">
+          <img src="images/Aniteshlogo.jpeg" alt="Rhythm by Anitesh" style="max-height:56px;max-width:160px;width:100%;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.3) contrast(1.1);" onerror="this.style.display='none';">
           <div style="display:none;font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:var(--blue);text-shadow:0 0 20px var(--blue-glow);">RHYTHM</div>
         </div>
         <div>
