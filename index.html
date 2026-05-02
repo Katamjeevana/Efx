@@ -2311,6 +2311,98 @@ nav {
   .lightbox-img { max-width:96vw; max-height:82vh; }
 }
 
+
+/* ═══════════════════════════════════════════
+   TESTIMONIAL SLIDER v2 — DOTS + ARROWS
+═══════════════════════════════════════════ */
+.testi-slider-wrap {
+  position: relative;
+  padding: 32px 0 0;
+}
+/* keep the scroll row but style update */
+.testi-slider-wrap .testi-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 4px 5vw 24px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+.testi-slider-wrap .testi-scroll::-webkit-scrollbar { display: none; }
+
+/* ARROWS */
+.testi-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-60%);
+  z-index: 10;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(14,143,255,0.12);
+  border: 1px solid rgba(14,143,255,0.3);
+  color: var(--white);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.testi-arrow:hover {
+  background: rgba(14,143,255,0.35);
+  border-color: rgba(14,143,255,0.7);
+  transform: translateY(-60%) scale(1.08);
+}
+.testi-arrow-l { left: 4px; }
+.testi-arrow-r { right: 4px; }
+@media(max-width:640px){
+  .testi-arrow { width:34px; height:34px; }
+  .testi-arrow-l { left: 2px; }
+  .testi-arrow-r { right: 2px; }
+}
+
+/* DOTS */
+.testi-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 4px 0 8px;
+}
+.testi-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(14,143,255,0.25);
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s, width 0.25s;
+  padding: 0;
+  flex-shrink: 0;
+}
+.testi-dot.active {
+  background: var(--blue);
+  box-shadow: 0 0 8px var(--blue-glow);
+  width: 22px;
+  border-radius: 4px;
+}
+
+/* SWIPE HINT */
+.testi-hint {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--faint);
+  padding: 4px 0 8px;
+  animation: hintFade 2.5s ease 1.5s forwards;
+  opacity: 1;
+}
+@keyframes hintFade { to { opacity: 0; pointer-events: none; } }
+@media(max-width:640px){
+  .testi-hint { display: flex; }
+}
+
 </style>
 <script>
 // CRITICAL: Run synchronously before paint - activates home page immediately
@@ -2692,8 +2784,9 @@ nav {
       <p class="section-body">Brands, corporates, and private clients across the USA trust EFX Production to deliver seamlessly, every time.</p>
     </div>
   </section>
-  <div class="testi-scroll-wrap">
-    <div class="testi-scroll reveal">
+  <!-- TESTIMONIALS SLIDER WITH DOTS + ARROWS -->
+  <div class="testi-slider-wrap" id="testiSlider">
+    <div class="testi-scroll" id="testiScroll">
 
       <div class="testi-card">
         <div class="testi-body">
@@ -2756,8 +2849,30 @@ nav {
       </div>
 
     </div>
+
+    <!-- ARROW CONTROLS -->
+    <button class="testi-arrow testi-arrow-l" id="testiPrev" aria-label="Previous review" onclick="testiNav(-1)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="testi-arrow testi-arrow-r" id="testiNext" aria-label="Next review" onclick="testiNav(1)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+
+    <!-- DOT INDICATORS -->
+    <div class="testi-dots" id="testiDots">
+      <button class="testi-dot active" onclick="testiGoTo(0)" aria-label="Review 1"></button>
+      <button class="testi-dot" onclick="testiGoTo(1)" aria-label="Review 2"></button>
+      <button class="testi-dot" onclick="testiGoTo(2)" aria-label="Review 3"></button>
+      <button class="testi-dot" onclick="testiGoTo(3)" aria-label="Review 4"></button>
+    </div>
+
+    <!-- SWIPE HINT (mobile only) -->
+    <div class="testi-hint" id="testiHint">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Swipe to see more
+    </div>
   </div>
-  <div style="padding:0 5vw 80px;"></div>
+  <div style="padding:0 5vw 60px;"></div>
 
   <div class="divider"></div>
 
@@ -3186,8 +3301,8 @@ nav {
       </div>
       <div class="collab-card" style="cursor:pointer;" onclick="window.open('https://www.planetproevents.com/','_blank')">
         <div class="clabel">Official Partner</div>
-        <div style="display:flex;align-items:center;gap:16px;margin-bottom:10px;">
-         <img src="images/Planet pro logo.png" alt="Planet Pro Events" style="max-height:48px;max-width:150px;width:auto;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.2);">
+        <div style="margin-bottom:14px;padding:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:4px;display:flex;align-items:center;justify-content:center;">
+          <img src="images/Planet pro logo.png" alt="Planet Pro Events" style="width:100%;max-width:180px;height:auto;max-height:70px;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.2);">
         </div>
         <h3>Planet Pro Events</h3>
         <p>EFX Production proudly partners with Planet Pro Events to deliver extended event production capabilities and large-scale event services nationwide.</p>
@@ -3195,9 +3310,8 @@ nav {
       </div>
       <div class="collab-card" style="cursor:pointer;margin-top:16px;" onclick="window.open('https://www.go3forty.com/','_blank')">
         <div class="clabel">Tradeshow &amp; Exhibit Partner</div>
-        <div style="display:flex;align-items:center;gap:16px;margin-bottom:10px;">
-          
-          <img src="images/3forty logo.png" alt="3Forty Productions" style="max-height:56px;max-width:160px;width:auto;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.3) contrast(1.1);">
+        <div style="margin-bottom:14px;padding:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:4px;display:flex;align-items:center;justify-content:center;">
+          <img src="images/3forty logo.png" alt="3Forty Productions" style="width:100%;max-width:180px;height:auto;max-height:70px;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.3) contrast(1.1);">
         </div>
         <h3>3Forty Productions</h3>
         <p>Our tradeshow and exhibit design partner — specializing in booth design, setup, and brand activations for large-scale events and tradeshows across the USA.</p>
@@ -4098,6 +4212,71 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+
+/* ── TESTIMONIAL SLIDER ── */
+(function(){
+  var scroll, dots, cards, current = 0, autoTimer;
+  function init(){
+    scroll = document.getElementById('testiScroll');
+    if(!scroll) return;
+    dots = document.querySelectorAll('.testi-dot');
+    cards = scroll.querySelectorAll('.testi-card');
+    scroll.addEventListener('scroll', onScroll, {passive:true});
+    startAuto();
+  }
+  function cardWidth(){
+    if(!cards.length) return 0;
+    var r = cards[0].getBoundingClientRect();
+    var gap = 20;
+    return r.width + gap;
+  }
+  function goTo(idx){
+    if(!scroll || !cards.length) return;
+    idx = Math.max(0, Math.min(idx, cards.length - 1));
+    current = idx;
+    scroll.scrollTo({ left: idx * cardWidth(), behavior:'smooth' });
+    updateDots();
+    // hide hint
+    var hint = document.getElementById('testiHint');
+    if(hint) hint.style.display = 'none';
+  }
+  function onScroll(){
+    var cw = cardWidth();
+    if(!cw) return;
+    var idx = Math.round(scroll.scrollLeft / cw);
+    if(idx !== current){ current = idx; updateDots(); }
+  }
+  function updateDots(){
+    dots.forEach(function(d,i){ d.classList.toggle('active', i===current); });
+  }
+  window.testiNav = function(dir){ clearAuto(); goTo(current+dir); startAuto(); };
+  window.testiGoTo = function(idx){ clearAuto(); goTo(idx); startAuto(); };
+  function startAuto(){
+    clearAuto();
+    autoTimer = setInterval(function(){
+      if(!scroll) return;
+      var next = (current + 1) % cards.length;
+      goTo(next);
+    }, 4500);
+  }
+  function clearAuto(){ clearInterval(autoTimer); }
+  // pause on user touch
+  document.addEventListener('DOMContentLoaded', function(){
+    init();
+    var s = document.getElementById('testiScroll');
+    if(s){
+      s.addEventListener('touchstart', function(){ clearAuto(); }, {passive:true});
+      s.addEventListener('touchend', function(){ startAuto(); }, {passive:true});
+    }
+  });
+  // re-init when home page shown (SPA routing)
+  var origGo = window.go;
+  window.go = function(name){
+    origGo(name);
+    if(name==='home'){ setTimeout(init, 150); }
+  };
+})();
+
 </script>
 
  
