@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="description" content="EFX Production — Complete Event Production & LED Solutions. Audio, Lighting, Staging, LED Walls, DJ services for corporate and private events in Bay Area, LA, and Washington State.">
 <title>EFX Production — Complete Event Production & LED Solutions</title>
+<link rel="icon" type="image/jpeg" href="images/FaviconLogo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -1817,6 +1818,223 @@ nav {
 @media(max-width:400px) {
   .cis-item { flex: 1 1 100%; }
 }
+
+/* ═══════════════════════════════════════════
+   DJ ANIMATION SECTION
+═══════════════════════════════════════════ */
+.dj-anim-wrap {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(145deg, #040410 0%, #070720 50%, #040410 100%);
+  border: 1px solid rgba(14,143,255,0.2);
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 28px 24px 24px;
+  margin-top: 20px;
+}
+/* Ambient glow bg */
+.dj-anim-wrap::before {
+  content:'';
+  position:absolute;inset:0;
+  background: radial-gradient(ellipse 80% 60% at 50% 80%, rgba(14,143,255,0.12) 0%, transparent 70%);
+  pointer-events:none;
+}
+/* Equalizer bars */
+.dj-eq {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  height: 48px;
+  margin-bottom: 16px;
+}
+.dj-bar {
+  width: 5px;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(to top, var(--blue), var(--cyan));
+  box-shadow: 0 0 6px var(--blue-glow);
+  animation: eqBounce var(--spd) ease-in-out infinite alternate;
+  transform-origin: bottom;
+}
+@keyframes eqBounce {
+  0%   { height: var(--lo); opacity: 0.6; }
+  100% { height: var(--hi); opacity: 1; }
+}
+/* Vinyl record */
+.dj-vinyl-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  gap: 24px;
+}
+.dj-vinyl {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, #1a1a1a 0%, #222 18%, #111 19%, #333 22%, #111 24%, #2a2a2a 35%, #111 36%, #333 50%, #111 52%, #1a1a1a 100%);
+  border: 3px solid rgba(14,143,255,0.3);
+  box-shadow: 0 0 20px rgba(14,143,255,0.3), inset 0 0 10px rgba(0,0,0,0.8);
+  animation: vinylSpin 3s linear infinite;
+  position: relative;
+  flex-shrink: 0;
+}
+.dj-vinyl::after {
+  content:'';
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:14px;height:14px;
+  border-radius:50%;
+  background: radial-gradient(circle, var(--blue) 0%, var(--cyan) 100%);
+  box-shadow: 0 0 10px var(--blue);
+}
+@keyframes vinylSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+/* Waveform */
+.dj-wave {
+  flex: 1;
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.dj-wave svg { width: 100%; height: 100%; }
+.dj-wave-path {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: waveDraw 1.5s ease forwards, waveShift 3s linear infinite 1.5s;
+}
+@keyframes waveDraw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes waveShift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+/* Light beam effects */
+.dj-beams {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 60px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  pointer-events: none;
+}
+.dj-beam-l {
+  width: 2px;
+  border-radius: 2px;
+  transform-origin: bottom center;
+}
+.dj-beam-l:nth-child(1) { height:50px; background:linear-gradient(to top,rgba(14,143,255,0.8),transparent); animation:beamSwing 2.1s ease-in-out infinite; }
+.dj-beam-l:nth-child(2) { height:40px; background:linear-gradient(to top,rgba(0,212,255,0.7),transparent); animation:beamSwing 1.8s ease-in-out infinite 0.3s reverse; }
+.dj-beam-l:nth-child(3) { height:55px; background:linear-gradient(to top,rgba(100,50,255,0.7),transparent); animation:beamSwing 2.4s ease-in-out infinite 0.6s; }
+.dj-beam-l:nth-child(4) { height:38px; background:linear-gradient(to top,rgba(14,143,255,0.6),transparent); animation:beamSwing 1.9s ease-in-out infinite 0.9s reverse; }
+.dj-beam-l:nth-child(5) { height:48px; background:linear-gradient(to top,rgba(0,212,255,0.8),transparent); animation:beamSwing 2.2s ease-in-out infinite 1.2s; }
+@keyframes beamSwing {
+  0%,100% { transform: rotate(-18deg); opacity: 0.5; }
+  50%      { transform: rotate(18deg);  opacity: 1; }
+}
+/* Logo container shimmer */
+.dj-logo-box {
+  position: relative;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.dj-logo-box::after {
+  content:'';
+  position:absolute;
+  top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);
+  animation: shimmer 3s ease infinite 1s;
+}
+@keyframes shimmer {
+  0%   { left:-100%; }
+  100% { left:200%; }
+}
+/* Pulse ring on vinyl */
+.dj-pulse {
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:80px;height:80px;
+  border-radius:50%;
+  border:2px solid rgba(14,143,255,0.5);
+  animation: pulseRing 2s ease-out infinite;
+  pointer-events:none;
+}
+.dj-pulse:nth-child(2) { animation-delay: 0.7s; border-color: rgba(0,212,255,0.3); }
+@keyframes pulseRing {
+  0%   { transform:translate(-50%,-50%) scale(1);   opacity:0.8; }
+  100% { transform:translate(-50%,-50%) scale(2.2); opacity:0; }
+}
+/* video preview enhanced */
+.svc-video-preview {
+  margin-top: 16px;
+  border: 1px solid rgba(14,143,255,0.3);
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.svc-video-preview:hover {
+  border-color: rgba(14,143,255,0.7);
+  box-shadow: 0 0 24px rgba(14,143,255,0.2);
+}
+.svc-video-preview video {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  display: block;
+}
+.svc-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(4,4,6,0.85) 0%, rgba(4,4,6,0.2) 60%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.3s;
+}
+.svc-video-preview:hover .svc-video-overlay {
+  background: linear-gradient(to top, rgba(4,4,6,0.7) 0%, rgba(14,143,255,0.1) 60%, transparent 100%);
+}
+.svc-play-btn {
+  width: 56px; height: 56px;
+  background: rgba(14,143,255,0.9);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 24px rgba(14,143,255,0.6);
+  transition: transform 0.2s, background 0.2s;
+  animation: playPulse 2s ease-in-out infinite;
+}
+.svc-video-preview:hover .svc-play-btn {
+  transform: scale(1.12);
+  background: var(--cyan);
+  box-shadow: 0 0 36px rgba(0,212,255,0.7);
+}
+@keyframes playPulse {
+  0%,100% { box-shadow: 0 0 24px rgba(14,143,255,0.6); }
+  50%      { box-shadow: 0 0 40px rgba(14,143,255,0.9), 0 0 60px rgba(14,143,255,0.3); }
+}
+.svc-video-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--white);
+  background: rgba(14,143,255,0.7);
+  padding: 4px 12px; border-radius: 2px;
+}
 </style>
 <script>
 // CRITICAL: Run synchronously before paint - activates home page immediately
@@ -1986,20 +2204,11 @@ nav {
 
 <!-- ═══════════════════════════════════════ NAV ═══ -->
 <nav id="navbar">
-  <div class="nav-logo" onclick="go('home')">
-     <div class="nav-logo-text">
-    
-      <div class="nav-logo-text"><div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div></div>
-       <div class="nav-logo-sub">Event &amp; LED Solutions</div>
-       </div>
-    <div id="nav-logo-fallback" style="display:none;align-items:center;gap:10px;">
-      <div class="nav-logo-icon">
-        <span class="nav-logo-icon-text">EFX</span>
-      </div>
-      <div class="nav-logo-text">
-        <div class="nav-logo-main">EFX<br><span>PRODUCTION</span></div>
-        <div class="nav-logo-sub">Event &amp; LED Solutions</div>
-      </div>
+  <div class="nav-logo" onclick="go('home')" style="display:flex;align-items:center;gap:10px;">
+    <img src="images/Efxproductionlogo.jpg" alt="EFX Production" style="height:40px;width:auto;object-fit:contain;flex-shrink:0;" onerror="this.style.display='none';">
+    <div class="nav-logo-text">
+      <div class="nav-logo-main">EFX <span>PRODUCTION</span></div>
+      <div class="nav-logo-sub">Event &amp; LED Solutions</div>
     </div>
   </div>
 
@@ -2055,7 +2264,7 @@ nav {
         <span class="hero-tag">Camera</span>
       </div>
       <p class="hero-value reveal d1">Bay Area &nbsp;·&nbsp; Sacramento &nbsp;·&nbsp; LA &nbsp;·&nbsp; Dallas &nbsp;·&nbsp; Las Vegas &nbsp;·&nbsp; Washington State</p>
-      <p style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1.5px;color:var(--cyan);margin-bottom:0;margin-top:16px;animation:fadeUp 0.8s ease 0.38s both;">⚡ Get a quote in under 60 seconds</p>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1.5px;color:var(--cyan);margin-bottom:0;margin-top:16px;animation:fadeUp 0.8s ease 0.38s both;">⚡ Get a quote the same day</p>
       <div class="hero-btns">
         <button class="btn btn-blue" onclick="go('contact')" style="font-size:14px;padding:18px 44px;letter-spacing:3px;">Get a Free Quote</button>
         <button class="btn btn-ghost" onclick="go('services')">View Services →</button>
@@ -2087,7 +2296,7 @@ nav {
       <div class="svc-card reveal d2" onclick="go('services')"><span class="svc-icon"><svg width="20" height="20" style="flex-shrink:0;"><use href="#ico-lighting"/></svg></span><h3>Lighting</h3><p>Stage lighting, ambient effects, cinematic event lighting, and professional camera systems for live capture and broadcast.</p><span class="svc-arrow">Explore →</span></div>
       <div class="svc-card reveal d1" onclick="go('services')"><span class="svc-icon"><svg width="20" height="20" style="flex-shrink:0;"><use href="#ico-staging"/></svg></span><h3>Staging</h3><p>Professional staging structures through trusted partners for any venue or configuration.</p><span class="svc-arrow">Explore →</span></div>
       <div class="svc-card reveal d2" onclick="go('services')" style="border-top:2px solid var(--blue);"><span class="svc-badge">Featured</span><span class="svc-icon"><svg width="20" height="20" style="flex-shrink:0;"><use href="#ico-led"/></svg></span><h3>LED Walls</h3><p>High-resolution LED screen solutions that transform venues into cinematic visual spectacles.</p><span class="svc-arrow">Explore →</span></div>
-      <div class="svc-card reveal d1" onclick="go('services')"><span class="svc-icon"><svg width="20" height="20" style="flex-shrink:0;"><use href="#ico-dj"/></svg></span><h3>DJ</h3><p>Curated DJ services through our trusted collaboration partner for any event genre.</p><span class="svc-arrow">Explore →</span></div>
+      <div class="svc-card reveal d1" onclick="go('services')"><span class="svc-icon" style="align-items:center;gap:8px;"><svg width="20" height="20" style="flex-shrink:0;"><use href="#ico-dj"/></svg><img src="images/Aniteshlogo.jpeg" alt="Rhythm by Anitesh" style="height:24px;width:auto;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.3);vertical-align:middle;" onerror="this.style.display='none';"></span><h3>DJ</h3><p>Curated DJ services through our trusted collaboration partner for any event genre.</p><span class="svc-arrow">Explore →</span></div>
       <div class="svc-card reveal d2" onclick="go('services')"><span class="svc-icon"><svg width="20" height="20" style="flex-shrink:0;"><use href="#ico-events"/></svg></span><h3>Corporate &amp; Private</h3><p>End-to-end production for corporate gatherings, private celebrations, and exclusive shows.</p><span class="svc-arrow">Explore →</span></div>
       <div class="svc-card reveal d1" onclick="go('services')"><span class="svc-icon"><svg width="20" height="20" style="flex-shrink:0;"><use href="#ico-rentals"/></svg></span><h3>Rentals</h3><p>Power generators and essential support equipment to keep your event running flawlessly.</p><span class="svc-arrow">Explore →</span></div>
     </div>
@@ -2211,7 +2420,6 @@ nav {
     <div class="testi-scroll reveal">
 
       <div class="testi-card">
-        <div class="testi-thumb" style="background-image:url('IMG-20260416-WA0023.jpg')"></div>
         <div class="testi-body">
           <div class="testi-quote-mark">"</div>
           <p class="testi-text">EFX Production transformed our corporate gala into an immersive experience. The LED walls were stunning, audio was crystal clear, and the team was professional throughout.</p>
@@ -2227,7 +2435,6 @@ nav {
       </div>
 
       <div class="testi-card">
-        <div class="testi-thumb" style="background-image:url('IMG-20260416-WA0020.jpg')"></div>
         <div class="testi-body">
           <div class="testi-quote-mark">"</div>
           <p class="testi-text">From setup to teardown, the EFX crew was exceptional. Our event ran flawlessly — no technical issues, perfect sound, and the lighting set exactly the right mood.</p>
@@ -2243,7 +2450,6 @@ nav {
       </div>
 
       <div class="testi-card">
-        <div class="testi-thumb" style="background-image:url('IMG-20260416-WA0003.jpg')"></div>
         <div class="testi-body">
           <div class="testi-quote-mark">"</div>
           <p class="testi-text">We've used EFX for three events now. Every time, they exceed expectations. The LED screen rental process was seamless and the quality is unmatched in the Bay Area.</p>
@@ -2259,7 +2465,6 @@ nav {
       </div>
 
       <div class="testi-card">
-        <div class="testi-thumb" style="background-image:url('IMG-20260416-WA0006.jpg')"></div>
         <div class="testi-body">
           <div class="testi-quote-mark">"</div>
           <p class="testi-text">EFX handled everything from concept to execution at San Jose Civic. The side LED screens and center stage setup were flawless — audience energy was incredible.</p>
@@ -2372,12 +2577,12 @@ nav {
       <h2 class="section-title">Our <span class="accent">Partners</span></h2>
       <p class="section-body">We collaborate with industry-leading companies to bring you complete production solutions — from tradeshow design to large-scale event production.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px;" class="reveal d1">
+    <div class="partners-grid reveal d1" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px;">
 
       <!-- Planet Pro Events -->
       <div style="background:var(--card);border:1px solid var(--border);padding:32px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;transition:border-color .3s;cursor:pointer;" onmouseenter="this.style.borderColor='rgba(14,143,255,0.4)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.07)'" onclick="window.open('https://www.planetproevents.com/','_blank')">
         <div style="padding:12px 0;width:100%;display:flex;align-items:center;justify-content:center;min-height:60px;">
-         <img src="images/Planet pro logo.png">
+         <img src="images/Planet pro logo.png" alt="Planet Pro Events" style="max-height:56px;max-width:160px;width:auto;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.2);">
         </div>
         <div>
           <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;margin-bottom:6px;">Planet Pro Events</div>
@@ -2389,7 +2594,7 @@ nav {
       <!-- 3Forty Productions -->
       <div style="background:var(--card);border:1px solid var(--border);padding:32px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;transition:border-color .3s;cursor:pointer;" onmouseenter="this.style.borderColor='rgba(14,143,255,0.4)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.07)'" onclick="window.open('https://www.go3forty.com/','_blank')">
         <div style="padding:12px 0;width:100%;display:flex;align-items:center;justify-content:center;min-height:60px;">
-           <img src="images/3forty logo.png" width="100" height="50">
+           <img src="images/3forty logo.png" alt="3Forty Productions" style="max-height:56px;max-width:160px;width:auto;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.3) contrast(1.1);">
         </div>
         <div>
           <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;margin-bottom:6px;">3Forty Productions</div>
@@ -2401,7 +2606,7 @@ nav {
       <!-- Rhythm by Anitesh -->
       <div style="background:var(--card);border:1px solid var(--border);padding:32px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;transition:border-color .3s;cursor:pointer;" onmouseenter="this.style.borderColor='rgba(14,143,255,0.4)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.07)'" onclick="window.open('https://www.rhythmbyanitesh.in','_blank')">
         <div style="padding:12px 0;width:100%;display:flex;align-items:center;justify-content:center;min-height:60px;">
-          <img src="https://www.rhythmbyanitesh.in/wp-content/uploads/2023/01/Rhythm-by-Anitesh-Logo.png" alt="Rhythm by Anitesh" style="height:56px;width:auto;mix-blend-mode:screen;filter:brightness(1.3) contrast(1.1);" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <img src="images/Aniteshlogo.jpeg" alt="Rhythm by Anitesh" style="max-height:56px;max-width:160px;width:auto;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.3) contrast(1.1);" onerror="this.style.display='none';">
           <div style="display:none;font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:var(--blue);text-shadow:0 0 20px var(--blue-glow);">RHYTHM</div>
         </div>
         <div>
@@ -2431,7 +2636,7 @@ nav {
     <div class="footer-top">
       <div class="fbrand">
   <div class="footer-logo" onclick="go('home')" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-    <img src="images/logo.jpeg" alt="EFX Production Logo" style="height:44px;width:auto;background:transparent;" onerror="this.style.display='none';">
+    <img src="images/Efxproductionlogo.jpg" alt="EFX Production" style="height:42px;width:auto;object-fit:contain;" onerror="this.style.display='none';">
     <div class="nav-logo-text">
       <div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div>
       <div class="nav-logo-sub" style="font-size:8px; letter-spacing:2px;">Event &amp; LED Solutions</div>
@@ -2543,17 +2748,88 @@ nav {
         </div>
         <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;">
           <a href="https://share.google/K7JsGHQRxYJJzjWpD" target="_blank" rel="noopener noreferrer" class="ext-link">View LED Screen Division ↗</a>
-          <a href="https://www.youtube.com/@efxledscreens" target="_blank" rel="noopener noreferrer" class="ext-link" style="color:var(--cyan);">Watch LED Repair Video ↗</a>
+          <span class="ext-link" style="color:var(--cyan);cursor:pointer;" onclick="openServiceVideo()">Watch LED Repair Video ↗</span>
+          <div class="svc-video-preview" onclick="openServiceVideo()">
+            <video src="images/VID-20260416-WA0012.mp4" muted playsinline preload="metadata"></video>
+            <div class="svc-video-overlay">
+              <div class="svc-play-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="white" style="margin-left:3px;"><polygon points="5,3 19,12 5,21"/></svg>
+              </div>
+              <div class="svc-video-label">▶ Concert Lighting Setup</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <!-- DJ -->
     <div class="svc-detail reveal">
-      <div class="svc-d-label"><div class="svc-d-icon"><svg width="32" height="32" style="flex-shrink:0;"><use href="#ico-dj"/></svg></div><h3>DJ</h3></div>
+      <div class="svc-d-label">
+        <div class="svc-d-icon"><svg width="32" height="32" style="flex-shrink:0;"><use href="#ico-dj"/></svg></div>
+        <h3>DJ</h3>
+        <div style="margin-top:16px;padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:4px;display:flex;align-items:center;justify-content:center;">
+          <img src="images/Aniteshlogo.jpeg" alt="Rhythm by Anitesh" style="width:100%;max-width:160px;height:auto;max-height:70px;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.4) contrast(1.1);" onerror="this.style.display='none';">
+        </div>
+      </div>
       <div class="svc-d-body">
         <p>EFX Production collaborates with top DJ talent through our trusted partnership. Whether you need a high-energy wedding reception DJ or a sophisticated corporate event performer, our network delivers.</p>
-        <div class="tag-row"><span class="tag">Weddings</span><span class="tag">Corporate Events</span><span class="tag">Private Parties</span><span class="tag">Live Shows</span></div>
-        <a href="https://www.rhythmbyanitesh.in" target="_blank" rel="noopener noreferrer" class="ext-link">Book DJ — Rhythm by Anitesh ↗</a>
+
+        <!-- DJ ANIMATION -->
+        <div class="dj-anim-wrap reveal">
+          <!-- Equalizer bars -->
+          <div class="dj-eq">
+            <div class="dj-bar" style="--lo:8px;--hi:40px;--spd:0.5s;"></div>
+            <div class="dj-bar" style="--lo:14px;--hi:46px;--spd:0.4s;"></div>
+            <div class="dj-bar" style="--lo:6px;--hi:36px;--spd:0.6s;"></div>
+            <div class="dj-bar" style="--lo:18px;--hi:48px;--spd:0.35s;"></div>
+            <div class="dj-bar" style="--lo:10px;--hi:42px;--spd:0.55s;"></div>
+            <div class="dj-bar" style="--lo:4px;--hi:38px;--spd:0.45s;"></div>
+            <div class="dj-bar" style="--lo:20px;--hi:44px;--spd:0.5s;"></div>
+            <div class="dj-bar" style="--lo:8px;--hi:40px;--spd:0.38s;"></div>
+            <div class="dj-bar" style="--lo:12px;--hi:48px;--spd:0.62s;"></div>
+            <div class="dj-bar" style="--lo:6px;--hi:34px;--spd:0.48s;"></div>
+            <div class="dj-bar" style="--lo:16px;--hi:46px;--spd:0.42s;"></div>
+            <div class="dj-bar" style="--lo:10px;--hi:42px;--spd:0.52s;"></div>
+            <div class="dj-bar" style="--lo:4px;--hi:36px;--spd:0.58s;"></div>
+            <div class="dj-bar" style="--lo:18px;--hi:48px;--spd:0.46s;"></div>
+            <div class="dj-bar" style="--lo:8px;--hi:40px;--spd:0.5s;"></div>
+            <div class="dj-bar" style="--lo:14px;--hi:44px;--spd:0.4s;"></div>
+          </div>
+          <!-- Vinyl + waveform -->
+          <div class="dj-vinyl-wrap">
+            <div style="position:relative;flex-shrink:0;">
+              <div class="dj-vinyl"></div>
+              <div class="dj-pulse"></div>
+              <div class="dj-pulse" style="animation-delay:0.7s;border-color:rgba(0,212,255,0.3);"></div>
+            </div>
+            <div class="dj-wave">
+              <svg viewBox="0 0 400 40" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,20 C20,5 40,35 60,20 C80,5 100,35 120,20 C140,5 160,35 180,20 C200,5 220,35 240,20 C260,5 280,35 300,20 C320,5 340,35 360,20 C380,5 400,35 420,20 C440,5 460,35 480,20 C500,5 520,35 540,20 C560,5 580,35 600,20 C620,5 640,35 660,20 C680,5 700,35 720,20 C740,5 760,35 780,20 C800,5 820,35 840,20" class="dj-wave-path" stroke="url(#waveGrad)" stroke-width="2.5" stroke-linecap="round"/>
+                <defs>
+                  <linearGradient id="waveGrad" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#0e8fff"/>
+                    <stop offset="50%" stop-color="#00d4ff"/>
+                    <stop offset="100%" stop-color="#0e8fff"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+          <!-- Logo with shimmer -->
+          <div class="dj-logo-box">
+            <img src="images/Aniteshlogo.jpeg" alt="Rhythm by Anitesh" style="max-width:180px;width:100%;height:auto;max-height:64px;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.4) contrast(1.1);" onerror="this.style.display='none';">
+          </div>
+          <!-- Light beams -->
+          <div class="dj-beams">
+            <div class="dj-beam-l"></div>
+            <div class="dj-beam-l"></div>
+            <div class="dj-beam-l"></div>
+            <div class="dj-beam-l"></div>
+            <div class="dj-beam-l"></div>
+          </div>
+        </div>
+
+        <div class="tag-row" style="margin-top:16px;"><span class="tag">Weddings</span><span class="tag">Corporate Events</span><span class="tag">Private Parties</span><span class="tag">Live Shows</span></div>
+        <a href="https://www.rhythmbyanitesh.in" target="_blank" rel="noopener noreferrer" class="ext-link" style="margin-top:14px;">Book DJ — Rhythm by Anitesh ↗</a>
       </div>
     </div>
     <!-- Events -->
@@ -2590,7 +2866,7 @@ nav {
     <div class="footer-top">
       <div class="fbrand">
        <div class="footer-logo" onclick="go('home')" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-    <img src="images/logo.jpeg" alt="EFX Production Logo" style="height:44px;width:auto;background:transparent;" onerror="this.style.display='none';">
+    <img src="images/Efxproductionlogo.jpg" alt="EFX Production" style="height:42px;width:auto;object-fit:contain;" onerror="this.style.display='none';">
     <div class="nav-logo-text">
       <div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div>
       <div class="nav-logo-sub" style="font-size:8px; letter-spacing:2px;">Event &amp; LED Solutions</div>
@@ -2635,7 +2911,7 @@ nav {
       <div class="collab-card" style="cursor:pointer;" onclick="window.open('https://www.planetproevents.com/','_blank')">
         <div class="clabel">Official Partner</div>
         <div style="display:flex;align-items:center;gap:16px;margin-bottom:10px;">
-         <img src="images/Planet pro logo.png">
+         <img src="images/Planet pro logo.png" alt="Planet Pro Events" style="max-height:48px;max-width:150px;width:auto;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.2);">
         </div>
         <h3>Planet Pro Events</h3>
         <p>EFX Production proudly partners with Planet Pro Events to deliver extended event production capabilities and large-scale event services nationwide.</p>
@@ -2645,7 +2921,7 @@ nav {
         <div class="clabel">Tradeshow &amp; Exhibit Partner</div>
         <div style="display:flex;align-items:center;gap:16px;margin-bottom:10px;">
           
-          <img src="images/3forty logo.png" width="100" height="50">
+          <img src="images/3forty logo.png" alt="3Forty Productions" style="max-height:56px;max-width:160px;width:auto;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.3) contrast(1.1);">
         </div>
         <h3>3Forty Productions</h3>
         <p>Our tradeshow and exhibit design partner — specializing in booth design, setup, and brand activations for large-scale events and tradeshows across the USA.</p>
@@ -2653,6 +2929,9 @@ nav {
       </div>
       <div class="collab-card" style="margin-top:16px;">
         <div class="clabel">DJ Partnership</div>
+        <div style="margin-bottom:14px;padding:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:4px;display:flex;align-items:center;justify-content:center;">
+          <img src="images/Aniteshlogo.jpeg" alt="Rhythm by Anitesh" style="width:100%;max-width:180px;height:auto;max-height:80px;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.4) contrast(1.1);" onerror="this.style.display='none';">
+        </div>
         <h3>Rhythm by Anitesh</h3>
         <p>Our trusted DJ partner for all genres and event types — bringing energy, professionalism, and musical expertise to every event we co-produce.</p>
         <a href="https://www.rhythmbyanitesh.in" target="_blank" rel="noopener noreferrer" class="ext-link" style="margin-top:12px;">Visit Rhythm by Anitesh ↗</a>
@@ -2699,7 +2978,7 @@ nav {
     <div class="footer-top">
       <div class="fbrand">
        <div class="footer-logo" onclick="go('home')" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-    <img src="images/logo.jpeg" alt="EFX Production Logo" style="height:44px;width:auto;background:transparent;" onerror="this.style.display='none';">
+    <img src="images/Efxproductionlogo.jpg" alt="EFX Production" style="height:42px;width:auto;object-fit:contain;" onerror="this.style.display='none';">
     <div class="nav-logo-text">
       <div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div>
       <div class="nav-logo-sub" style="font-size:8px; letter-spacing:2px;">Event &amp; LED Solutions</div>
@@ -2843,7 +3122,7 @@ nav {
     <div class="footer-top">
       <div class="fbrand">
        <div class="footer-logo" onclick="go('home')" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-    <img src="images/logo.jpeg" alt="EFX Production Logo" style="height:44px;width:auto;background:transparent;" onerror="this.style.display='none';">
+    <img src="images/Efxproductionlogo.jpg" alt="EFX Production" style="height:42px;width:auto;object-fit:contain;" onerror="this.style.display='none';">
     <div class="nav-logo-text">
       <div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div>
       <div class="nav-logo-sub" style="font-size:8px; letter-spacing:2px;">Event &amp; LED Solutions</div>
@@ -3031,7 +3310,7 @@ nav {
     <div class="footer-top">
       <div class="fbrand">
        <div class="footer-logo" onclick="go('home')" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-    <img src="images/logo.jpeg" alt="EFX Production Logo" style="height:44px;width:auto;background:transparent;" onerror="this.style.display='none';">
+    <img src="images/Efxproductionlogo.jpg" alt="EFX Production" style="height:42px;width:auto;object-fit:contain;" onerror="this.style.display='none';">
     <div class="nav-logo-text">
       <div class="nav-logo-main" style="font-size:18px;">EFX <span>PRODUCTION</span></div>
       <div class="nav-logo-sub" style="font-size:8px; letter-spacing:2px;">Event &amp; LED Solutions</div>
@@ -3066,6 +3345,21 @@ nav {
 ═══════════════════════════════════════ -->
 <script>
 /* ── PAGE ROUTING ──────────────────────── */
+function openServiceVideo() {
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lbImg');
+  var lbVideo = document.getElementById('lbVideo');
+  var lbCaption = document.getElementById('lbCaption');
+  if (!lb || !lbVideo) return;
+  lbImg.style.display = 'none';
+  lbVideo.style.display = 'block';
+  lbVideo.src = 'images/VID-20260416-WA0012.mp4';
+  lbVideo.play();
+  if (lbCaption) lbCaption.textContent = 'Concert Lighting Setup';
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
 function go(name) {
   // Hide ALL pages - force display none via class
   document.querySelectorAll('.page').forEach(p => {
@@ -3319,6 +3613,11 @@ function lbNav(dir) {
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
   document.body.style.overflow = '';
+  var lbVideo = document.getElementById('lbVideo');
+  if (lbVideo) { lbVideo.pause(); lbVideo.src = ''; }
+  var lbImg = document.getElementById('lbImg');
+  if (lbImg) lbImg.style.display = 'block';
+  if (lbVideo) lbVideo.style.display = 'none';
 }
 function closeLightboxOnBg(e) {
   if (e.target === document.getElementById('lightbox')) closeLightbox();
@@ -3537,4 +3836,3 @@ document.head.appendChild(style);
 </a>
 </body>
 </html>
- 
